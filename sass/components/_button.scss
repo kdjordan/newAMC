@@ -1,22 +1,27 @@
 .btn {
-
+    cursor: pointer;
+    border-radius: 5px;
     
 
     &-login {
-        cursor: pointer;
         background-color: rgba($color-white, 0.8);
-        padding: 1rem 1.8rem;
-        border-radius: 5px;
-        letter-spacing: 5px;
         font-size: 1.3rem;
+        letter-spacing: 5px;
+        padding: 1rem 1.8rem;
         color: $color-grey;
         transition: all .4s;
-
         &:hover,
         &:active {
             background-color: rgba($color-white,1);
         }
     }
+
+    &-submit {
+        padding: .3rem .7rem;
+        letter-spacing: 2px;
+        
+    }
+    
 
 }
 

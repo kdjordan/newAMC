@@ -25,7 +25,7 @@
     </header>
 <main>
 <section class="section-home">
-        <div class="col-3-of-4">
+        <div class="col-1-of-4">
             <div class="mt-large u-center">
                 <div class="section-home__title">Sunriver House</div>
             </div>
@@ -33,20 +33,35 @@
     <div class="row  mt-large">
         <div class="col-1-of-4">
             <div class="make-res__card">
-                <div class="make-res__card--title">Make a reservation</div>
+                <div class="make-res__card--title u-center mb-med">Make a reservation</div>
                 <form action="#" method="POST">
-                    <label for="resFromDate">From</label>
-                    <input type="text" name="resFromDate" id="resFromDate">
-                    <label for="resToDate">To</label>
-                    <input type="text" name="resToDate" id="resToDate">
-                    <label for="resGuest">Guest</label>
-                    <input type="text" name="resGuest" id="resGuest">
-                    <label for="resFromDate">Phone</label>
-                    <input type="text" name="resPhone" id="resPhone">
-                    <button class="btn btn-white">SUBMIT</button>
+                    <div class="make-res__card--input-block">
+                        <label for="resFromDate">From</label>
+                        <input type="text" name="resFromDate" id="resFromDate">
+                    </div>
+                    <div class="make-res__card--input-block">
+                        <label for="resToDate">To</label>
+                        <input type="text" name="resToDate" id="resToDate">
+                    </div>
+                    <div class="make-res__card--input-block">
+                        <label for="resGuest">Guest</label>
+                        <input type="text" name="resGuest" id="resGuest">
+                    </div>
+                    <div class="make-res__card--input-block">
+                        <label for="resFromDate">Phone</label>
+                        <input type="text" name="resPhone" id="resPhone">
+                    </div>
+                    <div class="make-res__card--button">
+                        <button class="btn btn-submit">SUBMIT</button>
+                    </div>
                 </form>
             </div>
         </div>
+
+        <div class="col-3-of-4">
+            
+        </div>
+
     </div>
 </section>
 

@@ -24,20 +24,20 @@
             margin-top: -1rem;
         }
     }
-    @include clearfix;
+    
 }
 
 .navigation {
     float: right;
     position: absolute;
-    top: 20%;
+    top: 30%;
     right: 4%;
 
     &__items {
         list-style-type: none;
         
         img {
-            width: 4rem;
+            width: 3rem;
         }
     }
 }
@@ -57,31 +57,58 @@
         font-size: 3rem;
         background-color: rgba($color-primary, .85);
         border-radius: 10px;
-        padding: 1.4rem;
+        padding: 1rem 1.4rem;
+        letter-spacing: 8px;
     }
-
-
 }
 
 .make-res__card {
     height: 30rem;
-    padding: 3rem;
+    padding: 2.5rem 2rem;;
     background-color: rgba($color-primary, .85);
     border-radius: 10px;
     
+    &--input-block {
+
+        &:not(:last-child) {
+            margin-bottom: 1.2rem;
+        }
+    }
+
+    &--button {
+        float: right;
+        @include clearfix;
+    }
 
     &--title {
         text-transform: uppercase;
         font-weight: 400;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
     }
 
     label {
+        display: inline-block;
+        width: 5rem;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+        text-align: right;
+        margin-right: 1rem;
         
     }
 
     input {
-        display: block;
+        display: inline-block;
+        border-radius: 8px;
+        padding: .3rem;
+        border: 2px solid $color-white;
+        background-color: transparent;
+        transition: all .3s;
+
+        &:focus {
+            border-radius: 8px;
+            border: 2px solid rgba($color-white, .4);
+            outline: none;
+        }
     }
 
 }

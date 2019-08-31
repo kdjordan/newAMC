@@ -61,19 +61,32 @@ body {
   text-align: center !important; }
 
 .mt-large {
-  margin-top: 6rem; }
+  margin-top: 6rem !important; }
 
-.btn-login {
+.mt-med {
+  margin-top: 3rem !important; }
+
+.mt-small {
+  margin-top: 1.5rem !important; }
+
+.mb-med {
+  margin-bottom: 2rem !important; }
+
+.btn {
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 1rem 1.8rem;
-  border-radius: 5px;
-  letter-spacing: 5px;
-  font-size: 1.3rem;
-  color: #95A5A2;
-  transition: all .4s; }
-  .btn-login:hover, .btn-login:active {
-    background-color: white; }
+  border-radius: 5px; }
+  .btn-login {
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 1.3rem;
+    letter-spacing: 5px;
+    padding: 1rem 1.8rem;
+    color: #95A5A2;
+    transition: all .4s; }
+    .btn-login:hover, .btn-login:active {
+      background-color: white; }
+  .btn-submit {
+    padding: .3rem .7rem;
+    letter-spacing: 2px; }
 
 .login {
   height: 100vh;
@@ -129,20 +142,16 @@ body {
       font-size: 1.5rem;
       letter-spacing: .2rem;
       margin-top: -1rem; }
-  .header::after {
-    content: '';
-    display: table;
-    clear: both; }
 
 .navigation {
   float: right;
   position: absolute;
-  top: 20%;
+  top: 30%;
   right: 4%; }
   .navigation__items {
     list-style-type: none; }
     .navigation__items img {
-      width: 4rem; }
+      width: 3rem; }
 
 .section-home {
   padding: 3rem;
@@ -157,16 +166,41 @@ body {
     font-size: 3rem;
     background-color: rgba(86, 179, 160, 0.85);
     border-radius: 10px;
-    padding: 1.4rem; }
+    padding: 1rem 1.4rem;
+    letter-spacing: 8px; }
 
 .make-res__card {
   height: 30rem;
-  padding: 3rem;
+  padding: 2.5rem 2rem;
   background-color: rgba(86, 179, 160, 0.85);
   border-radius: 10px; }
+  .make-res__card--input-block:not(:last-child) {
+    margin-bottom: 1.2rem; }
+  .make-res__card--button {
+    float: right; }
+    .make-res__card--button::after {
+      content: '';
+      display: table;
+      clear: both; }
   .make-res__card--title {
     text-transform: uppercase;
     font-weight: 400;
-    letter-spacing: 2px; }
+    letter-spacing: 1px; }
+  .make-res__card label {
+    display: inline-block;
+    width: 5rem;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    text-align: right;
+    margin-right: 1rem; }
   .make-res__card input {
-    display: block; }
+    display: inline-block;
+    border-radius: 8px;
+    padding: .3rem;
+    border: 2px solid #ffffff;
+    background-color: transparent;
+    transition: all .3s; }
+    .make-res__card input:focus {
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      outline: none; }
