@@ -1,0 +1,87 @@
+.header {
+    width: 100%;
+    min-height: 10vh;
+    background-color: $color-primary;
+    position: relative;
+    display: block;
+    
+    &__logo-box {
+        position: absolute;
+        top: 0;
+        left: 4%;
+        padding: 1rem;
+        text-align: left;
+        text-transform: uppercase;
+
+        &--title {
+            font-size: 2.5rem;
+            
+        }
+
+        &--subtitle {
+            font-size: 1.5rem;
+            letter-spacing: .2rem;
+            margin-top: -1rem;
+        }
+    }
+    @include clearfix;
+}
+
+.navigation {
+    float: right;
+    position: absolute;
+    top: 20%;
+    right: 4%;
+
+    &__items {
+        list-style-type: none;
+        
+        img {
+            width: 4rem;
+        }
+    }
+}
+
+.section-home {
+    padding: 3rem;
+    margin-top: -6rem;
+    background-image: url('../../img/sunriver.jpg');
+    background-size: cover;
+    background-position: top;
+    
+
+    &__title {
+        width: 40rem;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 3rem;
+        background-color: rgba($color-primary, .85);
+        border-radius: 10px;
+        padding: 1.4rem;
+    }
+
+
+}
+
+.make-res__card {
+    height: 30rem;
+    padding: 3rem;
+    background-color: rgba($color-primary, .85);
+    border-radius: 10px;
+    
+
+    &--title {
+        text-transform: uppercase;
+        font-weight: 400;
+        letter-spacing: 2px;
+    }
+
+    label {
+        
+    }
+
+    input {
+        display: block;
+    }
+
+}

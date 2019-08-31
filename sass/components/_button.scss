@@ -10,6 +10,7 @@
         letter-spacing: 5px;
         font-size: 1.3rem;
         color: $color-grey;
+        transition: all .4s;
 
         &:hover,
         &:active {
@@ -18,3 +19,4 @@
     }
 
 }
+
