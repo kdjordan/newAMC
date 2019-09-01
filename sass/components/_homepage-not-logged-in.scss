@@ -1,37 +1,28 @@
-.login {
-    height: 100vh;
-    background-image: url('../img/mt-hood.jpg');
-    background-size: cover;
-    background-position: top;
 
-    position: relative;
+.section-login {
+    padding: 25rem 0;
+    background-color: red;
+    
+}
 
-    &-modal {
-        padding: 2rem 5rem;
-        border-radius: 15px;
-        display: block;
-        background-color: rgba($color-primary, .7);
-
-        @include abs-center;
-    }
+.login-modal {
+    
+    padding: 2rem 5rem;
+    border-radius: 15px;
+    
+    background-color: orange;
+    @include abs-center;
 }
 
 .form{
-    padding: 4rem;
-    
-
-    
 
     &_input {
-        font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
         font-weight: 300;
         display: block;
         width: 100%;
         padding: 1rem;
-        border-radius: 5px;
-        border:none;
-        background-color: rgba($color-white, .7);
-
+        border: none;
+        border-bottom: 2px solid $color-grey;
         
         &:not(:last-child) {
             margin-bottom: 4rem;
@@ -43,7 +34,9 @@
 
         &::-webkit-input-placeholder  {
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 5px;
+            font-family: 'Lato';
+            font-size: 1.4rem;
         }
         
 

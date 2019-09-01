@@ -2,7 +2,11 @@
     text-align: center !important;
 }
 
+.u-right {
+    text-align: right !important;
+}
 
+/////top margins
 .mt-large {
     margin-top: 6rem !important;
 }
@@ -14,7 +18,15 @@
 .mt-small {
     margin-top: 1.5rem !important;
 }
+/////bottom margins
+.mb-small {
+    margin-bottom: 1.5rem !important;
+}
 
 .mb-med {
-    margin-bottom: 2rem !important;
+    margin-bottom: 3rem !important;
+}
+
+.mb-large {
+    margin-bottom: 6rem !important;
 }
