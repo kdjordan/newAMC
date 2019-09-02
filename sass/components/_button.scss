@@ -4,15 +4,19 @@
     
 
     &-login {
-        background-color: rgba($color-white, 0.8);
+        background-color: rgba($color-primary, 0.8);
         font-size: 1.3rem;
         letter-spacing: 5px;
         padding: 1rem 1.8rem;
-        color: $color-grey;
+        color: $color-white;
+        // transform: translateY(-5px);
         transition: all .4s;
         &:hover,
         &:active {
-            background-color: rgba($color-white,1);
+            background-color: transparent;
+            color: $color-primary;
+            border: 2px solid $color-primary;
+            transform: scale(.9);
         }
     }
 
