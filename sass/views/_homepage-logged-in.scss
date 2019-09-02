@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    min-height: 10vh;
+    min-height: 13vh;
     background-color: $color-primary;
     position: relative;
     display: block;
@@ -8,19 +8,21 @@
     &__logo-box {
         position: absolute;
         top: 0;
-        left: 4%;
+        left: 7%;
         padding: 1rem;
         text-align: left;
         text-transform: uppercase;
 
         &--title {
-            font-size: 2.5rem;
-            
+            font-weight: 300;
+            font-size: 2.7rem;
+            margin-top: -.5rem;
         }
 
         &--subtitle {
-            font-size: 1.5rem;
-            letter-spacing: .2rem;
+            font-weight: 300;
+            font-size: 2rem;
+            letter-spacing: .1rem;
             margin-top: -1rem;
         }
     }
@@ -28,23 +30,50 @@
 }
 
 .navigation {
-    float: right;
-    position: absolute;
-    top: 30%;
-    right: 4%;
+
+    &__nav {
+        float: right;
+        position: absolute;
+        top: 30%;
+        right: 8%;
+    }
 
     &__items {
         list-style-type: none;
+        text-decoration: none;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        font-weight: 300;
         
-        img {
-            width: 3rem;
+
+        &:not(:last-child) {
+            margin-right: 2rem;
+        }
+
+        & > a {
+            text-decoration: none;
+            color: $color-white;
+            vertical-align: middle;
+        }
+        
+        & svg {    
+            height: 4rem;
+            width: 4rem;
+            fill: $color-white; 
+            transition: all .4s;
+            vertical-align: middle;
+
+            &:hover {
+                fill: rgba($color-white, .5);
+            }
         }
     }
 }
 
 .section-home {
     padding: 3rem;
-    margin-top: -6rem;
+    
     background-color: $color-white;
     background-size: cover;
     background-position: top;
@@ -62,53 +91,42 @@
     }
 }
 
-.make-res__card {
-    height: 30rem;
-    padding: 2.5rem 2rem;;
-    background-color: rgba($color-primary, .85);
-    border-radius: 10px;
-    
-    &--input-block {
-
+.make-res {
+    &__input-box {
+        
         &:not(:last-child) {
             margin-bottom: 1.2rem;
         }
     }
 
-    &--button {
-        float: right;
-        @include clearfix;
-    }
-
-    &--title {
-        text-transform: uppercase;
-        font-weight: 400;
-        letter-spacing: 1px;
-    }
-
-    label {
+    &__input-box label {
         display: inline-block;
         width: 5rem;
         text-transform: uppercase;
         font-size: 1.3rem;
         text-align: right;
         margin-right: 1rem;
+        color: $color-grey;
         
     }
 
-    input {
+    &__input-field {
         display: inline-block;
-        border-radius: 8px;
+        outline: none;
+        border: none;
         padding: .3rem;
-        border: 2px solid $color-white;
+        border-bottom: 2px solid $color-grey;
         background-color: transparent;
         transition: all .3s;
+        margin-bottom: -2px;
 
         &:focus {
-            border-radius: 8px;
-            border: 2px solid rgba($color-white, .4);
+            
+            border-bottom: 2px solid rgba($color-primary, .9);
             outline: none;
         }
     }
 
 }
+
+

@@ -6,6 +6,11 @@
     text-align: right !important;
 }
 
+.u-hidden {
+    opacity: 0;
+    z-index: -100;
+}
+
 /////top margins
 .mt-large {
     margin-top: 6rem !important;

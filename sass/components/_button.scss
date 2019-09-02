@@ -20,9 +20,20 @@
         }
     }
 
-    &-submit {
-        padding: .3rem .7rem;
+    &-reserve {
+        padding: .5rem 1rem;
         letter-spacing: 2px;
+        background-color: $color-primary;
+        color: $color-white;
+        text-transform: uppercase;
+        margin-left: 12rem;
+        transition: all .4s;
+
+        &:hover {
+            background-color: transparent;
+            border-bottom: 2px solid $color-primary;
+            color: $color-primary;
+        }
         
     }
     

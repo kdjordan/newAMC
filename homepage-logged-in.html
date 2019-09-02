@@ -1,75 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>AMC - Login</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>AMC - Login</title>
+    </head>
 <body>
-    <header class="header">
-        <div class="header__logo-box">
-            <div class="header__logo-box--title">AMC</div>
-            <div class="header__logo-box--subtitle">VACATION RENTALS</div>
-        </div>
-        <div class="navigation">
-            <nav class="navigation__nav">
-                <ul class="navigation__list">
-                    <li class="navigation__items"><a href="#"><img src="images/settings.png" alt="setting"></a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-<main>
+
+<header class="header">
+    <div class="header__logo-box">
+        <h1 class="header__logo-box--title">AMC</h1>
+        <h2 class="header__logo-box--subtitle">Vacation Rentals</h2>
+    </div>
+    <nav class="navigation__nav">    
+        <ul class="navigation__list">
+            <li class="navigation__items"><a href="#">sunriver</a></li>
+            <li class="navigation__items"><a href="#">cannon beach</a></li>
+            <li class="navigation__items"><a href="#">idaho</a></li>
+            <li class="navigation__items"><a href="#">
+                <svg class="icon icon-cog"><use xlink:href="img/sprite.svg#icon-cog"></use></svg></a></li>
+        </ul>
+    </nav>
+</header>
+
 <section class="section-home">
-        <div class="col-1-of-4">
-            <div class="mt-large u-center">
-                <div class="section-home__title">Sunriver House</div>
-            </div>
-        </div> 
-    <div class="row  mt-large">
-        <div class="col-1-of-4">
-            <div class="make-res__card">
-                <div class="make-res__card--title u-center mb-med">Make a reservation</div>
-                <form action="#" method="POST">
-                    <div class="make-res__card--input-block">
-                        <label for="resFromDate">From</label>
-                        <input type="text" name="resFromDate" id="resFromDate">
+    <div class="header-box u-center mb-med">
+        <img src="/img/sunriver-sm.png" class="header-box__image"></img>
+        <div class="header-box__title">Sunriver</div>
+    </div>
+    <div class="row">
+        <div class="col-1-of-3">
+            <div class="make-res__box">
+                <div class="res-title mb-small">Make a reservation</div>
+                <form action="#" method="POST" class="make-res__form u-center">
+                    <div class="make-res__input-box">
+                        <label for="dateFrom">From</label>
+                        <input type="text" name="dateFrom" class="make-res__input-field" placeholder="">
                     </div>
-                    <div class="make-res__card--input-block">
-                        <label for="resToDate">To</label>
-                        <input type="text" name="resToDate" id="resToDate">
+                    <div class="make-res__input-box">
+                        <label for="dateTo">To</label>
+                        <input type="text" name="dateTo" class="make-res__input-field" placeholder="">
                     </div>
-                    <div class="make-res__card--input-block">
-                        <label for="resGuest">Guest</label>
-                        <input type="text" name="resGuest" id="resGuest">
+                    <div class="make-res__input-box">
+                        <label for="guest">Guest</label>
+                        <input type="text" name="guest" class="make-res__input-field" placeholder="">
                     </div>
-                    <div class="make-res__card--input-block">
-                        <label for="resFromDate">Phone</label>
-                        <input type="text" name="resPhone" id="resPhone">
+                    <div class="make-res__input-box">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" class="make-res__input-field" placeholder="">
                     </div>
-                    <div class="make-res__card--button">
-                        <button class="btn btn-submit">SUBMIT</button>
-                    </div>
+                    <button class="btn btn-reserve mt-small">reserve</button>
                 </form>
             </div>
         </div>
+        <div class="col-2-of-3">
 
-        <div class="col-3-of-4">
-            
         </div>
-
     </div>
+
 </section>
-
-
-
-
-
-</main>
-    
 </body>
 </html>
