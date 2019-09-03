@@ -10,7 +10,7 @@
     </head>
 <body>
 
-<header class="header">
+<header class="header u-hidden">
     <div class="header__logo-box">
         <h1 class="header__logo-box--title">AMC</h1>
         <h2 class="header__logo-box--subtitle">Vacation Rentals</h2>
@@ -27,15 +27,15 @@
     </nav>
 </header>
 
-<section class="section section-home">
-    <div class="header-box u-center mb-med">
+<section class="section-home u-hidden">
+    <div class="header-box u-center u-u-mb-med">
         <img src="/img/sunriver-sm.png" class="header-box__image"></img>
         <div class="header-box__title">Sunriver</div>
     </div>
-    <div class="row mb-med">
+    <div class="row u-mb-med">
         <div class="col-1-of-3">
             <div class="make-res__box">
-                <div class="res-title mb-med">Make a reservation</div>
+                <div class="res-title u-mb-med">Make a reservation</div>
                 <form action="#" method="POST" class="make-res__form">
                     <div class="make-res__input-box">
                         <label for="dateFrom">From</label>
@@ -53,13 +53,13 @@
                         <label for="phone">Phone</label>
                         <input type="text" name="phone" class="make-res__input-field" placeholder="">
                     </div>
-                    <button class="btn btn-reserve mt-small">reserve</button>
+                    <button class="btn btn-reserve u-mt-small">reserve</button>
                 </form>
             </div>
         </div>
         <div class="col-2-of-3">
             <div class="cur-res__box">
-                <div class="res-title mb-med">All Current Reservations</div>
+                <div class="res-title u-mb-med">All Current Reservations</div>
                 <table class="cur-res__results">
                         <thead>
                         <tr>
@@ -128,6 +128,25 @@
         </div>
     </div>
 
+</section>
+
+<section class="section-login ">
+        
+        <div class="login-modal">
+            <div class="header-box u-center u-mb-med">
+                <img src="/img/sunriver-sm.png" class="header-box__image--login"></img>
+                <div class="header-box__title--login">AMC</div>
+                <div class="header-box__subtitle--login ">Vacation Rentals</div>
+            </div>
+
+            <form action="#" method="POST" class="form u-center">
+                <input type="text" class="form_input" name="username" placeholder="username">
+                <input type="text" class="form_input" name="email" placeholder="password">
+                <div class="u-right">
+                    <button type="submit" class="btn btn-login">SUBMIT</button>
+                </div>
+            </form>
+        </div> 
 </section>
 </body>
 </html>

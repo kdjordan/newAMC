@@ -1,19 +1,32 @@
+.section-home {
+    padding: 3rem;
+    
+    background-color: $color-white;
+    background-size: cover;
+    background-position: top;
+    
+
+    &__title {
+        width: 40rem;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 3rem;
+        background-color: rgba($color-primary, .85);
+        border-radius: 10px;
+        padding: 1rem 1.4rem;
+        letter-spacing: 8px;
+    }
+}
 
 .section-login {
     height: 100vh;
-    
-    // background-color: red;
-    
-    
 }
 
 .login-modal {
     height: auto;
     display: block;
-    // padding: 2rem 5rem;
     border-radius: 15px;
     width: 30rem;
-    // background-color: orange;
     @include abs-center;
 }
 
@@ -46,7 +59,6 @@
 
     }
 
-    
 }
 
 

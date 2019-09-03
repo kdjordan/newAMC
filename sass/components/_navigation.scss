@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    min-height: 10vh;
+    min-height: 15vh;
     background-color: $color-primary;
     position: relative;
     display: block;
@@ -71,73 +71,3 @@
         }
     }
 }
-
-.section-home {
-    padding: 3rem;
-    
-    background-color: $color-white;
-    background-size: cover;
-    background-position: top;
-    
-
-    &__title {
-        width: 40rem;
-        display: inline-block;
-        text-transform: uppercase;
-        font-size: 3rem;
-        background-color: rgba($color-primary, .85);
-        border-radius: 10px;
-        padding: 1rem 1.4rem;
-        letter-spacing: 8px;
-    }
-}
-
-.make-res {
-
-    &__form{
-        margin-left: 15%;
-    }
-
-    &__box {
-        margin-bottom: .9rem;
-    }
-
-
-    &__input-box {
-
-        &:not(:last-child) {
-            margin-bottom: 1.2rem;
-        }
-    }
-
-    &__input-box label {
-        display: inline-block;
-        width: 5rem;
-        text-transform: uppercase;
-        font-size: 1.3rem;
-        text-align: right;
-        margin-right: 1rem;
-        color: $color-grey;
-        
-    }
-
-    &__input-field {
-        display: inline-block;
-        outline: none;
-        border: none;
-        padding: .3rem;
-        border-bottom: 2px solid $color-grey;
-        background-color: transparent;
-        transition: all .3s;
-        margin-bottom: -2px;
-
-        &:focus {
-            
-            border-bottom: 2px solid rgba($color-primary, .9);
-            outline: none;
-        }
-    }
-
-}
-
-
