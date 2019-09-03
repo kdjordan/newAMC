@@ -1,0 +1,30 @@
+.cur-res__results {
+    border-bottom: 1px solid $color-grey;
+    border-collapse: collapse;
+    
+    color: $color-grey;
+    width: 85%;
+    margin: 0 7.5%;
+    font-size: 1.2rem;
+    text-align: center;
+
+    & thead {
+        line-height: 3;
+    }
+    
+
+    & th {
+    text-transform: uppercase;
+    color: $color-grey;
+    border-bottom: 1px solid $color-grey;
+    }   
+    
+
+    & td {
+        padding: 1.2rem 0;
+        text-transform: uppercase;
+        border-bottom: 1px solid $color-grey;
+        
+        color: $color-grey;
+    }
+}

@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    min-height: 13vh;
+    min-height: 10vh;
     background-color: $color-primary;
     position: relative;
     display: block;
@@ -12,6 +12,7 @@
         padding: 1rem;
         text-align: left;
         text-transform: uppercase;
+        
 
         &--title {
             font-weight: 300;
@@ -92,8 +93,18 @@
 }
 
 .make-res {
+
+    &__form{
+        margin-left: 15%;
+    }
+
+    &__box {
+        margin-bottom: .9rem;
+    }
+
+
     &__input-box {
-        
+
         &:not(:last-child) {
             margin-bottom: 1.2rem;
         }
