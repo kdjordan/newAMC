@@ -5,11 +5,14 @@
 @import 'typography';
 @import 'utilities';
 
-@import 'components/button';
-@import 'components/header-image-and-title';
-@import 'components/cur-reservations';
 
-@import 'views/homepage-not-logged-in';
-@import 'views/homepage-logged-in';
+@import 'components/button';
+@import 'components/navigation';
+@import 'components/header-image-and-title';
+@import 'components/reservations-cur';
+@import 'components/reservations-make';
+
+@import 'homepage';
+
 
 
