@@ -28,8 +28,8 @@ User.prototype.validate = function() {
 }
 
 User.prototype.register = function () {
-    return new Promise(async (resolve, reject) => {
-        try {
+    return new Promise((resolve, reject) => {
+        
             this.cleanUp();
             this.validate();
             
@@ -38,14 +38,16 @@ User.prototype.register = function () {
                 let salt = bcrypt.genSaltSync(10);
                 this.data.password = bcrypt.hashSync(this.data.password, salt);
                 //insert use data into db
-                await usersCollection.insertOne(this.data);
-                resolve();
+                usersCollection.insertOne(this.data).then(() => {
+                    resolve()
+                }).catch((e) => {
+                    reject(e)
+                });
+               
             } else {
                 reject();
             }
-        } catch {
-            reject('Try again later');s
-        }
+        
     }) 
         
         
