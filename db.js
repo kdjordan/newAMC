@@ -7,6 +7,4 @@ mongodb.connect(process.env.CONNECTIONSTRING, {useUnifiedTopology: true, useNewU
     module.exports = client;
     const app = require('./app');
     app.listen(process.env.PORT);
-
-    
 });

@@ -1,0 +1,107 @@
+<%- include('includes/header') %>
+
+<section class="section-home">
+    <div class="header-box u-center u-u-mb-med">
+        <img src="/img/sunriver-sm.png" class="header-box__image"></img>
+        <div class="header-box__title">Sunriver</div>
+    </div>
+    <div class="row u-mb-med">
+        <div class="col-1-of-3">
+            <div class="make-res__box">
+                <div class="res-title u-mb-med">Make a reservation</div>
+                <form action="#" method="POST" class="make-res__form">
+                    <div class="make-res__input-box">
+                        <label for="dateFrom">From</label>
+                        <input type="text" name="dateFrom" class="make-res__input-field" placeholder="">
+                    </div>
+                    <div class="make-res__input-box">
+                        <label for="dateTo">To</label>
+                        <input type="text" name="dateTo" class="make-res__input-field" placeholder="">
+                    </div>
+                    <div class="make-res__input-box">
+                        <label for="guest">Guest</label>
+                        <input type="text" name="guest" class="make-res__input-field" placeholder="">
+                    </div>
+                    <div class="make-res__input-box">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" class="make-res__input-field" placeholder="">
+                    </div>
+                    <button class="btn btn-reserve u-mt-small">reserve</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-2-of-3">
+            <div class="cur-res__box">
+                <div class="res-title u-mb-med">All Current Reservations</div>
+                <table class="cur-res__results">
+                        <thead>
+                        <tr>
+                            <th>user</th>
+                            <th>guest</th>
+                            <th>start</th>
+                            <th>end</th>
+                            <th>phone</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Kathy</td>
+                            <td>Kathy</td>
+                            <td>9-12-2019</td>
+                            <td>9-20-2019</td>
+                            <td>555-222-1111</td>
+                            <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kathy</td>
+                            <td>Kathy</td>
+                            <td>9-12-2019</td>
+                            <td>9-20-2019</td>
+                            <td>555-222-1111</td>
+                            <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kathy</td>
+                            <td>Kathy</td>
+                            <td>9-12-2019</td>
+                            <td>9-20-2019</td>
+                            <td>555-222-1111</td>
+                            <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kathy</td>
+                            <td>Kathy</td>
+                            <td>9-12-2019</td>
+                            <td>9-20-2019</td>
+                            <td>555-222-1111</td>
+                            <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kathy</td>
+                            <td>Kathy</td>
+                            <td>9-12-2019</td>
+                            <td>9-20-2019</td>
+                            <td>555-222-1111</td>
+                            <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>
+
