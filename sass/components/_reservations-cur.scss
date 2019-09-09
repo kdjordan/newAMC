@@ -1,66 +1,64 @@
-.cur-res {
+.cur-res__results {
 
-    &__results {
+    border-bottom: 1px solid $color-grey;
+    border-collapse: collapse;
+    color: $color-grey;
+    width: 85%;
+    margin: 0 7.5%;
+    font-size: 1.2rem;
+    text-align: center;
+    
+    &-header--items {
+        display: flex;
 
-        border-bottom: 1px solid $color-grey;
-        border-collapse: collapse;
-        
-        color: $color-grey;
-        width: 85%;
-        margin: 0 7.5%;
-        font-size: 1.2rem;
-        text-align: center;
-    
-        & thead {
-            line-height: 3;
-        }
-        
-    
-        & th {
-        text-transform: uppercase;
-        color: $color-grey;
-        border-bottom: 1px solid $color-grey;
-        }   
-        
-    
-        & td {
-            padding: 1.2rem 0;
+        & li{
             text-transform: uppercase;
-            border-bottom: 1px solid $color-grey;
+            flex: 1 1 auto;
+            text-decoration: none;
+            list-style-type: none;
             
-            color: $color-grey;
+        }
+    }
+
+    &-body--items {
+        line-height: 3;
+        display: flex;
+
+        & li {
+            text-transform: uppercase;
+            flex: 1 1 auto;
+            text-decoration: none;
+            list-style-type: none;
         }
 
     }
-
-    &__icon {
+    
+    &-icon {
+        cursor: pointer;
+        width: 2.3rem;
+        height: 2.3rem;
+        padding: .3rem;
         
+        transition: all .4s;
+
         &--edit {
-            cursor: pointer;
             fill: $color-primary;
-            width: 2.3rem;
-            height: 2.3rem;
-            padding: .3rem;
-            transition: all .4s;
+            
             &:hover {
                 transform: translateX(-.5rem);
             }
         }
 
         &--delete {
-            cursor: pointer;
             fill: $color-secondary;
-            width: 2.3rem;
-            height: 2.3rem;
-            padding: .3rem;
-            transition: all .4s;
 
             &:hover {
                 transform: translateX(.5rem);
             }
         }
-
-       
     }
+
+   
+
 }
 
