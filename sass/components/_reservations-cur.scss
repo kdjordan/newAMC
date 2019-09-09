@@ -1,24 +1,27 @@
-.cur-res__results {
+.cur-res {
 
-    border-bottom: 1px solid $color-grey;
-    border-collapse: collapse;
-    color: $color-grey;
-    width: 85%;
-    margin: 0 7.5%;
-    font-size: 1.2rem;
-    text-align: center;
-    
-    &-header--items {
-        display: flex;
 
-        & li{
+    &__results--title {
+        border-bottom: 1px solid $color-grey;
+        border-collapse: collapse;
+        color: $color-grey;
+        width: 85%;
+        font-size: 1.2rem;
+        text-align: center;
+
+        & th{
             text-transform: uppercase;
-            flex: 1 1 auto;
+            
             text-decoration: none;
             list-style-type: none;
             
         }
     }
+    
+    
+
+        
+    
 
     &-body--items {
         line-height: 3;
