@@ -8,8 +8,9 @@
     <div class="row u-mb-med">
         <div class="col-1-of-3">
             <div class="make-res">
-                <h2 class="heading-2 u-mb-med">Make a reservation</h2>
-                <form action="/makeReservation" method="POST" class="make-res__form">
+                <h2 class="heading-2">Make a reservation</h2>
+                <%- include('includes/flash') %>
+                <form action="/makeReservation" method="POST" class="make-res__form u-mt-med">
                     <div class="make-res__input-box">
                         <label for="resDates">Dates</label>
                         <input type="text" name="resDates" class="make-res__input-field" placeholder="" id="resCalendar">
@@ -51,12 +52,23 @@
                                     <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
                                 </td>
                             </tr>
+
+                            <tr>
+                                    <td>Kathy</td>
+                                    <td>Kathy</td>
+                                    <td>9-12-2019</td>
+                                    <td>9-20-2019</td>
+                                    <td>555-222-1111</td>
+                                    <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                        <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                                    </td>
+                                </tr>
+
                             </tbody>
                     </table>
             </div>
         </div>
-     </div> <!-- end row -->
-
+     </div> 
 </section>
 <%- include('includes/footer') %>
 

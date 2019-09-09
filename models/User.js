@@ -13,6 +13,8 @@ User.prototype.cleanUp = function() {
     
     if(typeof(this.data.username) != 'string') {this.data.username = '';}
     if(typeof(this.data.password) != 'string') {this.data.password = '';}
+    
+    
 
     this.data = {
         username: this.data.username.trim().toLowerCase(),
@@ -29,9 +31,10 @@ User.prototype.validate = function() {
 
 User.prototype.register = function () {
     return new Promise((resolve, reject) => {
+        
             this.cleanUp();
             this.validate();
-            
+            console.log(this.data.home-name[0]);
             if(!this.errors.length) {
                 //hash user password
                 let salt = bcrypt.genSaltSync(10);

@@ -1,0 +1,16 @@
+.alert {
+    font-size: 1.2rem;
+
+    &-success {
+        
+        
+        color: $color-primary;
+    }
+
+    &-danger {
+        
+        
+        color: $color-secondary;
+
+    }
+}
