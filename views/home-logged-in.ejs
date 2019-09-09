@@ -9,14 +9,10 @@
         <div class="col-1-of-3">
             <div class="make-res__box">
                 <div class="res-title u-mb-med">Make a reservation</div>
-                <form action="#" method="POST" class="make-res__form">
+                <form action="/makeReservation" method="POST" class="make-res__form">
                     <div class="make-res__input-box">
-                        <label for="dateFrom">From</label>
-                        <input type="text" name="dateFrom" class="make-res__input-field" placeholder="">
-                    </div>
-                    <div class="make-res__input-box">
-                        <label for="dateTo">To</label>
-                        <input type="text" name="dateTo" class="make-res__input-field" placeholder="">
+                        <label for="resDates">Dates</label>
+                        <input type="text" name="resDates" class="make-res__input-field" placeholder="" id="resCalendar">
                     </div>
                     <div class="make-res__input-box">
                         <label for="guest">Guest</label>
@@ -102,6 +98,8 @@
     </div>
 
 </section>
+<%- include('includes/footer') %>
+
 </body>
 </html>
 

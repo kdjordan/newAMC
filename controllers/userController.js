@@ -11,22 +11,25 @@ exports.home = function(req, res) {
 
 
 
-
 exports.login = function(req, res) {
-    
         let user = new User(req.body);
         user.login().then(function(result) {
-            req.session.user = {username: user.data.username};
-            res.render('home-logged-in')
+            req.session.user = {username: user.data.username, _id: user.data._id};
+            req.session.save(function() {
+                res.redirect('/');
+            });
         }).catch(function(e) {
-            res.render('home-not-logged-in');
+            req.flash('errors', e);
+            req.session.save(function() {
+                res.redirect('/');
+            })
         });    
 };
 
 exports.logout = function(req, res) {
-    req.session.destroy();
-    res.render('home-not-logged-in');
-   
+    req.session.destroy(function(){
+        res.redirect('/');
+    });
 };
 
 exports.adminHome = function(req, res) {

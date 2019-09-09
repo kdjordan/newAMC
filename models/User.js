@@ -29,7 +29,6 @@ User.prototype.validate = function() {
 
 User.prototype.register = function () {
     return new Promise((resolve, reject) => {
-        
             this.cleanUp();
             this.validate();
             
@@ -49,8 +48,6 @@ User.prototype.register = function () {
             }
         
     }) 
-        
-        
 }
 
 User.prototype.login = function() {
@@ -59,6 +56,7 @@ User.prototype.login = function() {
         if(!this.errors.length) {
             usersCollection.findOne({username: this.data.username}).then((attemptedUser) => {
                 if(attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
+                    this.data = attemptedUser;
                     resolve('success');
                 } else {
                     reject('Invalid Username / Password');
