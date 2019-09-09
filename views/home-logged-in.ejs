@@ -28,35 +28,34 @@
         </div>
         <div class="col-2-of-3">
             <div class="cur-res">
-                <h2 class="heading-2 u-mb-med">All Current Reservations</h2>
-                    <div class="cur-res__results">
-                        <ul class="cur-res__results-header--items">
-                            <li>user</li>
-                            <li>guest</li>
-                            <li>phone</li>
-                            <li>start</li>
-                            <li>end</li>
-                            <li>&nbsp;</li>
-                        </ul>
-                    </div>
-                <div class="cur-res__results">
-
-                    <ul class="cur-res__results-body--items">
-                        <li>Kathy</li>
-                        <li>Friend</li>
-                        <li>555-222-1111</li>
-                        <li>9-12-2019</li>
-                        <li>9-20-2019</li>
-                        <li><svg class="icon icon-pencil cur-res__results-icon cur-res__results-icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
-                            <svg class="icon icon-cancel-circle cur-res__results-icon cur-res__results-icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
-                        </li>
-                    </ul>
-
-
-                </div>
+                <div class="res-title u-mb-med">All Current Reservations</div>
+                    <table class="cur-res__results">
+                            <thead class="cur-res__results--title">
+                            <tr>
+                                <th>user</th>
+                                <th>guest</th>
+                                <th>start</th>
+                                <th>end</th>
+                                <th>phone</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <!-- <tbody class="cur-res__results--body"></tbody>>
+                            <tr>
+                                <td>Kathy</td>
+                                <td>Kathy</td>
+                                <td>9-12-2019</td>
+                                <td>9-20-2019</td>
+                                <td>555-222-1111</td>
+                                <td><svg class="icon icon-pencil cur-res__icon--edit"><use xlink:href="img/sprite.svg#icon-pencil"></use></svg></a>
+                                    <svg class="icon icon-cancel-circle cur-res__icon--delete"><use xlink:href="img/sprite.svg#icon-cancel-circle"></use></svg></a>
+                                </td>
+                            </tr>
+                            </tbody> -->
+                    </table>
             </div>
         </div>
-    </div>
+     </div> <!-- end row -->
 
 </section>
 <%- include('includes/footer') %>
@@ -64,3 +63,7 @@
 </body>
 </html>
 
+<div class="col-2-of-3">
+        
+    </div>
+</div>
