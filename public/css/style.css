@@ -333,6 +333,38 @@ body {
     font-family: 'Lato';
     font-size: 1rem; }
 
+.sidenav {
+  height: 100%;
+  width: 20rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #56B3A0;
+  overflow-x: hidden; }
+  .sidenav__box {
+    margin-top: 10rem; }
+  .sidenav a {
+    padding: 6px 6px 6px 32px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 2.0rem;
+    color: #ffffff;
+    display: block;
+    margin-right: .5rem;
+    transition: all .4s; }
+  .sidenav a:hover .rotate {
+    display: inline-block;
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg); }
+
+.main {
+  margin-left: 20rem;
+  /* Same as the width of the sidenav */ }
+
 .section-register {
   height: 100vh; }
 

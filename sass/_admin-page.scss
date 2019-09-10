@@ -1,0 +1,73 @@
+.sidenav {
+    height: 100%;
+    width: 20rem;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: $color-primary;
+    overflow-x: hidden;
+    
+    &__box {
+        margin-top: 10rem;
+    }
+
+    & a {
+        padding: 6px 6px 6px 32px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 2.0rem;
+        color: $color-white;
+        display: block;
+        margin-right: .5rem;
+        transition: all .4s;
+      }
+      
+      & a:hover {
+        
+
+        .rotate {
+            
+            display: inline-block;
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+      }
+
+
+  }
+  
+  .main {
+    margin-left: 20rem; /* Same as the width of the sidenav */
+  }
+
+
+.section-register {
+    height: 100vh;
+}
+
+.checkbox-input {
+    text-align: left;
+}
+
+.radio-input {
+    text-align: left;
+    color: $color-grey;
+    display: block;
+}
+
+
+.label {
+    color: $color-grey;
+    display: inline-block;
+    margin-left: 1rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 1.2rem;
+    
+}
+

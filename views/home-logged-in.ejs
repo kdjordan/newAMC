@@ -1,5 +1,21 @@
 <%- include('includes/header') %>
-
+<header class="header">
+        <div class="header__logo-box">
+            <h1 class="header__logo-box--title">AMC</h1>
+            <h2 class="header__logo-box--subtitle">Vacation Rentals</h2>
+        </div>
+        <nav class="navigation__nav">    
+            <ul class="navigation__list">
+                <li class="navigation__items"><a href="#">sunriver</a></li>
+                <li class="navigation__items"><a href="#">cannon beach</a></li>
+                <li class="navigation__items"><a href="#">idaho</a></li>
+                <li class="navigation__items"><a href="/logout">
+                    <svg class="icon icon-cog"><use xlink:href="/img/sprite.svg#icon-cog"></use></svg></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+<body>    
 <section class="section-home">
     <div class="header-box u-center u-u-mb-med">
         <img src="/img/sunriver-sm.png" class="header-box__image"></img>

@@ -34,7 +34,7 @@ User.prototype.register = function () {
         
             this.cleanUp();
             this.validate();
-            console.log(this.data.home-name[0]);
+            // console.log(this.data.home-name[0]);
             if(!this.errors.length) {
                 //hash user password
                 let salt = bcrypt.genSaltSync(10);
