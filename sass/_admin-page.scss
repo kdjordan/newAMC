@@ -31,7 +31,7 @@
         }
     }
     
-      
+    
       &__dropdown {
           display: none;
           text-align: center;
@@ -44,14 +44,15 @@
                   transform: translateX(10px);
               }
           } 
-          
-        & a {
+
+          & a {
             text-transform: uppercase;
             font-size: 1.3rem;
             text-decoration: none;
             color: $color-white;
             
         }  
+        
       }
 }
 
