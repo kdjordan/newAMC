@@ -343,8 +343,9 @@ body {
   background-color: #56B3A0;
   overflow-x: hidden; }
   .sidenav__box {
-    margin-top: 10rem; }
-  .sidenav a {
+    margin-top: 10rem;
+    transition: all .4s; }
+  .sidenav__title {
     padding: 6px 6px 6px 32px;
     text-decoration: none;
     text-transform: uppercase;
@@ -352,14 +353,31 @@ body {
     color: #ffffff;
     display: block;
     margin-right: .5rem;
-    transition: all .4s; }
-  .sidenav a:hover .rotate {
-    display: inline-block;
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg); }
+    transition: all .2s;
+    cursor: pointer; }
+    .sidenav__title .carrot {
+      display: inline-block;
+      font-size: 2.5rem;
+      transition: all .2s; }
+  .sidenav__dropdown {
+    display: none;
+    text-align: center;
+    transition: all 2s; }
+    .sidenav__dropdown li {
+      transition: all .4s; }
+      .sidenav__dropdown li:hover {
+        transform: translateX(10px); }
+    .sidenav__dropdown a {
+      text-transform: uppercase;
+      font-size: 1.3rem;
+      text-decoration: none;
+      color: #ffffff; }
+
+.rotate {
+  transform: rotate(90deg); }
+
+.show {
+  display: block; }
 
 .main {
   margin-left: 20rem;

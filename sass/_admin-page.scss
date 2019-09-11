@@ -10,9 +10,10 @@
     
     &__box {
         margin-top: 10rem;
+        transition: all .4s;
     }
-
-    & a {
+    
+    &__title {
         padding: 6px 6px 6px 32px;
         text-decoration: none;
         text-transform: uppercase;
@@ -20,30 +21,51 @@
         color: $color-white;
         display: block;
         margin-right: .5rem;
-        transition: all .4s;
-      }
-      
-      & a:hover {
-        
+        transition: all .2s;
+        cursor: pointer;
 
-        .rotate {
-            
+        & .carrot {
             display: inline-block;
-            -moz-transform: rotate(90deg);
-            -ms-transform: rotate(90deg);
-            -o-transform: rotate(90deg);
-            -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
+            font-size: 2.5rem;
+            transition: all .2s;
         }
+    }
+    
+      
+      &__dropdown {
+          display: none;
+          text-align: center;
+          transition: all 2s;
 
+          & li {
+              transition: all .4s;
+
+              &:hover {
+                  transform: translateX(10px);
+              }
+          } 
+          
+        & a {
+            text-transform: uppercase;
+            font-size: 1.3rem;
+            text-decoration: none;
+            color: $color-white;
+            
+        }  
       }
+}
 
+.rotate {
+    transform: rotate(90deg);
+}
 
-  }
+.show {
+    display: block
+}
   
-  .main {
+.main {
     margin-left: 20rem; /* Same as the width of the sidenav */
-  }
+}
 
 
 .section-register {
