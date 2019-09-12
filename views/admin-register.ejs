@@ -1,74 +1,92 @@
 <%- include('includes/header') %>
-<div class="admin-logo-box">
-    <h1 class="admin-logo-box__title">AMC</h1>
-    <h2 class="admin-logo-box__title--sub">Vacation Rentals</h2>
-</div>
+
 <div class="sidenav">
+
+    <div class="admin-logo-box">
+        <div class="admin-logo-box__title">AMC</div>
+        <div class="admin-logo-box__title--sub">Vacation Rentals</div>
+        <div class="admin-logo-box__title--sub-1">administration</div>
+    </div>
+    
+
 
     <div class="sidenav__box">
         <ul class="sidenav__outer-menu">
-            <li class="sidenav__title" id="users">Users&nbsp;<span class="carrot">&#62;</span>
-                <ul class="sidenav__dropdown">
+            <li class="sidenav__title" data-id="users">Users</li>
+                <ul class="sidenav__dropdown" id="users">
                     <li><a href="#">User 1</a></li>
                     <li><a href="#">User 2</a></li>
                     <li><a href="#">User 3</a></li>
                     <li><a href="#">User 4</a></li>
                 </ul>
-            </li>
-            <li class="sidenav__title" id="homes">Homes&nbsp;<span class="carrot">&#62;</span>
-                <ul class="sidenav__dropdown">
+            
+            <li class="sidenav__title" data-id="homes">Homes</li>
+                <ul class="sidenav__dropdown" id="homes">
                     <li><a href="#">Home 1</a></li>
                     <li><a href="#">Home 2</a></li>
                     <li><a href="#">Home 3</a></li>
                 </ul>
-            </li>    
-            <li class="sidenav__title" id="keepers">Keepers&nbsp;<span class="carrot">&#62;</span>
-                <ul class="sidenav__dropdown">
+            
+            <li class="sidenav__title" data-id="keepers">Keepers</li>
+                <ul class="sidenav__dropdown" id="keepers">
                     <li><a href="#">Keeper 1</a></li>
                     <li><a href="#">Keeper 2</a></li>
                     <li><a href="#">Keeper 3</a></li>
                 </ul>
-            </li>    
+            
         </ul>
     </div>
 </div>
 
 <main>
-<section class="section-register ">
-        <div class="login-modal">
-            <div class="header-box u-center u-mb-med">
-                <div class="header-box__subtitle--login">Register New User</div>
-                
-            </div>
+<section class="section section-user">
+        <div class="admin__container">
+            <h2 class="admin__title u-center admin-top-margin u-mb-med">Add New User</h2>
+            <div class="user-form__container">
+                <form action="/admin/register" method="POST" class="user-form u-center">
+                    <div class="row">
+                        <div>
+                            <label for="username" class="label">Username</label>
+                            <input type="text" class="user-form__input u-mb-med" name="username" placeholder="">
+                        </div>
+                        <div>
+                            <label for="password" class="label">Password</label>
+                            <input type="text" class="user-form__input" name="password" placeholder="">
+                        </div>
+                    </div>
 
-            <form action="/admin/register" method="POST" class="form u-center">
-                <input type="text" class="form_input" name="username" placeholder="username">
-                <input type="text" class="form_input" name="password" placeholder="pass">
-                <div class="heading-3">Which Home(s) Does This User Have Access To ?</div>
-                <div class="checkbox-input">
-                                    
-                    <input type="checkbox" name="home-name" value="sunriver" class="home-checkbox" id="sunriver">
-                    <label for="sunriver" class="label">Sunriver</label><br>
-                    <input type="checkbox" name="home-name" value="idaho" class="home-checkbox" id="idaho">
-                    <label for="idaho" class="label">Idaho</label><br>
-                    <input type="checkbox" name="home-name" value="cannon-beach" class="home-checkbox" id="cannon-beach">
-                    <label for="cannon-beach" class="label">Cannon Beach</label><br>
-                        <br>  
-                </div>
-                <div class="heading-3">What Role Does This User Have ?</div>
-                <div class="radio-input">
-                    <input type="radio" name="user-role" value="user" id="user">
-                    <label for="user" class="label">User</label><br>
-                    <input type="radio" name="user-role" value="keeper" id="keeper">
-                    <label for="keeper" class="label">Keeper</label> <br>
-                    <input type="radio" name="user-role" value="admin" id="admin"> 
-                    <label for="admin" class="label">Administrator</label><br>
-                </div>
-                <div class="u-right">
-                    <button type="submit" class="btn btn-login">SUBMIT</button>
-                </div>
-            </form>
-        </div> 
+                    <div class="heading-3 u-mb-small">Which Home(s) Does This User Have Access To ?</div>
+
+                    <div class="row">
+                        <div class="user-form__checkbox-input u-center;">
+                            <input type="checkbox" name="home-name" value="sunriver" class="home-checkbox" id="sunriver">
+                            <label for="sunriver" class="label">Sunriver</label><br>
+                            <input type="checkbox" name="home-name" value="idaho" class="home-checkbox" id="idaho">
+                            <label for="idaho" class="label">Idaho</label><br>
+                            <input type="checkbox" name="home-name" value="cannon-beach" class="home-checkbox" id="cannon-beach">
+                            <label for="cannon-beach" class="label">Cannon Beach</label>
+                        </div>
+                    </div>
+
+                    <div class="heading-3 u-mb-small">What Role Does This User Have ?</div>
+
+                    <div class="row">
+                        <div class="user-form__radio-input">
+                            <input type="radio" name="user-role" value="user" id="user">
+                            <label for="user" class="label">User</label><br>
+                            <input type="radio" name="user-role" value="keeper" id="keeper">
+                            <label for="keeper" class="label">Keeper</label> <br>
+                            <input type="radio" name="user-role" value="admin" id="admin"> 
+                            <label for="admin" class="label">Administrator</label><br>
+                        </div>
+                    </div>
+                    <div class="u-center">
+                        <button type="submit" class="btn btn-login">SUBMIT</button>
+                    </div>
+                
+                </form>
+        </div> <!-- end user form -->
+    </div> <!-- end admin container -->
 </section>
 </main>
 <%- include('includes/footer') %>

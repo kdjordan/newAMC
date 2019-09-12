@@ -4,7 +4,7 @@
     
 
     &:not(:last-child) {
-        margin-bottom: $gutter-vert;
+        margin-bottom: $gutter-vert-sm;
     }
 
     @include clearfix;

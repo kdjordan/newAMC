@@ -15,7 +15,7 @@ body {
   max-width: 114rem;
   margin: 0 auto; }
   .row:not(:last-child) {
-    margin-bottom: 8rem; }
+    margin-bottom: 6rem; }
   .row::after {
     content: '';
     display: table;
@@ -67,6 +67,14 @@ body {
   letter-spacing: 1px;
   color: #95A5A2;
   font-size: 2rem; }
+
+.admin__title {
+  margin-top: -1.5rem;
+  font-size: 2.4rem;
+  color: #56B3A0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 300; }
 
 .u-center {
   text-align: center !important; }
@@ -335,7 +343,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 20rem;
+  width: 20vw;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -346,19 +354,17 @@ body {
     margin-top: 10rem;
     transition: all .4s; }
   .sidenav__title {
-    padding: 6px 6px 6px 32px;
+    padding: .6rem .6rem .6rem 3.2rem;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 2.0rem;
     color: #ffffff;
     display: block;
-    margin-right: .5rem;
+    letter-spacing: 2px;
     transition: all .2s;
     cursor: pointer; }
-    .sidenav__title .carrot {
-      display: inline-block;
-      font-size: 2.5rem;
-      transition: all .2s; }
+    .sidenav__title:hover {
+      text-decoration: underline; }
   .sidenav__dropdown {
     display: none;
     text-align: center;
@@ -373,9 +379,6 @@ body {
       text-decoration: none;
       color: #ffffff; }
 
-.rotate {
-  transform: rotate(90deg); }
-
 .show {
   display: block; }
 
@@ -383,21 +386,59 @@ body {
   margin-left: 20rem;
   /* Same as the width of the sidenav */ }
 
-.section-register {
-  height: 100vh; }
+.admin-logo-box {
+  font-weight: 300;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px; }
+  .admin-logo-box__title {
+    font-size: 5rem; }
+    .admin-logo-box__title--sub {
+      font-size: 2rem;
+      margin-top: -2rem; }
+      .admin-logo-box__title--sub-1 {
+        display: inline-block;
+        padding: 3px 5px;
+        border-radius: 5px;
+        border: 1px solid #ffffff; }
 
-.checkbox-input {
-  text-align: left; }
+.section-user {
+  height: 100vh;
+  overflow-y: hidden; }
 
-.radio-input {
+.user-form__container {
+  width: 50%;
+  margin-left: 25%; }
+
+.user-form__input {
+  padding: .4rem;
+  border-radius: 5px;
+  border: 1px solid #95A5A2;
+  width: 35%; }
+  .user-form__input:focus {
+    outline-color: #56B3A0; }
+
+.user-form__checkbox-input {
   text-align: left;
-  color: #95A5A2;
-  display: block; }
+  margin-left: 40%; }
+
+.user-form__radio-input {
+  margin-left: 40%;
+  text-align: left;
+  color: #95A5A2; }
 
 .label {
   color: #95A5A2;
   display: inline-block;
-  margin-left: 1rem;
+  margin: 0 1rem;
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 1.2rem; }
+  font-size: 1.3rem;
+  letter-spacing: 1px; }
+
+.admin-top-margin {
+  margin-top: 12rem; }
+
+.admin__container {
+  width: 80vw;
+  margin-left: 20vw; }

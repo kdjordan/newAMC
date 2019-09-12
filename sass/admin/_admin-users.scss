@@ -1,0 +1,51 @@
+.section-user {
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.user-form__container {
+    width: 50%;
+    margin-left: 25%;
+    
+}
+
+.user-form {
+
+    &__input {
+        padding: .4rem;
+        border-radius: 5px;
+        border: 1px solid $color-grey;
+        width: 35%;
+
+        &:focus {
+            outline-color: $color-primary;
+        }
+    }
+
+    &__checkbox-input {
+        text-align: left;
+        margin-left: 40%;
+    }
+
+    &__radio-input {
+        margin-left: 40%;
+        text-align: left;
+        color: $color-grey;
+        
+    }
+}
+
+.label {
+    color: $color-grey;
+    display: inline-block;
+    margin: 0 1rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    
+}
+
+.admin-top-margin {
+    margin-top: 12rem;
+}

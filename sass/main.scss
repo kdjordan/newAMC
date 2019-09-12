@@ -14,7 +14,11 @@
 @import 'components/flash-messages';
 
 @import 'homepage';
-@import 'admin-page';
+@import 'admin/admin-nav';
+@import 'admin/admin-homes';
+@import 'admin/admin-keepers';
+@import 'admin/admin-users';
+@import 'admin/admin-base';
 
 
 
