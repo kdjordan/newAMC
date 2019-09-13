@@ -23,6 +23,16 @@ body {
     font-weight: 700;
     font-size: 1.2rem;
     margin-top:-2rem;
+    display: inline-block;
+
+    &__admin-users {
+        display: inline-block;
+        margin-left: 6rem;
+        font-weight: 300;
+        font-size: 2rem;
+        color: $color-primary;
+    }
+    
 }
 
 .res-title {
@@ -40,4 +50,5 @@ body {
     letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: 300;
+    margin-left: 45rem;
 }

@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    min-height: 15vh;
+    min-height: 8.4rem;
     background-color: $color-primary;
     position: relative;
     display: block;
@@ -12,7 +12,6 @@
         padding: 1rem;
         text-align: left;
         text-transform: uppercase;
-
        
         &--title {
             font-weight: 300;
@@ -33,13 +32,47 @@
 .navigation {
 
     &__nav {
-        float: right;
         position: absolute;
-        top: 30%;
-        right: 8%;
+        top: 0;
+        right: 7%;
+        padding: 1rem;
+        
+       
+
+        &--sub-menu {
+            position: absolute;
+            top: 80%;
+            right: -5%;
+            font-weight: 300;
+            font-size: 1.4rem;
+            text-align: left;
+            width: 12rem;
+            background-color: $color-primary;
+            padding-top: 2rem;
+            padding-bottom: .5rem;
+            transition: all .4s;
+            visibility: hidden;
+            opacity: 0;
+      
+            & li {
+                display: block;
+                text-transform: uppercase;
+                list-style-type: none;
+                margin-left: 14%;
+
+                & a {
+                    text-decoration: none;
+                    color: $color-white;
+
+                    &:hover {
+                        color: rgba($color-white, .5);
+                    }
+                }
+            }
+        }
     }
 
-    &__items {
+    &__item {
         list-style-type: none;
         text-decoration: none;
         display: inline-block;
@@ -47,7 +80,11 @@
         font-size: 1.5rem;
         font-weight: 300;
         
-
+        &:hover ul {
+            visibility: visible;
+            opacity: 1;
+        }
+        
         &:not(:last-child) {
             margin-right: 2rem;
         }
@@ -56,14 +93,20 @@
             text-decoration: none;
             color: $color-white;
             vertical-align: middle;
+
+            &:hover {
+                color: rgba($color-white, .5);
+            }
         }
         
-        & svg {    
+        & svg {
+            cursor: pointer;    
             height: 4rem;
             width: 4rem;
             fill: $color-white; 
             transition: all .4s;
             vertical-align: middle;
+            margin: 1rem;
 
             &:hover {
                 fill: rgba($color-white, .5);
@@ -71,3 +114,5 @@
         }
     }
 }
+
+

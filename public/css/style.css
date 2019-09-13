@@ -15,7 +15,7 @@ body {
   max-width: 114rem;
   margin: 0 auto; }
   .row:not(:last-child) {
-    margin-bottom: 6rem; }
+    margin-bottom: 4rem; }
   .row::after {
     content: '';
     display: table;
@@ -59,7 +59,14 @@ body {
   color: #95A5A2;
   font-weight: 700;
   font-size: 1.2rem;
-  margin-top: -2rem; }
+  margin-top: -2rem;
+  display: inline-block; }
+  .heading-3__admin-users {
+    display: inline-block;
+    margin-left: 6rem;
+    font-weight: 300;
+    font-size: 2rem;
+    color: #56B3A0; }
 
 .res-title {
   text-transform: uppercase;
@@ -74,7 +81,8 @@ body {
   color: #56B3A0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  font-weight: 300; }
+  font-weight: 300;
+  margin-left: 45rem; }
 
 .u-center {
   text-align: center !important; }
@@ -98,6 +106,8 @@ body {
 
 .u-mb-small {
   margin-bottom: 1.5rem !important; }
+  .u-mb-small--admin {
+    margin-bottom: 1.8rem !important; }
 
 .u-mb-med {
   margin-bottom: 3rem !important; }
@@ -107,6 +117,13 @@ body {
 
 .u-border-bottom {
   border-bottom: 1px solid #56B3A0; }
+  .u-border-bottom-wht {
+    border-bottom: 1px solid #ffffff; }
+
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both; }
 
 .btn {
   cursor: pointer;
@@ -138,7 +155,7 @@ body {
 
 .header {
   width: 100%;
-  min-height: 15vh;
+  min-height: 8.4rem;
   background-color: #56B3A0;
   position: relative;
   display: block; }
@@ -160,31 +177,62 @@ body {
       margin-top: -1rem; }
 
 .navigation__nav {
-  float: right;
   position: absolute;
-  top: 30%;
-  right: 8%; }
+  top: 0;
+  right: 7%;
+  padding: 1rem; }
+  .navigation__nav--sub-menu {
+    position: absolute;
+    top: 80%;
+    right: -5%;
+    font-weight: 300;
+    font-size: 1.4rem;
+    text-align: left;
+    width: 12rem;
+    background-color: #56B3A0;
+    padding-top: 2rem;
+    padding-bottom: .5rem;
+    transition: all .4s;
+    visibility: hidden;
+    opacity: 0; }
+    .navigation__nav--sub-menu li {
+      display: block;
+      text-transform: uppercase;
+      list-style-type: none;
+      margin-left: 14%; }
+      .navigation__nav--sub-menu li a {
+        text-decoration: none;
+        color: #ffffff; }
+        .navigation__nav--sub-menu li a:hover {
+          color: rgba(255, 255, 255, 0.5); }
 
-.navigation__items {
+.navigation__item {
   list-style-type: none;
   text-decoration: none;
   display: inline-block;
   text-transform: uppercase;
   font-size: 1.5rem;
   font-weight: 300; }
-  .navigation__items:not(:last-child) {
+  .navigation__item:hover ul {
+    visibility: visible;
+    opacity: 1; }
+  .navigation__item:not(:last-child) {
     margin-right: 2rem; }
-  .navigation__items > a {
+  .navigation__item > a {
     text-decoration: none;
     color: #ffffff;
     vertical-align: middle; }
-  .navigation__items svg {
+    .navigation__item > a:hover {
+      color: rgba(255, 255, 255, 0.5); }
+  .navigation__item svg {
+    cursor: pointer;
     height: 4rem;
     width: 4rem;
     fill: #ffffff;
     transition: all .4s;
-    vertical-align: middle; }
-    .navigation__items svg:hover {
+    vertical-align: middle;
+    margin: 1rem; }
+    .navigation__item svg:hover {
       fill: rgba(255, 255, 255, 0.5); }
 
 .header-box {
@@ -343,34 +391,52 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 20vw;
+  width: 12vw;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
-  background-color: #56B3A0;
-  overflow-x: hidden; }
+  background-color: #56B3A0; }
   .sidenav__box {
-    margin-top: 10rem;
-    transition: all .4s; }
+    margin-top: 11rem; }
   .sidenav__title {
     padding: .6rem .6rem .6rem 3.2rem;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 2.0rem;
+    font-size: 1.8rem;
     color: #ffffff;
-    display: block;
-    letter-spacing: 2px;
-    transition: all .2s;
+    letter-spacing: 1px;
+    font-weight: 300;
     cursor: pointer; }
     .sidenav__title:hover {
-      text-decoration: underline; }
+      background-color: #95A5A2; }
+      .sidenav__title:hover .sidenav__dropdown {
+        visibility: visible;
+        z-index: 1; }
   .sidenav__dropdown {
-    display: none;
+    width: 20rem;
     text-align: center;
-    transition: all 2s; }
+    visibility: hidden; }
+    .sidenav__dropdown--users {
+      position: absolute;
+      top: 11rem;
+      left: 15rem;
+      z-index: -1; }
+    .sidenav__dropdown--homes {
+      position: absolute;
+      top: 15.2rem;
+      left: 15rem;
+      z-index: -1; }
+    .sidenav__dropdown--keepers {
+      position: absolute;
+      top: 19.4rem;
+      left: 15rem;
+      z-index: -1; }
     .sidenav__dropdown li {
-      transition: all .4s; }
+      background-color: #95A5A2;
+      border-bottom: 1px solid white;
+      list-style-type: none;
+      padding: .5rem;
+      transition: transform .4s; }
       .sidenav__dropdown li:hover {
         transform: translateX(10px); }
     .sidenav__dropdown a {
@@ -388,42 +454,37 @@ body {
 
 .admin-logo-box {
   font-weight: 300;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  position: absolute;
+  top: .6rem;
+  left: 3.4rem;
+  z-index: 1; }
   .admin-logo-box__title {
-    font-size: 5rem; }
+    font-size: 2.5rem; }
     .admin-logo-box__title--sub {
-      font-size: 2rem;
-      margin-top: -2rem; }
-      .admin-logo-box__title--sub-1 {
-        display: inline-block;
-        padding: 3px 5px;
-        border-radius: 5px;
-        border: 1px solid #ffffff; }
-
-.section-user {
-  height: 100vh;
-  overflow-y: hidden; }
+      font-size: 1.5rem;
+      margin-top: -.8rem; }
 
 .user-form__container {
+  margin-top: 3rem;
   width: 50%;
-  margin-left: 25%; }
+  margin-left: 31rem; }
 
 .user-form__input {
-  padding: .4rem;
+  padding: .8rem;
   border-radius: 5px;
   border: 1px solid #95A5A2;
-  width: 35%; }
+  width: 60%;
+  display: block; }
   .user-form__input:focus {
     outline-color: #56B3A0; }
 
 .user-form__checkbox-input {
-  text-align: left;
-  margin-left: 40%; }
+  text-align: left; }
 
 .user-form__radio-input {
-  margin-left: 40%;
   text-align: left;
   color: #95A5A2; }
 
@@ -437,7 +498,7 @@ body {
   letter-spacing: 1px; }
 
 .admin-top-margin {
-  margin-top: 12rem; }
+  margin-top: 4rem; }
 
 .admin__container {
   width: 80vw;

@@ -1,92 +1,114 @@
 <%- include('includes/header') %>
-
-<div class="sidenav">
-
+<header class="header clearfix u-border-bottom-wht">
     <div class="admin-logo-box">
         <div class="admin-logo-box__title">AMC</div>
-        <div class="admin-logo-box__title--sub">Vacation Rentals</div>
-        <div class="admin-logo-box__title--sub-1">administration</div>
+        <div class="admin-logo-box__title--sub">Vacation Rentals :: Administration</div>
     </div>
+    <nav class="navigation__nav">    
+            <li class="navigation__item">
+                <svg class="icon icon-cog"><use xlink:href="/img/sprite.svg#icon-cog"></use></svg> 
+                <ul class="navigation__nav--sub-menu">
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+
+<div class="sidenav clearfix">
     
-
-
     <div class="sidenav__box">
         <ul class="sidenav__outer-menu">
-            <li class="sidenav__title" data-id="users">Users</li>
-                <ul class="sidenav__dropdown" id="users">
-                    <li><a href="#">User 1</a></li>
-                    <li><a href="#">User 2</a></li>
-                    <li><a href="#">User 3</a></li>
-                    <li><a href="#">User 4</a></li>
+            <li class="sidenav__title">Users
+                <ul class="sidenav__dropdown sidenav__dropdown--users" >
+                    <li><a href="#">Kathy Smith</a></li>
+                    <li><a href="#">Chip Username</a></li>
+                    <li><a href="#">Rob Another Guy</a></li>
+                    <li><a href="#">Mackenzie Smith</a></li>
                 </ul>
-            
-            <li class="sidenav__title" data-id="homes">Homes</li>
-                <ul class="sidenav__dropdown" id="homes">
+            </li>
+            <li class="sidenav__title">Homes
+                <ul class="sidenav__dropdown sidenav__dropdown--homes">
                     <li><a href="#">Home 1</a></li>
                     <li><a href="#">Home 2</a></li>
                     <li><a href="#">Home 3</a></li>
                 </ul>
-            
-            <li class="sidenav__title" data-id="keepers">Keepers</li>
-                <ul class="sidenav__dropdown" id="keepers">
+            </li>
+            <li class="sidenav__title">Keepers
+                <ul class="sidenav__dropdown sidenav__dropdown--keepers">
                     <li><a href="#">Keeper 1</a></li>
                     <li><a href="#">Keeper 2</a></li>
                     <li><a href="#">Keeper 3</a></li>
                 </ul>
-            
+            </li>
         </ul>
     </div>
 </div>
 
 <main>
 <section class="section section-user">
-        <div class="admin__container">
-            <h2 class="admin__title u-center admin-top-margin u-mb-med">Add New User</h2>
+    <div class="row">
+            <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New User</h2> -->
             <div class="user-form__container">
                 <form action="/admin/register" method="POST" class="user-form u-center">
                     <div class="row">
-                        <div>
-                            <label for="username" class="label">Username</label>
-                            <input type="text" class="user-form__input u-mb-med" name="username" placeholder="">
+                        <div class="col-1-of-3">
+                                <label for="username" class="heading-3 heading-3__admin-users u-mb-small--admin">Username</label>
+                                <label for="password" class="heading-3 heading-3__admin-users">Password</label>
                         </div>
-                        <div>
-                            <label for="password" class="label">Password</label>
-                            <input type="text" class="user-form__input" name="password" placeholder="">
+                        <div class="col-2-of-3">
+                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder="">
+                                <input type="text" class="user-form__input" name="password" placeholder="">
                         </div>
+                        
                     </div>
 
-                    <div class="heading-3 u-mb-small">Which Home(s) Does This User Have Access To ?</div>
+                    
 
                     <div class="row">
-                        <div class="user-form__checkbox-input u-center;">
-                            <input type="checkbox" name="home-name" value="sunriver" class="home-checkbox" id="sunriver">
-                            <label for="sunriver" class="label">Sunriver</label><br>
-                            <input type="checkbox" name="home-name" value="idaho" class="home-checkbox" id="idaho">
-                            <label for="idaho" class="label">Idaho</label><br>
-                            <input type="checkbox" name="home-name" value="cannon-beach" class="home-checkbox" id="cannon-beach">
-                            <label for="cannon-beach" class="label">Cannon Beach</label>
+                        <div class="col-1-of-3">
+                                <div class="heading-3 heading-3__admin-users">HOMES</div>
+                        </div>
+                        <div class="col-2-of-3">
+                            <div class="user-form__checkbox-input">
+                                <input type="checkbox" name="home-name" value="sunriver" class="home-checkbox" id="sunriver">
+                                <label for="sunriver" class="label">Sunriver</label><br>
+                                <input type="checkbox" name="home-name" value="idaho" class="home-checkbox" id="idaho">
+                                <label for="idaho" class="label">Idaho</label><br>
+                                <input type="checkbox" name="home-name" value="cannon-beach" class="home-checkbox" id="cannon-beach">
+                                <label for="cannon-beach" class="label">Cannon Beach</label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="heading-3 u-mb-small">What Role Does This User Have ?</div>
+                    
 
                     <div class="row">
-                        <div class="user-form__radio-input">
-                            <input type="radio" name="user-role" value="user" id="user">
-                            <label for="user" class="label">User</label><br>
-                            <input type="radio" name="user-role" value="keeper" id="keeper">
-                            <label for="keeper" class="label">Keeper</label> <br>
-                            <input type="radio" name="user-role" value="admin" id="admin"> 
-                            <label for="admin" class="label">Administrator</label><br>
+                        <div class="col-1-of-3">
+                                <div class="heading-3 heading-3__admin-users">role</div>
                         </div>
+                        <div class="col-2-of-3">
+                            <div class="user-form__radio-input">
+                                <input type="radio" name="user-role" value="user" id="user">
+                                <label for="user" class="label">User</label><br>
+                                <input type="radio" name="user-role" value="keeper" id="keeper">
+                                <label for="keeper" class="label">Keeper</label> <br>
+                                <input type="radio" name="user-role" value="admin" id="admin"> 
+                                <label for="admin" class="label">Administrator</label><br>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="u-center">
+                    <div class="">
                         <button type="submit" class="btn btn-login">SUBMIT</button>
                     </div>
                 
                 </form>
         </div> <!-- end user form -->
-    </div> <!-- end admin container -->
+</div> 
 </section>
 </main>
 <%- include('includes/footer') %>

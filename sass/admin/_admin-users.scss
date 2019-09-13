@@ -1,21 +1,22 @@
 .section-user {
-    height: 100vh;
-    overflow-y: hidden;
-}
-
-.user-form__container {
-    width: 50%;
-    margin-left: 25%;
+    
     
 }
 
 .user-form {
 
+    &__container {
+        margin-top: 3rem;
+        width: 50%;
+        margin-left: 31rem;
+    }
+
     &__input {
-        padding: .4rem;
+        padding: .8rem;
         border-radius: 5px;
         border: 1px solid $color-grey;
-        width: 35%;
+        width: 60%;
+        display: block;
 
         &:focus {
             outline-color: $color-primary;
@@ -24,11 +25,9 @@
 
     &__checkbox-input {
         text-align: left;
-        margin-left: 40%;
     }
 
     &__radio-input {
-        margin-left: 40%;
         text-align: left;
         color: $color-grey;
         
@@ -47,5 +46,5 @@
 }
 
 .admin-top-margin {
-    margin-top: 12rem;
+    margin-top: 4rem;
 }

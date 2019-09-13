@@ -1,41 +1,75 @@
 .sidenav {
     height: 100%;
-    width: 20vw;
+    width: 12vw;
     position: fixed;
-    z-index: 1;
+    
     top: 0;
     left: 0;
     background-color: $color-primary;
-    overflow-x: hidden;
+    
     
     &__box {
-        margin-top: 10rem;
-        transition: all .4s;
+        margin-top: 11rem;
+        
     }
     
+    
+
     &__title {
         padding: .6rem .6rem .6rem 3.2rem;
         text-decoration: none;
         text-transform: uppercase;
-        font-size: 2.0rem;
+        font-size: 1.8rem;
         color: $color-white;
-        display: block;
-        letter-spacing: 2px;
-        transition: all .2s;
+        letter-spacing: 1px;  
+        font-weight: 300;
         cursor: pointer;
 
         &:hover {
-            text-decoration: underline;
+            background-color: $color-grey;
+
+            & .sidenav__dropdown {
+                visibility: visible;
+                z-index: 1;
+            }
         }
     }
 
       &__dropdown {
-          display: none;
+
+          width: 20rem;
           text-align: center;
-          transition: all 2s;
+          visibility: hidden;
+
+          &--users {
+            position: absolute;
+            top: 11rem;
+            left: 15rem;
+            z-index: -1;
+            
+          }
+
+          &--homes {
+            position: absolute;
+            top: 15.2rem;
+            left: 15rem;
+            z-index: -1;
+          }
+
+          &--keepers {
+            position: absolute;
+            top: 19.4rem;
+            left: 15rem;
+            z-index: -1;
+          }
 
           & li {
-              transition: all .4s;
+              background-color: $color-grey;
+              border-bottom: 1px solid white;
+              list-style-type: none;
+              padding: .5rem;
+              transition: transform .4s;
+              
 
               &:hover {
                   transform: translateX(10px);
@@ -62,23 +96,20 @@
 
 .admin-logo-box {
     font-weight: 300;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: absolute;
+    top: .6rem;
+    left: 3.4rem;
+    z-index: 1;
 
     &__title {
-        font-size: 5rem;
+        font-size: 2.5rem;
 
         &--sub {
-            font-size: 2rem;
-            margin-top: -2rem;
-
-            &-1 {
-                display: inline-block;
-                padding: 3px 5px;
-                border-radius: 5px;
-                border: 1px solid $color-white;
-            }
+            font-size: 1.5rem;
+            margin-top: -.8rem;
         }
     }
 }
