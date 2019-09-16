@@ -62,8 +62,6 @@ body {
   margin-top: -2rem;
   display: inline-block; }
   .heading-3__admin-users {
-    display: inline-block;
-    margin-left: 6rem;
     font-weight: 300;
     font-size: 2rem;
     color: #56B3A0; }
@@ -76,8 +74,7 @@ body {
   font-size: 2rem; }
 
 .admin__title {
-  margin-top: -1.5rem;
-  font-size: 2.4rem;
+  font-size: 2.3rem;
   color: #56B3A0;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -95,6 +92,15 @@ body {
   opacity: 0;
   z-index: -100; }
 
+.u-float-left {
+  float: left; }
+
+.u-no-margin-right {
+  margin: 0 !important; }
+
+.u-mr-small {
+  margin-right: 2rem; }
+
 .u-mt-large {
   margin-top: 6rem !important; }
 
@@ -107,7 +113,7 @@ body {
 .u-mb-small {
   margin-bottom: 1.5rem !important; }
   .u-mb-small--admin {
-    margin-bottom: 1.8rem !important; }
+    margin-bottom: 2rem !important; }
 
 .u-mb-med {
   margin-bottom: 3rem !important; }
@@ -154,7 +160,6 @@ body {
       color: #56B3A0; }
 
 .header {
-  width: 100%;
   min-height: 8.4rem;
   background-color: #56B3A0;
   position: relative;
@@ -195,6 +200,9 @@ body {
     transition: all .4s;
     visibility: hidden;
     opacity: 0; }
+    .navigation__nav--sub-menu--admin {
+      padding: 0;
+      text-align: center; }
     .navigation__nav--sub-menu li {
       display: block;
       text-transform: uppercase;
@@ -213,6 +221,16 @@ body {
   text-transform: uppercase;
   font-size: 1.5rem;
   font-weight: 300; }
+  .navigation__item--admin {
+    position: absolute;
+    bottom: 5rem;
+    left: 4rem;
+    padding: 0; }
+    .navigation__item--admin .navigation__nav--sub-menu {
+      left: 10rem;
+      top: 1rem; }
+      .navigation__item--admin .navigation__nav--sub-menu li {
+        margin: 0; }
   .navigation__item:hover ul {
     visibility: visible;
     opacity: 1; }
@@ -391,7 +409,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 12vw;
+  width: 14rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -408,7 +426,7 @@ body {
     font-weight: 300;
     cursor: pointer; }
     .sidenav__title:hover {
-      background-color: #95A5A2; }
+      background-color: #529ABF; }
       .sidenav__title:hover .sidenav__dropdown {
         visibility: visible;
         z-index: 1; }
@@ -419,20 +437,20 @@ body {
     .sidenav__dropdown--users {
       position: absolute;
       top: 11rem;
-      left: 15rem;
+      left: 14rem;
       z-index: -1; }
     .sidenav__dropdown--homes {
       position: absolute;
       top: 15.2rem;
-      left: 15rem;
+      left: 14rem;
       z-index: -1; }
     .sidenav__dropdown--keepers {
       position: absolute;
       top: 19.4rem;
-      left: 15rem;
+      left: 14rem;
       z-index: -1; }
     .sidenav__dropdown li {
-      background-color: #95A5A2;
+      background-color: #529ABF;
       border-bottom: 1px solid white;
       list-style-type: none;
       padding: .5rem;
@@ -468,9 +486,9 @@ body {
       margin-top: -.8rem; }
 
 .user-form__container {
-  margin-top: 3rem;
+  margin-top: 2%;
   width: 50%;
-  margin-left: 31rem; }
+  margin-left: 25%; }
 
 .user-form__input {
   padding: .8rem;

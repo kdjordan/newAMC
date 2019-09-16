@@ -1,0 +1,12 @@
+<%- include('includes/header') %>
+<body>
+    <section class="section-404">
+           <h2 class="row">
+                <% adminErrors.forEach(function(message) { %>
+                    <h2 class="heading-2 u-center"><%= message %></h2>
+                    <% }) %>
+                <p class="u-center">You can always visit the <a href="/">homepage</a> to get a fresh start.</p>
+            </div> 
+           </div>
+    </section>
+<%- include('includes/footer') %>

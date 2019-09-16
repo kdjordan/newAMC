@@ -9,17 +9,30 @@ let User = function(data) {
     this.errors = [];
 }
 
-User.prototype.cleanUp = function() {
-    
+User.prototype.cleanUp = function(loginFlag) {
     if(typeof(this.data.username) != 'string') {this.data.username = '';}
     if(typeof(this.data.password) != 'string') {this.data.password = '';}
-    
-    
+    // if(typeof(this.data.role) != 'string') {this.data.password = '';}
+    // if (!this.data.homesArr.isArray()) {this.data.homesArr = [];}
 
-    this.data = {
-        username: this.data.username.trim().toLowerCase(),
-        password: this.data.password
+    if (loginFlag) {
+        this.data = {
+            username: this.data.username.trim().toLowerCase(),
+            password: this.data.password,
+        }
+    }else {
+        if(typeof(this.data.role) != 'string') {this.data.password = '';}
+        // if (!this.data.homesArr.isArray()) {this.data.homesArr = [];}
+
+        this.data = {
+            username: this.data.username.trim().toLowerCase(),
+            password: this.data.password,
+            homesArray:  this.data.homesArr,
+            role:  this.data.role.trim().toLowerCase()
+        }
     }
+
+    
 }
 
 User.prototype.validate = function() {
@@ -31,10 +44,8 @@ User.prototype.validate = function() {
 
 User.prototype.register = function () {
     return new Promise((resolve, reject) => {
-        
             this.cleanUp();
             this.validate();
-            // console.log(this.data.home-name[0]);
             if(!this.errors.length) {
                 //hash user password
                 let salt = bcrypt.genSaltSync(10);
@@ -49,13 +60,12 @@ User.prototype.register = function () {
             } else {
                 reject();
             }
-        
     }) 
 }
 
 User.prototype.login = function() {
     return new Promise((resolve, reject) => {
-        this.cleanUp();
+        this.cleanUp(true);
         if(!this.errors.length) {
             usersCollection.findOne({username: this.data.username}).then((attemptedUser) => {
                 if(attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {

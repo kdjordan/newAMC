@@ -1,78 +1,122 @@
 <%- include('includes/header') %>
-<header class="header clearfix u-border-bottom-wht">
+<header class="header clearfix">
     <div class="admin-logo-box">
         <div class="admin-logo-box__title">AMC</div>
         <div class="admin-logo-box__title--sub">Vacation Rentals :: Administration</div>
     </div>
-    <nav class="navigation__nav">    
-            <li class="navigation__item">
-                <svg class="icon icon-cog"><use xlink:href="/img/sprite.svg#icon-cog"></use></svg> 
-                <ul class="navigation__nav--sub-menu">
-                    <li><a href="/">HOME</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
 </header>
 
+<%- include('includes/admin-sidenav') %>
 
 
-<div class="sidenav clearfix">
-    
-    <div class="sidenav__box">
-        <ul class="sidenav__outer-menu">
-            <li class="sidenav__title">Users
-                <ul class="sidenav__dropdown sidenav__dropdown--users" >
-                    <li><a href="#">Kathy Smith</a></li>
-                    <li><a href="#">Chip Username</a></li>
-                    <li><a href="#">Rob Another Guy</a></li>
-                    <li><a href="#">Mackenzie Smith</a></li>
-                </ul>
-            </li>
-            <li class="sidenav__title">Homes
-                <ul class="sidenav__dropdown sidenav__dropdown--homes">
-                    <li><a href="#">Home 1</a></li>
-                    <li><a href="#">Home 2</a></li>
-                    <li><a href="#">Home 3</a></li>
-                </ul>
-            </li>
-            <li class="sidenav__title">Keepers
-                <ul class="sidenav__dropdown sidenav__dropdown--keepers">
-                    <li><a href="#">Keeper 1</a></li>
-                    <li><a href="#">Keeper 2</a></li>
-                    <li><a href="#">Keeper 3</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<main>
-<section class="section section-user">
+<section class="section section-user u-hidden">
     <div class="row">
-            <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New User</h2> -->
+            <div class="admin__title">Add New User</div>
             <div class="user-form__container">
-                <form action="/admin/register" method="POST" class="user-form u-center">
+                <form action="/admin/registerUser" method="POST" class="user-form u-center">
                     <div class="row">
-                        <div class="col-1-of-3">
-                                <label for="username" class="heading-3 heading-3__admin-users u-mb-small--admin">Username</label>
-                                <label for="password" class="heading-3 heading-3__admin-users">Password</label>
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <label for="username" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Username</label><br/>
+                                <label for="password" class="u-mr-small heading-3 heading-3__admin-users">Password</label>
                         </div>
-                        <div class="col-2-of-3">
+                        <div class="col-2-of-4">
                                 <input type="text" class="user-form__input u-mb-small" name="username" placeholder="">
                                 <input type="text" class="user-form__input" name="password" placeholder="">
                         </div>
                         
                     </div>
-
-                    
-
                     <div class="row">
-                        <div class="col-1-of-3">
-                                <div class="heading-3 heading-3__admin-users">HOMES</div>
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <div class="u-mr-small heading-3 heading-3__admin-users">HOMES</div>
                         </div>
-                        <div class="col-2-of-3">
+                        <div class="col-2-of-4">
+                            <div class="user-form__checkbox-input">
+                                <input type="checkbox" name="homesArr" value="sunriver" class="home-checkbox" id="sunriver">
+                                <label for="sunriver" class="label">Sunriver</label><br>
+                                <input type="checkbox" name="homesArr" value="idaho" class="home-checkbox" id="idaho">
+                                <label for="idaho" class="label">Idaho</label><br>
+                                <input type="checkbox" name="homesArr" value="cannon-beach" class="home-checkbox" id="cannon-beach">
+                                <label for="cannon-beach" class="label">Cannon Beach</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <div class="u-mr-small heading-3 heading-3__admin-users">role</div>
+                        </div>
+                        <div class="col-2-of-4">
+                            <div class="user-form__radio-input">
+                                <input type="radio" name="role" value="user" id="user">
+                                <label for="user" class="label">User</label><br>
+                                <input type="radio" name="role" value="keeper" id="keeper">
+                                <label for="keeper" class="label">Keeper</label> <br>
+                                <input type="radio" name="role" value="admin" id="admin"> 
+                                <label for="admin" class="label">Administrator</label><br>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-login">SUBMIT</button>
+                    </div>
+                
+                </form>
+        </div> <!-- end user form -->
+</div> 
+</section>
+
+<div class="section section-homes">
+    <div class="user-form__container">
+        <form action="/admin/registerHome" method="POST" class="user-form u-center">
+            <div class="row">
+                <div class="col-2-of-4 u-no-margin-right u-right">
+                    <!-- <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div> -->
+                    <label for="homeUrl" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Img</label>
+                </div>
+                <div class="col-2-of-4">
+                        <input type="text" class="user-form__input u-mb-small" name="homeUrl" placeholder="">
+                        <!-- <img src="/img/sunriver-sm.png" class="header-box__image u-float-left" name="homeURL"> -->
+                </div>
+            </div>       
+            <div class="row">
+                <div class="col-2-of-4 u-no-margin-right u-right">
+                    <label for="homename" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Name</label>
+                </div>
+                <div class="col-2-of-4">
+                    <input type="text" class="user-form__input u-mb-small" name="homeName" placeholder="">
+                </div>
+            </div>
+            <% if(adminMessage) { %>
+                console.log(adminMessage)
+            <% } %>
+            <div class="row">
+                <button type="submit" class="btn btn-login">SUBMIT</button>
+            </div>
+        </form>
+    </div>   
+</div> 
+
+<div class="section section-keepers u-hidden">
+        <div class="row">
+            <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New User</h2> -->
+            <div class="user-form__container">
+                <form action="/admin/register" method="POST" class="user-form u-center">
+                    <div class="row">
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <label for="keepername" class="heading-3 heading-3__admin-users u-mb-small--admin u-mr-small">Keeper name</label>
+                                <label for="password" class="heading-3 heading-3__admin-users u-mr-small">Password</label>
+                        </div>
+                        <div class="col-2-of-4">
+                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder="">
+                                <input type="text" class="user-form__input" name="password" placeholder="">
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <div class="heading-3 heading-3__admin-users u-mr-small">HOME</div>
+                        </div>
+                        <div class="col-2-of-4">
                             <div class="user-form__checkbox-input">
                                 <input type="checkbox" name="home-name" value="sunriver" class="home-checkbox" id="sunriver">
                                 <label for="sunriver" class="label">Sunriver</label><br>
@@ -83,33 +127,14 @@
                             </div>
                         </div>
                     </div>
-
-                    
-
                     <div class="row">
-                        <div class="col-1-of-3">
-                                <div class="heading-3 heading-3__admin-users">role</div>
-                        </div>
-                        <div class="col-2-of-3">
-                            <div class="user-form__radio-input">
-                                <input type="radio" name="user-role" value="user" id="user">
-                                <label for="user" class="label">User</label><br>
-                                <input type="radio" name="user-role" value="keeper" id="keeper">
-                                <label for="keeper" class="label">Keeper</label> <br>
-                                <input type="radio" name="user-role" value="admin" id="admin"> 
-                                <label for="admin" class="label">Administrator</label><br>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="">
                         <button type="submit" class="btn btn-login">SUBMIT</button>
                     </div>
                 
                 </form>
         </div> <!-- end user form -->
-</div> 
-</section>
+    </div> 
+</div>         
 </main>
 <%- include('includes/footer') %>
 

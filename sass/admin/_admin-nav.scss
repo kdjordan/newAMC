@@ -1,8 +1,8 @@
 .sidenav {
     height: 100%;
-    width: 12vw;
+    width: 14rem;
     position: fixed;
-    
+    // display: none;
     top: 0;
     left: 0;
     background-color: $color-primary;
@@ -26,7 +26,8 @@
         cursor: pointer;
 
         &:hover {
-            background-color: $color-grey;
+            background-color: $color-tertiary;
+            
 
             & .sidenav__dropdown {
                 visibility: visible;
@@ -44,7 +45,7 @@
           &--users {
             position: absolute;
             top: 11rem;
-            left: 15rem;
+            left: 14rem;
             z-index: -1;
             
           }
@@ -52,19 +53,19 @@
           &--homes {
             position: absolute;
             top: 15.2rem;
-            left: 15rem;
+            left: 14rem;
             z-index: -1;
           }
 
           &--keepers {
             position: absolute;
             top: 19.4rem;
-            left: 15rem;
+            left: 14rem;
             z-index: -1;
           }
 
           & li {
-              background-color: $color-grey;
+              background-color: $color-tertiary;
               border-bottom: 1px solid white;
               list-style-type: none;
               padding: .5rem;

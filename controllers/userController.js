@@ -13,7 +13,7 @@ exports.home = function(req, res) {
 exports.login = function(req, res) {
         let user = new User(req.body);
         user.login().then(function(result) {
-            req.session.user = {username: user.data.username, _id: user.data._id};
+            req.session.user = {username: user.data.username, _id: user.data._id, role: user.data.role, homesArr: user.data.homesArr};
             req.session.save(function() {
                 res.redirect('/');
             });
@@ -31,9 +31,6 @@ exports.logout = function(req, res) {
     });
 };
 
-exports.adminHome = function(req, res) {
-    res.render('admin-register');
-}
 
 exports.register = async function(req, res) {
     try {
@@ -46,6 +43,7 @@ exports.register = async function(req, res) {
     } catch {
         res.send('Error adding new User');
     }
-
 };
+
+
 

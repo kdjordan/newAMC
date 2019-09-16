@@ -1,0 +1,36 @@
+<div class="sidenav clearfix">
+        <div class="sidenav__box">
+            <ul class="sidenav__outer-menu">
+                <li class="sidenav__title">Users
+                    <ul class="sidenav__dropdown sidenav__dropdown--users" >
+                        <% menuDoc.forEach((el) => { %>
+                            <li><a href="#" data-id="<%= el._id %>"><%= el.username %></a></li>
+                       <% })%>
+                    </ul>
+                </li>
+                <li class="sidenav__title">Homes
+                    <ul class="sidenav__dropdown sidenav__dropdown--homes">
+                        <li><a href="#">Home 1</a></li>
+                        <li><a href="#">Home 2</a></li>
+                        <li><a href="#">Home 3</a></li>
+                    </ul>
+                </li>
+                <li class="sidenav__title">Keepers
+                    <ul class="sidenav__dropdown sidenav__dropdown--keepers">
+                        <li><a href="#">Keeper 1</a></li>
+                        <li><a href="#">Keeper 2</a></li>
+                        <li><a href="#">Keeper 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+                <div class="navigation__item navigation__item--admin">
+                    <svg class="icon icon-cog"><use xlink:href="/img/sprite.svg#icon-cog"></use></svg> 
+                    <ul class="navigation__nav--sub-menu navigation__nav--sub-menu--admin">
+                        <li class="u-border-bottom-wht"><a href="/">HOME</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+    
+    <main>

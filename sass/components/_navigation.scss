@@ -1,5 +1,5 @@
 .header {
-    width: 100%;
+    // width: 100%;
     min-height: 8.4rem;
     background-color: $color-primary;
     position: relative;
@@ -53,6 +53,11 @@
             transition: all .4s;
             visibility: hidden;
             opacity: 0;
+
+            &--admin {
+                padding: 0;
+                text-align: center;
+            }
       
             & li {
                 display: block;
@@ -79,6 +84,25 @@
         text-transform: uppercase;
         font-size: 1.5rem;
         font-weight: 300;
+
+        &--admin {
+            
+            position: absolute;
+            bottom: 5rem;
+            left: 4rem;
+            padding: 0;
+
+            & .navigation__nav--sub-menu {
+                left: 10rem;
+                top: 1rem;
+                
+
+                & li {
+                    margin: 0;
+                }
+            }
+        }
+
         
         &:hover ul {
             visibility: visible;

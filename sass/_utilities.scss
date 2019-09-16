@@ -6,10 +6,25 @@
     text-align: right !important;
 }
 
+
 .u-hidden {
     display: none;
     opacity: 0;
     z-index: -100;
+}
+
+///float overrides 
+.u-float-left {
+    float: left;
+}
+
+//////right margins
+.u-no-margin-right {
+    margin: 0 !important;
+}
+
+.u-mr-small {
+    margin-right: 2rem;
 }
 
 /////top margins
@@ -29,7 +44,7 @@
     margin-bottom: 1.5rem !important;
 
     &--admin {
-        margin-bottom: 1.8rem !important;
+        margin-bottom: 2rem !important;
     }
 }
 
@@ -41,7 +56,6 @@
     margin-bottom: 6rem !important;
 }
 
-
 ///border-bottom 
 .u-border-bottom {
     border-bottom: 1px solid $color-primary;
@@ -50,7 +64,6 @@
         border-bottom: 1px solid $color-white;
     }
 }
-
 
 .clearfix {
     &::after{
