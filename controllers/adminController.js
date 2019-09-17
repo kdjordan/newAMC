@@ -4,27 +4,23 @@ const Admin = require('../models/Admin');
 
 //exports.name = function(req, res) {}
 
-
-
 exports.home = async function(req, res) {
-    console.log(req.usersArr);
-   res.render('admin-register', {usersArr: req.usersArr});
+   res.render('admin-register', {usersArr: req.usersArr, homesArr: req.homesArr, keepersArr: req.keepersArr});
 }
 
 
 exports.getMenuData = async function(req, res, next) {
     let admin = new Admin();
-    let usersArrPromise = await admin.getUsersData();
-    // let homesArrPromise = admin.getHomesData();
-    // let keepersArr = admin.getKeepersData();
+    let usersArrPromise = admin.getUsersData();
+    let homesArrPromise = admin.getHomesData();  
+    let keepersArrPromise = admin.getKeepersData();
     
-    // let [usersArr] = await Promise.all([usersArrPromise);
+    let [usersArr, homesArr, keepersArr] = await Promise.all([usersArrPromise, homesArrPromise, keepersArrPromise]);
     
-    req.usersArr = usersArrPromise;
-    // req.homesArr = homesArr;
+    req.usersArr = usersArr;
+    req.homesArr = homesArr;
+    req.keepersArr = keepersArr;
     
-    // console.log(req.usersArr);
-    // console.log(homesArr);
     next();
 }
 

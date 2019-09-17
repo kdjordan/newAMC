@@ -35,9 +35,8 @@ exports.logout = function(req, res) {
 exports.register = async function(req, res) {
     try {
         let user = new User(req.body);
-        console.log(user);
         if(user.register()) {
-            res.send('new user added');
+            res.redirect('/admin');
         }
 
     } catch {

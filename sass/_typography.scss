@@ -27,10 +27,21 @@ body {
 
     &__admin-users {
         font-weight: 300;
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: $color-primary;
+
+        &--username {
+            position: absolute;
+            right: 18px;
+            top: 16px;
+        }
+
+        &--password {
+            position: absolute;
+            right: 18px;
+            top: 50px;
+        }
     }
-    
 }
 
 .res-title {
@@ -48,4 +59,15 @@ body {
     text-transform: uppercase;
     font-weight: 300;
     margin-left: 45rem;
+}
+
+.label {
+    color: $color-grey;
+    display: inline-block;
+    margin: 0 1rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 1.1rem;
+    
+    
 }

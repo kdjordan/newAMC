@@ -2,7 +2,6 @@
     cursor: pointer;
     border-radius: 5px;
     
-
     &-login {
         background-color: rgba($color-primary, 0.8);
         font-size: 1.3rem;
@@ -36,6 +35,38 @@
         }
         
     }
+
+    &__admin{
+        position: absolute;
+        padding: .5rem 1rem;
+        
+        &--submit {
+            top: 0;
+            right: 26%;
+            color: $color-white;
+            background-color: $color-tertiary;
+            transition: all .4s;
+
+            &:hover {
+                transform: translateX(1rem);
+            }
+        }
+    
+        &--delete {
+            top: 0;
+            right: 40%;
+            
+            color: $color-white;
+            background-color: $color-secondary;
+            transition: all .4s;
+
+            &:hover {
+                transform: translateX(1rem);
+            }
+        }
+
+    }
+    
     
 
 }

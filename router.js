@@ -22,4 +22,5 @@ router.post('/admin/registerHome', adminController.isAdmin, homeController.regis
 
 
 
+
 module.exports  = router;

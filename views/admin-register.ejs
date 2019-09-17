@@ -1,34 +1,34 @@
 <%- include('includes/header') %>
 <header class="header clearfix">
     <div class="admin-logo-box">
-        <div class="admin-logo-box__title">AMC</div>
-        <div class="admin-logo-box__title--sub">Vacation Rentals :: Administration</div>
+        <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></div>
+        <div class="admin-logo-box__title--notifications">Administration > <span class="message">Add New User</span></div>
     </div>
 </header>
 
-<!-- //////////////////////SIDE NAV?////////////////////// -->
+<!-- ////////////////////// SIDE NAV ////////////////////// -->
 <div class="sidenav clearfix">
         <div class="sidenav__box">
             <ul class="sidenav__outer-menu">
-                <li class="sidenav__title">Users
-                    <ul class="sidenav__dropdown sidenav__dropdown--users" >
+                <li class="sidenav__title" id="users">Users
+                    <ul class="sidenav__dropdown sidenav__dropdown--users">
                             <% usersArr.forEach((el) => { %>
                                 <li><a href="#" data-id="<%= el._id %>"><%= el.username %></a></li>
                            <% })%>
                     </ul>
                 </li>
-                <li class="sidenav__title">Homes
+                <li class="sidenav__title" id="homes">Homes
                     <ul class="sidenav__dropdown sidenav__dropdown--homes">
-                        <li><a href="#">Home 1</a></li>
-                        <li><a href="#">Home 2</a></li>
-                        <li><a href="#">Home 3</a></li>
+                            <% homesArr.forEach((el) => { %>
+                                <li><a href="#" data-id="<%= el._id %>"><%= el.homeName %></a></li>
+                           <% })%>
                     </ul>
                 </li>
-                <li class="sidenav__title">Keepers
+                <li class="sidenav__title" id="keepers">Keepers
                     <ul class="sidenav__dropdown sidenav__dropdown--keepers">
-                        <li><a href="#">Keeper 1</a></li>
-                        <li><a href="#">Keeper 2</a></li>
-                        <li><a href="#">Keeper 3</a></li>
+                            <% keepersArr.forEach((el) => { %>
+                                <li><a href="#" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
+                           <% })%>
                     </ul>
                 </li>
             </ul>
@@ -41,23 +41,25 @@
                 </div>
         </div>
 </div>
-<!-- //////////////////////SIDE NAV?////////////////////// -->    
+<!-- ////////////////////// SIDE NAV ////////////////////// -->    
 <main>
-<section class="section section-user u-hidden">
+<section class="section section-users">
     <div class="row">
-            <div class="admin__title">Add New User</div>
+            <!-- <div class="admin__title">Add New User</div> -->
             <div class="user-form__container">
                 <form action="/admin/registerUser" method="POST" class="user-form u-center">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
-                                <label for="username" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Username</label><br/>
-                                <label for="password" class="u-mr-small heading-3 heading-3__admin-users">Password</label>
+                            <div style= "position: relative;">
+                                <label for="username" class="heading-3 heading-3__admin-users heading-3__admin-users--username">Username</label><br />
+                                <label for="password" class="heading-3 heading-3__admin-users heading-3__admin-users--password">Password</label>   
+                            </div>            
                         </div>
                         <div class="col-2-of-4">
-                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder="">
+                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder=""> 
                                 <input type="text" class="user-form__input" name="password" placeholder="">
+                                
                         </div>
-                        
                     </div>
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
@@ -91,52 +93,60 @@
                         
                     </div>
                     <div class="row">
-                        <button type="submit" class="btn btn-login">SUBMIT</button>
+                        <div style="position: relative;">
+                            <button type="submit" class="btn btn__admin btn__admin--submit">SUBMIT</button>
+                            <button type="submit" class="btn btn__admin btn__admin--delete">DELETE</button>
+                        </div>
                     </div>
                 
                 </form>
         </div> <!-- end user form -->
-</div> 
+    </div>        
 </section>
 
-<div class="section section-homes">
-    <div class="user-form__container">
-        <form action="/admin/registerHome" method="POST" class="user-form u-center">
-            <div class="row">
-                <div class="col-2-of-4 u-no-margin-right u-right">
-                    <!-- <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div> -->
-                    <label for="homeUrl" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Img</label>
+<section class="section section-homes u-hidden">
+    <div class="row">
+        <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New Home</h2> -->
+        <div class="user-form__container">
+            <form action="/admin/registerHome" method="POST" class="user-form u-center">
+                <div class="row">
+                    <div class="col-2-of-4 u-no-margin-right u-right">
+                        <!-- <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div> -->
+                        <label for="homeUrl" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Img</label>
+                    </div>
+                    <div class="col-2-of-4">
+                            <input type="text" class="user-form__input u-mb-small" name="homeUrl" placeholder="">
+                            <!-- <img src="/img/sunriver-sm.png" class="header-box__image u-float-left" name="homeURL"> -->
+                    </div>
+                </div>       
+                <div class="row">
+                    <div class="col-2-of-4 u-no-margin-right u-right">
+                        <label for="homename" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Name</label>
+                    </div>
+                    <div class="col-2-of-4">
+                        <input type="text" class="user-form__input u-mb-small" name="homeName" placeholder="">
+                    </div>
                 </div>
-                <div class="col-2-of-4">
-                        <input type="text" class="user-form__input u-mb-small" name="homeUrl" placeholder="">
-                        <!-- <img src="/img/sunriver-sm.png" class="header-box__image u-float-left" name="homeURL"> -->
+                
+                <div class="row">
+                    <button type="submit" class="btn btn-login">SUBMIT</button>
                 </div>
-            </div>       
-            <div class="row">
-                <div class="col-2-of-4 u-no-margin-right u-right">
-                    <label for="homename" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Name</label>
-                </div>
-                <div class="col-2-of-4">
-                    <input type="text" class="user-form__input u-mb-small" name="homeName" placeholder="">
-                </div>
-            </div>
-            
-            <div class="row">
-                <button type="submit" class="btn btn-login">SUBMIT</button>
-            </div>
-        </form>
-    </div>   
-</div> 
+            </form>
+        </div>   
+    </div> 
+</section>
 
-<div class="section section-keepers u-hidden">
-        <div class="row">
-            <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New User</h2> -->
+<section class="section section-keepers u-hidden">
+    <div class="row">
+            <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New Keeper</h2> -->
             <div class="user-form__container">
                 <form action="/admin/register" method="POST" class="user-form u-center">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
-                                <label for="keepername" class="heading-3 heading-3__admin-users u-mb-small--admin u-mr-small">Keeper name</label>
-                                <label for="password" class="heading-3 heading-3__admin-users u-mr-small">Password</label>
+                            <div style= "position: relative;">
+                                <label for="keepername" class="heading-3 heading-3__admin-users heading-3__admin-users--username">Keeper name</label><br />
+                                <label for="password" class="heading-3 heading-3__admin-users heading-3__admin-users--password">Password</label>
+                            </div>    
                         </div>
                         <div class="col-2-of-4">
                                 <input type="text" class="user-form__input u-mb-small" name="username" placeholder="">
@@ -165,8 +175,8 @@
                 
                 </form>
         </div> <!-- end user form -->
-    </div> 
-</div>         
+    </div>    
+</section>         
 </main>
 <%- include('includes/footer') %>
 

@@ -6,14 +6,11 @@
     top: 0;
     left: 0;
     background-color: $color-primary;
-    
-    
+        
     &__box {
         margin-top: 11rem;
         
     }
-    
-    
 
     &__title {
         padding: .6rem .6rem .6rem 3.2rem;
@@ -27,8 +24,7 @@
 
         &:hover {
             background-color: $color-tertiary;
-            
-
+                
             & .sidenav__dropdown {
                 visibility: visible;
                 z-index: 1;
@@ -111,6 +107,15 @@
         &--sub {
             font-size: 1.5rem;
             margin-top: -.8rem;
+        }
+
+        &--notifications {
+            border-radius: 5px;
+            padding: .2rem .5rem;;
+            font-size: 1.2rem;
+            margin-top: 0;
+            background-color: $color-tertiary;
+            border: 1px solid $color-white;
         }
     }
 }

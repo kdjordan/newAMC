@@ -63,8 +63,16 @@ body {
   display: inline-block; }
   .heading-3__admin-users {
     font-weight: 300;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #56B3A0; }
+    .heading-3__admin-users--username {
+      position: absolute;
+      right: 18px;
+      top: 16px; }
+    .heading-3__admin-users--password {
+      position: absolute;
+      right: 18px;
+      top: 50px; }
 
 .res-title {
   text-transform: uppercase;
@@ -80,6 +88,14 @@ body {
   text-transform: uppercase;
   font-weight: 300;
   margin-left: 45rem; }
+
+.label {
+  color: #95A5A2;
+  display: inline-block;
+  margin: 0 1rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 1.1rem; }
 
 .u-center {
   text-align: center !important; }
@@ -158,6 +174,25 @@ body {
       background-color: transparent;
       border-bottom: 2px solid #56B3A0;
       color: #56B3A0; }
+  .btn__admin {
+    position: absolute;
+    padding: .5rem 1rem; }
+    .btn__admin--submit {
+      top: 0;
+      right: 26%;
+      color: #ffffff;
+      background-color: #529ABF;
+      transition: all .4s; }
+      .btn__admin--submit:hover {
+        transform: translateX(1rem); }
+    .btn__admin--delete {
+      top: 0;
+      right: 40%;
+      color: #ffffff;
+      background-color: #BC8F89;
+      transition: all .4s; }
+      .btn__admin--delete:hover {
+        transform: translateX(1rem); }
 
 .header {
   min-height: 8.4rem;
@@ -483,6 +518,13 @@ body {
     .admin-logo-box__title--sub {
       font-size: 1.5rem;
       margin-top: -.8rem; }
+    .admin-logo-box__title--notifications {
+      border-radius: 5px;
+      padding: .2rem .5rem;
+      font-size: 1.2rem;
+      margin-top: 0;
+      background-color: #529ABF;
+      border: 1px solid #ffffff; }
 
 .user-form__container {
   margin-top: 2%;
@@ -490,7 +532,7 @@ body {
   margin-left: 25%; }
 
 .user-form__input {
-  padding: .8rem;
+  padding: .2rem;
   border-radius: 5px;
   border: 1px solid #95A5A2;
   width: 60%;
@@ -504,15 +546,6 @@ body {
 .user-form__radio-input {
   text-align: left;
   color: #95A5A2; }
-
-.label {
-  color: #95A5A2;
-  display: inline-block;
-  margin: 0 1rem;
-  text-transform: uppercase;
-  font-weight: 300;
-  font-size: 1.3rem;
-  letter-spacing: 1px; }
 
 .admin-top-margin {
   margin-top: 4rem; }
