@@ -5,14 +5,15 @@ const User = require('../models/User');
 
 let Admin = function() {
     this.users = [];
-    // this.homes = [];
+    this.homes = [];
     // this.keepers = [];
     // this.errors = [];
 };
 
 
 
-Admin.prototype.getMenuData = function () {
+
+Admin.prototype.getUsersData = function() {
     return new Promise(async (resolve, reject) => {
         try {
             let usersDoc = await usersCollection.find().toArray();
@@ -24,8 +25,5 @@ Admin.prototype.getMenuData = function () {
             reject(e);
         }
     })
-    
-};
-
-
+}
 module.exports = Admin;

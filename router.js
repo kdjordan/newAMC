@@ -15,7 +15,7 @@ router.post('/makeReservation', reservationController.create);
 
 
 //admin realated routes
-router.get('/admin', adminController.isAdmin, adminController.home);
+router.get('/admin', adminController.isAdmin, adminController.getMenuData, adminController.home);
 
 router.post('/admin/registerUser', adminController.isAdmin, userController.register);
 router.post('/admin/registerHome', adminController.isAdmin, homeController.register);

@@ -7,22 +7,26 @@ const Admin = require('../models/Admin');
 
 
 exports.home = async function(req, res) {
-    //create new Admin
-    let admin = new Admin();
-    
-    admin.getMenuData().then((menuDoc) => {
-        // console.log(menuDoc);
-        res.render('admin-register', {menuDoc});
-    }).catch((e) => {
-        res.render('404')
-    });
-    
-    
-
-    
+    console.log(req.usersArr);
+   res.render('admin-register', {usersArr: req.usersArr});
 }
 
 
+exports.getMenuData = async function(req, res, next) {
+    let admin = new Admin();
+    let usersArrPromise = await admin.getUsersData();
+    // let homesArrPromise = admin.getHomesData();
+    // let keepersArr = admin.getKeepersData();
+    
+    // let [usersArr] = await Promise.all([usersArrPromise);
+    
+    req.usersArr = usersArrPromise;
+    // req.homesArr = homesArr;
+    
+    // console.log(req.usersArr);
+    // console.log(homesArr);
+    next();
+}
 
 exports.isAdmin = function(req, res, next) {
     if (req.session.user.role == 'admin') {
