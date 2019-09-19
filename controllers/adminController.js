@@ -5,7 +5,12 @@ const Admin = require('../models/Admin');
 //exports.name = function(req, res) {}
 
 exports.home = async function(req, res) {
-   res.render('admin-register', {usersArr: req.usersArr, homesArr: req.homesArr, keepersArr: req.keepersArr});
+   res.render('admin-register', {
+       usersArr: req.usersArr, 
+       homesArr: req.homesArr, 
+       keepersArr: req.keepersArr,
+       adminTitleMessage: req.session.adminTitleMessage
+    });
 }
 
 

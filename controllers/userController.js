@@ -36,7 +36,11 @@ exports.register = async function(req, res) {
     try {
         let user = new User(req.body);
         if(user.register()) {
-            res.redirect('/admin');
+            req.session.adminTitleMessage = "user successfully added";
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
+           
         }
 
     } catch {

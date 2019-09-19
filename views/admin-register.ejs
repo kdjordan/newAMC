@@ -2,7 +2,10 @@
 <header class="header clearfix">
     <div class="admin-logo-box">
         <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></div>
-        <div class="admin-logo-box__title--notifications">Administration > <span class="message">Add New User</span></div>
+        <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Add New User</span></div>
+        <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
+                <%= adminTitleMessage %>
+        </span>
     </div>
 </header>
 
@@ -128,8 +131,9 @@
                     </div>
                 </div>
                 
-                <div class="row">
-                    <button type="submit" class="btn btn-login">SUBMIT</button>
+                <div style="position: relative;">
+                    <button type="submit" class="btn btn__admin btn__admin--submit">SUBMIT</button>
+                    <button type="submit" class="btn btn__admin btn__admin--delete">DELETE</button>
                 </div>
             </form>
         </div>   
@@ -169,9 +173,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <button type="submit" class="btn btn-login">SUBMIT</button>
-                    </div>
+                    <div style="position: relative;">
+                            <button type="submit" class="btn btn__admin btn__admin--submit">SUBMIT</button>
+                            <button type="submit" class="btn btn__admin btn__admin--delete">DELETE</button>
+                        </div>
                 
                 </form>
         </div> <!-- end user form -->
