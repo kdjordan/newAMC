@@ -2,7 +2,7 @@ export default class Admin {
     constructor() {
         this.navTitles = document.querySelectorAll('.sidenav__title');
         this.titleMessage = document.querySelector('.titleMessage');
-        this.alertSpan = document.querySelector('titleMessage');
+        this.alertMessage = document.getElementById('alertMessage');
         this.events();  
     }
 
@@ -10,10 +10,13 @@ export default class Admin {
     events() {
        this.navTitles.forEach(el => {
            el.addEventListener('click', () => {
-            
                 this.subMenuToggle(el);
            })
        })
+
+       setTimeout(function() {
+            this.alertMessage.classList.add('hide-alert')
+       }, 3000)
     }
     
     //methods

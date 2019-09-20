@@ -399,9 +399,10 @@ body {
   .alert-success {
     color: #56B3A0; }
     .alert-success__admin {
+      font-weight: 700;
       opacity: 1;
       z-index: 1;
-      border: 1px solid #529ABF;
+      visibility: visible;
       padding: .4rem 1rem;
       color: #ffffff;
       border-radius: 5px;
@@ -410,6 +411,7 @@ body {
       color: #BC8F89; }
 
 .hide-alert {
+  visibility: hidden;
   z-index: -1;
   opacity: 0; }
 

@@ -1,12 +1,23 @@
 const Home = require('../models/Home');
 
 exports.register = async function(req, res) {
-    let newHome = new Home(req.body);
-    await newHome.register().then(() => {
-        res.render('admin-register', {adminMessage: "Home Succesfully added"});
-    }).catch((e) => {
-        res.send('problem registering home    ' + e);
-    });
+    try {
+        let newHome = new Home(req.body);
+        if(newHome.register()){
+            req.flash('adminTitleMessage', "home added successfully");
+            req.session.save(function() {
+                res.redirect('/admin');
+            });
+        } else {
+            req.flash('adminTitleMessage', "Uh OH - That didn't work !");
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
+        }
+
+    } catch(e) {
+        res.render('404', e);
+    }
 };
 
 

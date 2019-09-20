@@ -5,9 +5,10 @@
         color: $color-primary;
 
         &__admin {
+            font-weight: 700;
             opacity: 1;
             z-index: 1;
-            border: 1px solid $color-tertiary;
+            visibility: visible;
             padding: .4rem 1rem;
             color: $color-white;
             border-radius: 5px;
@@ -23,6 +24,7 @@
 }
 
 .hide-alert {
+    visibility: hidden;
     z-index: -1;
     opacity: 0;
         

@@ -21,6 +21,9 @@ router.post('/admin/registerUser', adminController.isAdmin, userController.regis
 router.post('/admin/registerHome', adminController.isAdmin, homeController.register);
 
 
+//edit related routes
+router.get('/edit/user/:id', adminController.isAdmin, adminController.getMenuData, adminController.home)
+
 
 
 module.exports  = router;

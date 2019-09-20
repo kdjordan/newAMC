@@ -2,6 +2,7 @@ const usersCollection = require('../db').db().collection('users');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const md5 = require('md5');
+const ObjectID = require('mongodb').ObjectID;
 
 
 let User = function(data) {
@@ -80,6 +81,33 @@ User.prototype.login = function() {
         }
     })
 };
+
+User.getUserData = function(id) {
+    return new Promise(async (resolve, reject) => {
+        if(typeof(id) != 'string' || !ObjectID.isValid(id)) {
+            reject();
+            return;
+         }
+         
+        let userDoc = await usersCollection.aggregate(
+          [{$match: {_id: new ObjectID(id)}},
+            {$project: {
+                username: 1,
+                homesArray: 1,
+                role: 1,
+            }
+        }]).toArray();
+        
+        if(userDoc.length) {
+            resolve(userDoc[0]);
+        } else {
+            reject('error');
+        }
+
+    })
+    
+
+}
 
 
 module.exports = User;

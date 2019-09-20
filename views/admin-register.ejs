@@ -4,7 +4,9 @@
         <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></div>
         <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Add New User</span></div>
         <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
-                <%= adminTitleMessage %>
+                
+            <%= adminTitleMessage %>
+
         </span>
     </div>
 </header>
@@ -16,21 +18,21 @@
                 <li class="sidenav__title" id="users">Users
                     <ul class="sidenav__dropdown sidenav__dropdown--users">
                             <% usersArr.forEach((el) => { %>
-                                <li><a href="#" data-id="<%= el._id %>"><%= el.username %></a></li>
+                                <li><a href="/edit/user/<%= el._id %>" data-id="<%= el._id %>"><%= el.username %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="homes">Homes
                     <ul class="sidenav__dropdown sidenav__dropdown--homes">
                             <% homesArr.forEach((el) => { %>
-                                <li><a href="#" data-id="<%= el._id %>"><%= el.homeName %></a></li>
+                                <li><a href="/edit/home/<%= el._id %>" data-id="<%= el._id %>"><%= el.homeName %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="keepers">Keepers
                     <ul class="sidenav__dropdown sidenav__dropdown--keepers">
                             <% keepersArr.forEach((el) => { %>
-                                <li><a href="#" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
+                                <li><a href="/edit/keeper/<%= el._id %>" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
                            <% })%>
                     </ul>
                 </li>

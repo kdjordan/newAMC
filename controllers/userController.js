@@ -36,11 +36,16 @@ exports.register = async function(req, res) {
     try {
         let user = new User(req.body);
         if(user.register()) {
-            req.session.adminTitleMessage = "user successfully added";
+            req.flash('adminTitleMessage', "user added successfully");
             req.session.save(function() {
                 res.redirect('/admin');
             })
            
+        } else {
+            req.flash('adminTitleMessage', "Uh OH - It didn't work !");
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
         }
 
     } catch {
@@ -48,5 +53,16 @@ exports.register = async function(req, res) {
     }
 };
 
+exports.getUserById = async function(req, res) {
+    try {
+        let user = await User.getUserData(req.params.id);
+        //render user data into modal ??
+
+    } catch(e){
+        res.send(e);
+    }
+
+    
+};
 
 
