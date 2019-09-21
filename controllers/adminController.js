@@ -6,7 +6,8 @@ const Admin = require('../models/Admin');
 
 exports.home = async function(req, res) {
     console.log('______');
-   console.log(req.usersArr);
+   console.log(req.session.usersArr);
+
    res.render('admin-register', {
        usersArr: req.usersArr, 
        homesArr: req.homesArr, 

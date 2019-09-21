@@ -12,27 +12,27 @@
 </header>
 
 <!-- ////////////////////// SIDE NAV ////////////////////// -->
-<div class="sidenav clearfix">
+<div class="sidenav clearfix" id="sidenav">
         <div class="sidenav__box">
             <ul class="sidenav__outer-menu">
                 <li class="sidenav__title" id="users">Users
                     <ul class="sidenav__dropdown sidenav__dropdown--users">
                             <% usersArr.forEach((el) => { %>
-                                <li><a href="/edit/user/<%= el._id %>" data-id="<%= el._id %>"><%= el.username %></a></li>
+                                <li><a href="/user/<%= el._id %>/edit" data-id="<%= el._id %>"><%= el.username %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="homes">Homes
                     <ul class="sidenav__dropdown sidenav__dropdown--homes">
                             <% homesArr.forEach((el) => { %>
-                                <li><a href="/edit/home/<%= el._id %>" data-id="<%= el._id %>"><%= el.homeName %></a></li>
+                                <li><a href="#" data-id="<%= el._id %>"><%= el.homeName %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="keepers">Keepers
                     <ul class="sidenav__dropdown sidenav__dropdown--keepers">
                             <% keepersArr.forEach((el) => { %>
-                                <li><a href="/edit/keeper/<%= el._id %>" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
+                                <li><a href="#" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
                            <% })%>
                     </ul>
                 </li>
@@ -52,7 +52,7 @@
     <div class="row">
             <!-- <div class="admin__title">Add New User</div> -->
             <div class="user-form__container">
-                <form action="/admin/registerUser" method="POST" class="user-form u-center">
+                <form action="/admin/registerUser" method="POST" class="user-form u-center" id="adminUserEdit-form">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
                             <div style= "position: relative;">
