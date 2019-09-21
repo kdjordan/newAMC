@@ -8,14 +8,13 @@ export default class AdminUserEditForm {
         this.homes = document.querySelector('#admin-homes');
         this.roles = document.querySelector('#admin-roles');
 
-        this.events
+        this.events();
     }
 
     //events
     events() {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('fired');
             // this.formSubmitHandler();
         })
     }

@@ -18,7 +18,7 @@
                 <li class="sidenav__title" id="users">Users
                     <ul class="sidenav__dropdown sidenav__dropdown--users">
                             <% usersArr.forEach((el) => { %>
-                                <li><a href="/user/<%= el._id %>/edit" data-id="<%= el._id %>"><%= el.username %></a></li>
+                                <li id="userLinks"><a href="/user/<%= el._id %>/edit" data-id="<%= el._id %>"><%= el.username %></a></li>
                            <% })%>
                     </ul>
                 </li>

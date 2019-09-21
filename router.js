@@ -22,7 +22,7 @@ router.post('/admin/registerHome', adminController.isAdmin, homeController.regis
 
 
 //edit related routes
-router.get('/user/:id/edit', adminController.isAdmin, adminController.getMenuData, userController.getUserDataById, adminController.home)
+router.post('/getUserData', adminController.isAdmin, userController.getUserDataById)
 
 
 

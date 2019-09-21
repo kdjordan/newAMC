@@ -55,21 +55,12 @@ exports.register = async function(req, res) {
 
 exports.getUserDataById = async function(req, res) {
     try {
-        let user = await User.getUserData(req.params.id);
-        //render user data into modal ??
-        req.session.editUserData = user;
-        req,session.save(function() {
-            console.log('sending');
-            res.redirect('/admin');
-        })
-        
-        next();
-
-    } catch(e){
+        let user = await User.getUserData(req.body.usernameId);
+        res.json(user);
+    } catch(e) {
         res.send(e);
     }
-
-    
 };
+
 
 
