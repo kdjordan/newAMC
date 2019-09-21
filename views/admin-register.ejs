@@ -61,8 +61,8 @@
                             </div>            
                         </div>
                         <div class="col-2-of-4">
-                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder=""> 
-                                <input type="text" class="user-form__input" name="password" placeholder="">
+                                <input type="text" id="admin-username" class="user-form__input u-mb-small" name="username" placeholder=""> 
+                                <input type="text" id="admin-password" class="user-form__input" name="password" placeholder="">
                                 
                         </div>
                     </div>
@@ -71,27 +71,28 @@
                                 <div class="u-mr-small heading-3 heading-3__admin-users">HOMES</div>
                         </div>
                         <div class="col-2-of-4">
-                            <div class="user-form__checkbox-input">
-                                <input type="checkbox" name="homesArr" value="sunriver" class="home-checkbox" id="sunriver">
+                            <!-- this should be a loop with homesArr -->
+                            <div class="user-form__checkbox-input" id=admin-homes>
+                                <input type="checkbox" name="homesArr" value="sunriver" class="home-checkbox" id="admin-sunriver">
                                 <label for="sunriver" class="label">Sunriver</label><br>
-                                <input type="checkbox" name="homesArr" value="idaho" class="home-checkbox" id="idaho">
+                                <input type="checkbox" name="homesArr" value="idaho" class="home-checkbox" id="admin-idaho">
                                 <label for="idaho" class="label">Idaho</label><br>
-                                <input type="checkbox" name="homesArr" value="cannon-beach" class="home-checkbox" id="cannon-beach">
+                                <input type="checkbox" name="homesArr" value="cannon-beach" class="home-checkbox" id="admin-cannon-beach">
                                 <label for="cannon-beach" class="label">Cannon Beach</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-2-of-4 u-no-margin-right u-right">
+                        <div class="col-2-of-4 u-no-margin-right u-right" id="admin-roles">
                                 <div class="u-mr-small heading-3 heading-3__admin-users">role</div>
                         </div>
                         <div class="col-2-of-4">
                             <div class="user-form__radio-input">
-                                <input type="radio" name="role" value="user" id="user">
+                                <input type="radio" name="role" value="user" id="admin-userRole">
                                 <label for="user" class="label">User</label><br>
-                                <input type="radio" name="role" value="keeper" id="keeper">
+                                <input type="radio" name="role" value="keeper" id="admin-keeperRole">
                                 <label for="keeper" class="label">Keeper</label> <br>
-                                <input type="radio" name="role" value="admin" id="admin"> 
+                                <input type="radio" name="role" value="admin" id="admin-adminRole"> 
                                 <label for="admin" class="label">Administrator</label><br>
                             </div>
                         </div>
