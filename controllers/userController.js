@@ -18,6 +18,7 @@ exports.login = function(req, res) {
                 res.redirect('/');
             });
         }).catch(function(e) {
+            console.log(e);
             req.flash('errors', e);
             req.session.save(function() {
                 res.redirect('/');

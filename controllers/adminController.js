@@ -5,9 +5,7 @@ const Admin = require('../models/Admin');
 //exports.name = function(req, res) {}
 
 exports.home = async function(req, res) {
-    console.log('______');
-   console.log(req.session.usersArr);
-
+    
    res.render('admin-register', {
        usersArr: req.usersArr, 
        homesArr: req.homesArr, 
@@ -41,5 +39,10 @@ exports.isAdmin = function(req, res, next) {
             res.render(('404'), {adminErrors: req.flash('adminErrors')})
         });
     }   
+}
+
+exports.delete = function(req, res) {
+    console.log('delete function'); 
+    console.log(req.body);
 }
 
