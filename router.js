@@ -19,6 +19,7 @@ router.get('/admin', adminController.isAdmin, adminController.getMenuData, admin
 
 router.post('/admin/registerUser', adminController.isAdmin, userController.register);
 router.post('/admin/user/:id/delete', adminController.isAdmin, userController.delete);
+router.post('/admin/user/:id/update', adminController.isAdmin, userController.update);
 router.post('/admin/registerHome', adminController.isAdmin, homeController.register);
 
 

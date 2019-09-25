@@ -72,7 +72,26 @@ exports.delete = async function(req, res) {
        } catch {
            res.render('404', {adminErrors: 'Problem Connecting to DB'})
        }
-       
 };
+
+exports.update = async function(req, res)  {
+    try{
+        let user = new User(req.body)
+        if(user.update(req.body, req.params)){
+            req.flash('adminTitleMessage', "user updated successfully");
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
+        } else {
+            req.flash('adminTitleMessage', "Uh Oh that didn't work");
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
+        }
+
+    } catch {
+        res.send('Error updating User');
+    }
+}
 
 

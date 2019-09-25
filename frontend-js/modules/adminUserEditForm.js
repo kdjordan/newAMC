@@ -14,7 +14,6 @@ export default class AdminUserLinks {
         this.deleteButton = document.querySelector('.btn__admin--delete');
         this.adminTitle = document.querySelector('.admin__title');
         this.alertMessage = document.querySelector('#alertMessage');
-        this.errors = [];
         this.events();
 
     }
@@ -24,29 +23,27 @@ export default class AdminUserLinks {
     events() {
         this.deleteButton.addEventListener('click', (e) => {
             e.preventDefault();
-            if(confirm(`Are You Sure You Want to Delete ${this.usernameField.placeholder} ?`)) {
+            if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
                 this.deleteUser(this.hiddenID.value);
             }
         });
 
         this.submitButton.addEventListener('click', (e) => {
             e.preventDefault();
-            // console.log(this.validateUserForm());
-            if(this.validateUserForm()) {
-                console.log('submitting');
-                // this.userForm.submit();
-            } else {
-                this.throwAlert('Username or Password is Empty !');
-            }
-        });
-
-        // this.userForm.addEventListener('submit', (e) => {
+            //check to see if we're adding new user or updating a user
             
-        //     e.preventDefault();
-        //     console.log('submit');
-        //     this.validateUserForm();
-        //     e.stopPropagation();
-        // });
+            // if(this.validateUserForm()) {
+                if((this.adminTitle.innerHTML.toLowerCase().split(' ')[0] == "add")) {
+                    console.log('adding');
+                    this.userForm.submit();
+                    this.resetForm();
+                } else { 
+                    this.userForm.action = `/admin/user/${this.hiddenID.value}/update`;
+                    this.userForm.submit();
+                    this.resetForm();
+                }
+            // } 
+        });
 
         this.userIds.forEach((el) => {
             el.addEventListener('click', (e) => {
@@ -62,23 +59,20 @@ export default class AdminUserLinks {
     throwAlert(message) {
          this.alertMessage.innerHTML = message;
          this.alertMessage.classList.remove('hide-alert');
-         setTimeout(function() {
-             this.alertMessage.classList.add('hide-alert')
-        }, 3000)
+        //  setTimeout(function() {
+        //      this.alertMessage.classList.add('hide-alert')
+        // }, 3000)
     }
-
+    
     //FN : take userID from sideNav user links
     //FN : delete user DB entry 
     //CALLS : removeUserFromNav passing userID
     // TODO : make removing element from sidenav a function : TODO*********************
     deleteUser(id) {
-        axios.post(`/admin/user/${id}/delete`, ).then((response) => {
+        axios.post(`/admin/user/${id}/delete`).then((response) => {
             if(response.data) {
                 this.removeUserFromNav(id);
-
                 this.throwAlert('User Successfully deleted');
-               
-                
             }
         }).catch((e) => {
             console.log('error ' + e);
@@ -101,6 +95,7 @@ export default class AdminUserLinks {
         this.userForm.reset();
         this.usernameField.value = " ";
         this.passwordField.placeholder = " ";
+        this.alertMessage.classList.add('hide-alert')
     }
 
     //FN : make a trip to the Db and grab user data based on ID
@@ -125,17 +120,16 @@ export default class AdminUserLinks {
     }
 
     
-    //FN : populate user form with said data
+    //FN : populate user form with said data from DB trip
     populateUserEditForm(data) {
         this.userForm.reset();
-        this.usernameField.placeholder = data.username;
+        this.usernameField.value = data.username;
         this.passwordField.placeholder = "Enter New Password";
         this.hiddenID.value = data._id;
        
         this.homesCheckGroup.forEach((allHomes) => {
             if(data.homesArray.length > 1) {
                 data.homesArray.forEach((activeHome) => {     
-                    // console.log(allHomes.value);
                     if( allHomes.value == activeHome){
                         document.getElementById(`admin-${allHomes.value}`).checked = true;
                     }
@@ -154,39 +148,35 @@ export default class AdminUserLinks {
         });
     };
 
+    //FN : check to make sure fields arr populated, if not thro
     validateUserForm() {
-        
-        if(this.passwordField.value == "" || this.usernameField.value == "") {return false;} 
-        if(this.passwordField.value == "" || this.usernameField.value == "") {return false;} 
-
-        //check to see if at least 1 home has been selected
-        this.homesCheckGroup.forEach((home) => {
-            if (home.checked == true) {
-               return;
-            } else {
-                return false;
-            }
-        })
-
-        //check to see if a role has been selected
-        this.rolesRadioGroup.forEach((role) => {
-            if (role.checked == true) {
-               return;
-            } else {
-                return false;
-            }
-        })
-
+        if(this.passwordField.value == "" || this.usernameField.value == "") { 
+            this.throwAlert("Username or Password is Empty !");
+            return false; 
+        } 
+        if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
+            this.throwAlert("You must select at least one home !");
+            return false; 
+        }     
+        if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
+            this.throwAlert("You must provide a role !");
+            return false; 
+        } 
+        // if(!Array.isArray(this.homesCheckGroup)) {
+        //     console.log('singular');
+        // }
         return true;
-       
-             
-       
-        
+    };
 
-        
-        
-    }
-    
+    //FN : loop through a goup and see if an element is checked
+    checkIfGroupIsEmpty(group) {
+        //check to see if at least 1 item in group has been selected
+        for(let i = 0; i < group.length; i++) {
+            if(group[i].checked == true)
+            return true;
+        }
+        return false;
+     };
 
 }
 

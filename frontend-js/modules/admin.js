@@ -22,9 +22,9 @@ export default class Admin {
             }
            })
        })
-       setTimeout(function() {
-            this.alertMessage.classList.add('hide-alert')
-       }, 3000)
+    //    setTimeout(function() {
+    //         this.alertMessage.classList.add('hide-alert')
+    //    }, 3000)
     }
     
     //methods
@@ -49,6 +49,7 @@ export default class Admin {
             document.querySelector('.section-users').classList.add('u-hidden');
             document.querySelector('.section-keepers').classList.add('u-hidden');
             this.deleteButton.classList.add('u-hidden');
+            this.adminTitle.innerHTML = 'Add New Home';
         } 
         else if(el.id == "keepers") {
             this.titleMessage.innerHTML = "Add New Keeper";
@@ -56,6 +57,7 @@ export default class Admin {
             document.querySelector('.section-homes').classList.add('u-hidden');
             document.querySelector('.section-users').classList.add('u-hidden');
             this.deleteButton.classList.add('u-hidden');
+            this.adminTitle.innerHTML = 'Add New Keeper';
         }
     }
 

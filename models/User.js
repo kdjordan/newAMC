@@ -90,6 +90,38 @@ User.prototype.login = function() {
     })
 };
 
+User.prototype.update = function(data, id) {
+    return new Promise(async (resolve, reject) => {
+        this.cleanUp(false);
+        // this.validate();
+
+        //hash users updated password
+        let salt = bcrypt.genSaltSync(10);
+        data.password = bcrypt.hashSync(data.password, salt);
+        // console.log("going in with ");
+        // console.log(data.checkBoxHomesArr);
+            let userDoc = await usersCollection.findOneAndUpdate(
+                {_id: new ObjectID(id.id)},
+                {$set: {username: data.username,
+                        password: data.password,
+                        homesArray: data.checkBoxHomesArr,
+                        role: data.roles
+                        }     
+                }
+            )
+         console.log('coming out');
+         if(userDoc) {
+             resolve('success');
+         } else {
+             reject('error')
+         }
+    })
+    
+
+
+
+};
+
 User.getUserData = function(id) {
     return new Promise(async (resolve, reject) => {
         if(typeof(id) != 'string' || !ObjectID.isValid(id)) {
