@@ -18,7 +18,7 @@ router.post('/makeReservation', reservationController.create);
 router.get('/admin', adminController.isAdmin, adminController.getMenuData, adminController.home);
 
 router.post('/admin/registerUser', adminController.isAdmin, userController.register);
-router.post('/admin/registerUser', adminController.isAdmin, userController.delete);
+router.post('/admin/user/:id/delete', adminController.isAdmin, userController.delete);
 router.post('/admin/registerHome', adminController.isAdmin, homeController.register);
 
 

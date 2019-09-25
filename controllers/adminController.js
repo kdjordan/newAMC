@@ -41,8 +41,4 @@ exports.isAdmin = function(req, res, next) {
     }   
 }
 
-exports.delete = function(req, res) {
-    console.log('delete function'); 
-    console.log(req.body);
-}
 

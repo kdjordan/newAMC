@@ -50,7 +50,7 @@
 <main>
 <section class="section section-users">
     <div class="row">
-            <!-- <div class="admin__title">Add New User</div> -->
+            <div class="admin__title">Add New User</div>
             <div class="user-form__container">
                 <form action="/admin/registerUser" method="POST" class="user-form u-center" id="adminUserEdit-form">
                     <div class="row">
@@ -63,7 +63,7 @@
                         <div class="col-2-of-4">
                                 <input type="text" id="admin-username" class="user-form__input u-mb-small" name="username" placeholder=""> 
                                 <input type="text" id="admin-password" class="user-form__input" name="password" placeholder="">
-                                
+                                <input type="hidden" id="hiddenIdField" value="">
                         </div>
                     </div>
                     <div class="row">
@@ -101,12 +101,12 @@
                     <div class="row">
                         <div style="position: relative;">
                             <button type="submit" class="btn btn__admin btn__admin--submit">ADD NEW</button>
-                            
+                            <button type="submit" class="btn btn__admin btn__admin--delete u-hidden">DELETE</button>
                         </div>
                     </div>
                 
                 </form>
-                <div style="position: relative;"><button type="submit" class="btn btn__admin btn__admin--delete u-hidden">DELETE</button></div>
+                
                 
         </div> <!-- end user form -->
     </div>        

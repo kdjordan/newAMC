@@ -23,9 +23,12 @@ User.prototype.cleanUp = function(loginFlag) {
     } else {
         if(typeof(this.data.roles) != 'string') {this.data.roles = '';}
         if(!Array.isArray(this.data.checkBoxHomesArr)) {
-            if(typeof(this.data.checkBoxHomesArr) != 'string') {this.data.checkBoxhomesArr = '';}
+            if(typeof(this.data.checkBoxHomesArr) != 'string') {
+                this.data.checkBoxhomesArr = '';
+            } else {
+                this.data.checkBoxHomesArr = [this.data.checkBoxHomesArr];
+            }
         }
-        console.log(this.data.checkBoxHomesArr)
         this.data = {
             username: this.data.username.trim().toLowerCase(),
             password: this.data.password,
@@ -47,7 +50,6 @@ User.prototype.validate = function() {
 User.prototype.register = function () {
     return new Promise((resolve, reject) => {
         
-
             this.cleanUp(false);
             // this.validate();
            
@@ -57,9 +59,9 @@ User.prototype.register = function () {
                 this.data.password = bcrypt.hashSync(this.data.password, salt);
                 //insert use data into db
                 usersCollection.insertOne(this.data).then(() => {
-                    resolve()
+                    resolve();
                 }).catch((e) => {
-                    reject(e)
+                    reject(e);
                 });
                
             } else {
@@ -111,9 +113,22 @@ User.getUserData = function(id) {
         }
 
     })
-    
-
 }
+
+User.delete = function(id) {
+    return new Promise(async (resolve, reject) => {
+        if(ObjectID.isValid(id)) {
+            let message = await usersCollection.deleteOne({_id: new ObjectID(id)});
+            if(message) {
+                resolve('success');
+            } else {
+                reject('error')
+            }
+        } else {
+            reject();
+        }
+    });
+};
 
 
 module.exports = User;

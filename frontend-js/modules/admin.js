@@ -6,20 +6,14 @@ export default class Admin {
         this.userLinks = document.querySelectorAll('#userLinks');
         this.submitButton = document.querySelector('.btn__admin--submit');
         this.deleteButton = document.querySelector('.btn__admin--delete');
+        this.adminTitle = document.querySelector('.admin__title');
         this.events();  
     }
 
     
     events() {
-        this.userLinks.forEach((link) => {
-            link.addEventListener('click', (e) => {
-                console.log(e.srcElement);
-                
-            })
-        });
-
-
-       this.navTitles.forEach(el => {
+        
+        this.navTitles.forEach(el => {
            el.addEventListener('click', (e) => {
             if (e.srcElement.classList.contains('sidenav__title')) {
                 this.subMenuToggle(el);
@@ -45,6 +39,8 @@ export default class Admin {
            document.querySelector('.section-homes').classList.add('u-hidden');
            document.querySelector('.section-keepers').classList.add('u-hidden');
            this.deleteButton.classList.add('u-hidden');
+           this.submitButton.innerHTML = 'ADD NEW';
+           this.adminTitle.innerHTML = 'Add New User';
            
          
         } else if(el.id == "homes") {

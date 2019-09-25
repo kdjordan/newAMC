@@ -6,18 +6,27 @@ export default class AdminUserLinks {
         this.userIds = document.querySelectorAll('#userLinks a');
         this.passwordField = document.querySelector('#admin-password');
         this.usernameField = document.querySelector('#admin-username');
+        this.hiddenID = document.querySelector('#hiddenIdField');
         this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
         this.rolesRadioGroup = document.getElementsByName('roles');
+
+        this.deleteButton = document.querySelector('.btn__admin--delete');
         this.events();
 
     }
 
     events() {
+        this.deleteButton.addEventListener('click', () => {
+            e.preventDefault();
+            if(confirm(`Are You Sure You Want to Delete ${this.usernameField.placeholder} ?`)) {
+                this.deleteUser(this.hiddenID.value);
+                
+            }
+        });
+
         this.userIds.forEach((el) => {
             el.addEventListener('click', (e) => {
-                
                 e.preventDefault();
-                
                 this.getUserData(el);
             });
         });
@@ -25,11 +34,24 @@ export default class AdminUserLinks {
 
     //methods
 
+    deleteUser(id) {
+        //TODO :: delete the user via axios and remove from users sidenav
+        axios.post(`/admin/user/${id}/delete`, ).then((response) => {
+            console.log(response);
+        }).catch((e) => {
+            console.log('error ' + e)
+        })
+        
+        
+    }
+
     getUserData(link) {
         axios.post('/getUserData', {usernameId: link.dataset.id}).then((response) => {
             if(response.data) {
                 //populate form with data !!
                 this.populateUserEditForm(response.data);
+                
+                console.log(response.data);
                 // this.showValidationError(this.username, "That username is already taken");
                 // this.username.isUnique = false;
             } else {
@@ -46,6 +68,7 @@ export default class AdminUserLinks {
 
         this.usernameField.placeholder = data.username;
         this.passwordField.placeholder = "Enter New Password";
+        this.hiddenID.value = data._id;
         console.log(Array.isArray(data.homesArray));
 
         // this.homesCheckGroup.forEach((allHomes) => {

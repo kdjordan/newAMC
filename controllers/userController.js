@@ -18,7 +18,6 @@ exports.login = function(req, res) {
                 res.redirect('/');
             });
         }).catch(function(e) {
-            console.log(e);
             req.flash('errors', e);
             req.session.save(function() {
                 res.redirect('/');
@@ -48,7 +47,6 @@ exports.register = async function(req, res) {
                 res.redirect('/admin');
             })
         }
-
     } catch {
         res.send('Error adding new User');
     }
@@ -63,5 +61,18 @@ exports.getUserDataById = async function(req, res) {
     }
 };
 
+exports.delete = async function(req, res) {
+       try {
+           let confirmation = await User.delete(req.params.id);
+           if (confirmation == 'success') {
+               res.json(true);
+           } else {
+            res.json(false);
+           }
+       } catch {
+           res.render('404', {adminErrors: 'Problem Connecting to DB'})
+       }
+       
+};
 
 

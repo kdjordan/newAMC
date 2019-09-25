@@ -87,7 +87,8 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 300;
-  margin-left: 45rem; }
+  text-align: center;
+  margin-top: 3%; }
 
 .label {
   color: #95A5A2;
@@ -551,7 +552,9 @@ body {
 .user-form__container {
   margin-top: 2%;
   width: 50%;
-  margin-left: 25%; }
+  display: inline-block;
+  margin-left: 25%;
+  text-align: center; }
 
 .user-form__input {
   padding: .2rem;
