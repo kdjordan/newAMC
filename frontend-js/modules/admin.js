@@ -31,7 +31,8 @@ export default class Admin {
     subMenuToggle(el) {
         
         if(el.id == "users") {
-           this.titleMessage.innerHTML = "Add New User";
+            console.log('trying');
+            this.titleMessage.innerHTML = "Add New User";
            document.querySelector('.section-users form').reset();
            document.getElementById('admin-username').placeholder = " ";
            document.getElementById('admin-password').placeholder = " ";
@@ -40,7 +41,7 @@ export default class Admin {
            document.querySelector('.section-keepers').classList.add('u-hidden');
            this.deleteButton.classList.add('u-hidden');
            this.submitButton.innerHTML = 'ADD NEW';
-           this.adminTitle.innerHTML = 'Add New User';
+           
            
          
         } else if(el.id == "homes") {
@@ -49,7 +50,7 @@ export default class Admin {
             document.querySelector('.section-users').classList.add('u-hidden');
             document.querySelector('.section-keepers').classList.add('u-hidden');
             this.deleteButton.classList.add('u-hidden');
-            this.adminTitle.innerHTML = 'Add New Home';
+            
         } 
         else if(el.id == "keepers") {
             this.titleMessage.innerHTML = "Add New Keeper";
@@ -57,12 +58,11 @@ export default class Admin {
             document.querySelector('.section-homes').classList.add('u-hidden');
             document.querySelector('.section-users').classList.add('u-hidden');
             this.deleteButton.classList.add('u-hidden');
-            this.adminTitle.innerHTML = 'Add New Keeper';
+            
         }
     }
 
     updateTitleAndButtonMessage() {
-        this.titleMessage.innerHTML = "Edit User";
         this.submitButton.innerHTML = "UPDATE";
         this.deleteButton.classList.remove('u-hidden');
     }

@@ -22,10 +22,10 @@ exports.getMenuData = async function(req, res, next) {
     let keepersArrPromise = admin.getKeepersData();
     
     let [usersArr, homesArr, keepersArr] = await Promise.all([usersArrPromise, homesArrPromise, keepersArrPromise]);
-    
     req.usersArr = usersArr;
     req.homesArr = homesArr;
     req.keepersArr = keepersArr;
+    
     
     next();
 }

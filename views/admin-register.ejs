@@ -25,14 +25,14 @@
                 <li class="sidenav__title" id="homes">Homes
                     <ul class="sidenav__dropdown sidenav__dropdown--homes">
                             <% homesArr.forEach((el) => { %>
-                                <li><a href="#" data-id="<%= el._id %>"><%= el.homeName %></a></li>
+                                <li id="homesLinks"><a href="#" data-id="<%= el._id %>"><%= el.homeName %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="keepers">Keepers
                     <ul class="sidenav__dropdown sidenav__dropdown--keepers">
                             <% keepersArr.forEach((el) => { %>
-                                <li><a href="#" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
+                                <li id="keeperLinks"><a href="#" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
                            <% })%>
                     </ul>
                 </li>
@@ -116,7 +116,7 @@
     <div class="row">
         <h2 class="admin__title admin-top-margin u-mb-med">Add New Home</h2>
         <div class="user-form__container">
-            <form action="/admin/registerHome" method="POST" class="user-form u-center">
+            <form action="/admin/registerHome" method="POST" class="user-form u-center" id="adminHomesEdit-form">
                 <div class="row">
                     <div class="col-2-of-4 u-no-margin-right u-right">
                         <!-- <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div> -->
@@ -149,7 +149,7 @@
     <div class="row">
             <h2 class="admin__title admin-top-margin u-mb-med">Add New Keeper</h2>
             <div class="user-form__container">
-                <form action="/admin/register" method="POST" class="user-form u-center">
+                <form action="/admin/register" method="POST" class="user-form u-center" id="adminKeepersEdit-form">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
                             <div style= "position: relative;">

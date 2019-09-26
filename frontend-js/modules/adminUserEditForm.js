@@ -5,6 +5,9 @@ export default class AdminUserLinks {
         this.userForm = document.getElementById('adminUserEdit-form');
         this.userIds = document.querySelectorAll('#userLinks');
         this.userLinks = document.querySelectorAll('#userLinks a');
+        this.keeperIds = document.querySelectorAll('#keeperLinks');
+        this.homeIds = document.querySelectorAll('#homesLinks');
+        this.titleMessage = document.querySelector('.titleMessage');
         this.passwordField = document.querySelector('#admin-password');
         this.usernameField = document.querySelector('#admin-username');
         this.hiddenID = document.querySelector('#hiddenIdField');
@@ -34,7 +37,6 @@ export default class AdminUserLinks {
             
             // if(this.validateUserForm()) {
                 if((this.adminTitle.innerHTML.toLowerCase().split(' ')[0] == "add")) {
-                    console.log('adding');
                     this.userForm.submit();
                     this.resetForm();
                 } else { 
@@ -45,12 +47,21 @@ export default class AdminUserLinks {
             // } 
         });
 
-        this.userIds.forEach((el) => {
-            el.addEventListener('click', (e) => {
-                e.preventDefault();
-                let searchId = el.children[0].dataset.id;
-                this.getUserData(searchId);
-            });
+        let allIdsArr = [this.userIds, this.homeIds, this.keeperIds];
+        allIdsArr.forEach((idArray) => {
+            idArray.forEach((el) => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let parentMenu = el.parentNode;
+                    // console.log(parentMenu);
+                    let searchId = el.children[0].dataset.id;
+                    // console.log(searchId);
+                    //create handler to switch forms and then run getUserData
+                    //need to know where the click came from :: user, home, or keeper
+                    this.getFormData(searchId, parentMenu);
+                });
+
+        })
         });
     }
 
@@ -95,28 +106,52 @@ export default class AdminUserLinks {
         this.userForm.reset();
         this.usernameField.value = " ";
         this.passwordField.placeholder = " ";
-        this.alertMessage.classList.add('hide-alert')
+        this.alertMessage.classList.add('hide-alert');
+    }
+
+    updateAdminTitle(message) {
+        this.adminTitle.innerHTML = message;
+    }
+
+    setForm(menu) {
+        if(menu.classList.contains('sidenav__dropdown--users')) {
+            this.userForm = document.getElementById('adminUserEdit-form'); 
+            this.updateAdminTitle('Edit User Data');
+            this.titleMessage.innerHTML = "Edit User Data";
+        }
+        if(menu.classList.contains('sidenav__dropdown--homes')) {
+            this.userForm = document.getElementById('adminHomesEdit-form'); 
+            this.updateAdminTitle('Edit Home Data');
+            this.titleMessage.innerHTML = "Edit Home Data";
+        }
+        if(menu.classList.contains('sidenav__dropdown--keepers')) {
+            this.userForm = document.getElementById('adminKeepersEdit-form'); 
+            this.updateAdminTitle('Edit Keeper Data');
+            this.titleMessage.innerHTML = "Edit Keeper Data";
+        }
     }
 
     //FN : make a trip to the Db and grab user data based on ID
     //CALLS : populateUserEditForm with data to populate form
-    getUserData(link) {
-        this.adminTitle.innerHTML = "Edit User Data";
-        axios.post('/getUserData', {usernameId: link}).then((response) => {
-            if(response.data) {
-                //populate form with data !!
-                this.populateUserEditForm(response.data);
+    getFormData(searchId, menu) {
+        this.setForm(menu);
+        
+        // axios.post('/getUserData', {usernameId: link}).then((response) => {
+        //     console.log(response.data);
+        //     if(response.data) {
+        //         //populate form with data !!
+        //         this.populateUserEditForm(response.data);
                 
-                // console.log(response.data);
-                // this.showValidationError(this.username, "That username is already taken");
-                // this.username.isUnique = false;
-            } else {
-                // this.username.isUnique = true;
-                // this.hideValidationError(this.username);
-            }
-        }).catch((e) => {
-            console.log("Problem connecting with DB" + e);
-        })
+        //         // console.log(response.data);
+        //         // this.showValidationError(this.username, "That username is already taken");
+        //         // this.username.isUnique = false;
+        //     } else {
+        //         // this.username.isUnique = true;
+        //         // this.hideValidationError(this.username);
+        //     }
+        // }).catch((e) => {
+        //     console.log("Problem connecting with DB" + e);
+        // })
     }
 
     
@@ -162,9 +197,6 @@ export default class AdminUserLinks {
             this.throwAlert("You must provide a role !");
             return false; 
         } 
-        // if(!Array.isArray(this.homesCheckGroup)) {
-        //     console.log('singular');
-        // }
         return true;
     };
 

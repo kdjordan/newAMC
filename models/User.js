@@ -109,7 +109,7 @@ User.prototype.update = function(data, id) {
                         }     
                 }
             )
-         console.log('coming out');
+         
          if(userDoc) {
              resolve('success');
          } else {

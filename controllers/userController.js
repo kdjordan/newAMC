@@ -90,7 +90,7 @@ exports.update = async function(req, res)  {
         }
 
     } catch {
-        res.send('Error updating User');
+        res.render('404', {adminErrors: 'Problem Connecting to DB'})
     }
 }
 
