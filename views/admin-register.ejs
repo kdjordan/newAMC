@@ -1,8 +1,8 @@
 <%- include('includes/header') %>
 <header class="header clearfix">
     <div class="admin-logo-box">
-        <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></div>
-        <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Add new User</span></div>
+        <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></span></div>
+        <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Welcome <%= adminName %></span></div>
         <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
                 
             <%= adminTitleMessage %>
@@ -48,11 +48,11 @@
 </div>
 <!-- ////////////////////// SIDE NAV ////////////////////// -->    
 <main>
-<section class="section section-users">
+<section class="section section-users" id="section-users">
     <div class="row">
-            <div class="admin__title">Add New User</div>
+            <div class="admin__title"></div>
             <div class="user-form__container">
-                <form action="/admin/registerUser" method="POST" class="user-form u-center" id="adminUserEdit-form">
+                <form action="/admin/registerUser" method="POST" class="user-form u-center" id="adminUsersEdit-form">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
                             <div style= "position: relative;">
@@ -112,9 +112,9 @@
     </div>        
 </section>
 
-<section class="section section-homes u-hidden">
+<section class="section section-homes u-hidden" id="section-homes">
     <div class="row">
-        <h2 class="admin__title admin-top-margin u-mb-med">Add New Home</h2>
+        <h2 class="admin__title admin-top-margin u-mb-med"></h2>
         <div class="user-form__container">
             <form action="/admin/registerHome" method="POST" class="user-form u-center" id="adminHomesEdit-form">
                 <div class="row">
@@ -145,9 +145,9 @@
     </div> 
 </section>
 
-<section class="section section-keepers u-hidden">
+<section class="section section-keepers u-hidden" id="section-keepers">
     <div class="row">
-            <h2 class="admin__title admin-top-margin u-mb-med">Add New Keeper</h2>
+            <h2 class="admin__title admin-top-margin u-mb-med"></h2>
             <div class="user-form__container">
                 <form action="/admin/register" method="POST" class="user-form u-center" id="adminKeepersEdit-form">
                     <div class="row">

@@ -6,16 +6,16 @@ import AdminUserLinks from './modules/adminUserLinks';
 
 
 
-if (document.querySelector('#sidenav')) {
-    new Admin();
-}
+// if (document.querySelector('#sidenav')) {
+//     new Admin();
+// }
 
 
 // if (document.querySelector('.sidenav__dropdown--users')) {
 //     new AdminUserLinks();
 // }
 
-if (document.querySelector('#adminUserEdit-form')) {
+if (document.querySelector('#adminUsersEdit-form')) {
     new AdminUserEditForm();
 }
 

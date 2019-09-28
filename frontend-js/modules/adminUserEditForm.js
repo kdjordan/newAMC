@@ -2,21 +2,44 @@ import axios from 'axios';
 
 export default class AdminUserLinks {
     constructor() {
-        this.userForm = document.getElementById('adminUserEdit-form');
-        this.userIds = document.querySelectorAll('#userLinks');
-        this.userLinks = document.querySelectorAll('#userLinks a');
-        this.keeperIds = document.querySelectorAll('#keeperLinks');
-        this.homeIds = document.querySelectorAll('#homesLinks');
+        //sections and form :: userForm id dynamically changed based on UI state
+        this.sectionUsers = document.querySelector('.section-users');
+        this.sectionHomes = document.querySelector('.section-homes');
+        this.sectionKeepers = document.querySelector('.section-keepers');
+        this.userForm = document.getElementById('adminUsersEdit-form');
+
+
+        //buttons
+        this.submitButton = document.querySelector('.btn__admin--submit');
+        this.deleteButton = document.querySelector('.btn__admin--delete');
+
+        //messaging and UI control
         this.titleMessage = document.querySelector('.titleMessage');
+        this.adminTitle = document.querySelector('.admin__title');
+        this.alertMessage = document.querySelector('#alertMessage');
+        
+
+        
+        //form Elements for I/O
         this.passwordField = document.querySelector('#admin-password');
         this.usernameField = document.querySelector('#admin-username');
         this.hiddenID = document.querySelector('#hiddenIdField');
         this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
         this.rolesRadioGroup = document.getElementsByName('roles');
-        this.submitButton = document.querySelector('.btn__admin--submit');
-        this.deleteButton = document.querySelector('.btn__admin--delete');
-        this.adminTitle = document.querySelector('.admin__title');
-        this.alertMessage = document.querySelector('#alertMessage');
+
+        //links and elements for sidenav
+        this.navTitles = document.querySelectorAll('.sidenav__title');
+        this.userLinks = document.querySelectorAll('#userLinks a');
+        this.keeperLinks = document.querySelectorAll('#keeperLinks a');
+        this.homeLinks = document.querySelectorAll('#homeLinks a');
+        this.userIds = document.querySelectorAll('#userLinks');
+        this.keeperIds = document.querySelectorAll('#keeperLinks');
+        this.homeIds = document.querySelectorAll('#homesLinks');
+        
+        
+        //simply event controllers
+        this.allIdsArr = [this.userIds, this.homeIds, this.keeperIds];
+        this.allSectionsArr = [this.sectionUsers, this.sectionHomes, this.sectionKeepers];
         this.events();
 
     }
@@ -24,6 +47,44 @@ export default class AdminUserLinks {
     /////////////////////////////EVENTS/////////////////////////////
 
     events() {
+        
+        this.navTitles.forEach(el => {
+            el.addEventListener('click', () => {
+                this.setUI('add', el.id);
+            })
+        })
+
+        this.allIdsArr.forEach((idArray) => {
+            idArray.forEach((el) => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    let parentMenu = el.parentNode;
+                    
+                    
+                    if(parentMenu.classList.contains('sidenav__dropdown--users')){
+                        let theId = el.firstChild.dataset.id;
+                        this.setUI('update', "users", theId);
+                        
+                    }
+                    if(parentMenu.classList.contains('sidenav__dropdown--homes')){
+                        this.setUI('update', "homes");
+                    }
+                    if(parentMenu.classList.contains('sidenav__dropdown--keepers')){
+                        this.setUI('update', "keepers");
+                    }
+                    let searchId = el.children[0].dataset.id;
+                    // console.log(searchId);
+                    
+                    //create handler to switch forms and then run getUserData
+                    //need to know where the click came from :: user, home, or keeper
+                    // this.getFormData(searchId, parentMenu);
+                });
+
+        })
+        });
+
         this.deleteButton.addEventListener('click', (e) => {
             e.preventDefault();
             if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
@@ -33,11 +94,11 @@ export default class AdminUserLinks {
 
         this.submitButton.addEventListener('click', (e) => {
             e.preventDefault();
-            //check to see if we're adding new user or updating a user
+;            //check to see if we're adding new user or updating a user
             
             // if(this.validateUserForm()) {
                 if((this.adminTitle.innerHTML.toLowerCase().split(' ')[0] == "add")) {
-                    this.userForm.submit();
+                    // this.userForm.submit();
                     this.resetForm();
                 } else { 
                     this.userForm.action = `/admin/user/${this.hiddenID.value}/update`;
@@ -46,27 +107,72 @@ export default class AdminUserLinks {
                 }
             // } 
         });
-
-        let allIdsArr = [this.userIds, this.homeIds, this.keeperIds];
-        allIdsArr.forEach((idArray) => {
-            idArray.forEach((el) => {
-                el.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    let parentMenu = el.parentNode;
-                    // console.log(parentMenu);
-                    let searchId = el.children[0].dataset.id;
-                    // console.log(searchId);
-                    //create handler to switch forms and then run getUserData
-                    //need to know where the click came from :: user, home, or keeper
-                    this.getFormData(searchId, parentMenu);
-                });
-
-        })
-        });
     }
 
     /////////////////////////////METHODS/////////////////////////////
 
+    setUI(operation, sectionVar, id) {
+        
+        // console.log(operation);
+        // console.log(sectionVar)
+
+        //call update section to show proper form
+        let sectionString = `section-${sectionVar}`;
+        this.updateSection(sectionString);
+
+        //get an updated admin title(title under logo) and update it
+        let adminTitleSelectString = `#${sectionString} .admin__title`;
+        this.adminTitle = document.querySelector(adminTitleSelectString);
+
+         //cut off trailing (s) so form action is correct
+         let string = sectionVar.charAt(0).toUpperCase() + sectionVar.slice(1);
+         string = string.substring(0, string.length - 1);
+
+         console.log(string)
+         console.log(sectionVar)
+
+        //set title above form and action of form
+        if(operation == 'add') {
+            this.updateAdminTitle(`Add new ${sectionVar}`);
+            this.userForm.action = `/admin/register${string}`;
+        } else {
+            // sectionVar = sectionVar.substring(0, sectionVar.length - 1);
+            this.updateAdminTitle(`Update ${string} Data`);
+            let userFormSelectString = `#admin${string}sEdit-form`;
+            console.log(userFormSelectString);
+            this.userForm = document.querySelector(userFormSelectString);
+            this.userForm.action = `/admin/user/${id}/update`;
+        }
+        
+         console.log(this.userForm.action);
+
+        //form specific grabs
+        
+
+
+    };
+
+    updateSection(section) {
+        this.allSectionsArr.forEach((el) => {
+            if(el.classList.contains(section)){
+                el.classList.remove('u-hidden');
+            } else {
+                el.classList.add('u-hidden');
+            }
+        })
+    }
+
+    updateAdminTitle(message) {
+        
+        // console.log(this.adminTitle);
+        // console.log(this.userForm);
+        this.adminTitle.innerHTML = message;
+        // console.log(this.adminTitle.innerHTML);
+        this.titleMessage.innerHTML = message;
+    };
+
+
+    //messaging for alerts
     throwAlert(message) {
          this.alertMessage.innerHTML = message;
          this.alertMessage.classList.remove('hide-alert');
@@ -99,7 +205,7 @@ export default class AdminUserLinks {
                 this.resetForm();
             }
         });
-    }
+    };
 
     //FN : empties out form
     resetForm() {
@@ -107,29 +213,11 @@ export default class AdminUserLinks {
         this.usernameField.value = " ";
         this.passwordField.placeholder = " ";
         this.alertMessage.classList.add('hide-alert');
-    }
+    };
 
-    updateAdminTitle(message) {
-        this.adminTitle.innerHTML = message;
-    }
+    
 
-    setForm(menu) {
-        if(menu.classList.contains('sidenav__dropdown--users')) {
-            this.userForm = document.getElementById('adminUserEdit-form'); 
-            this.updateAdminTitle('Edit User Data');
-            this.titleMessage.innerHTML = "Edit User Data";
-        }
-        if(menu.classList.contains('sidenav__dropdown--homes')) {
-            this.userForm = document.getElementById('adminHomesEdit-form'); 
-            this.updateAdminTitle('Edit Home Data');
-            this.titleMessage.innerHTML = "Edit Home Data";
-        }
-        if(menu.classList.contains('sidenav__dropdown--keepers')) {
-            this.userForm = document.getElementById('adminKeepersEdit-form'); 
-            this.updateAdminTitle('Edit Keeper Data');
-            this.titleMessage.innerHTML = "Edit Keeper Data";
-        }
-    }
+    
 
     //FN : make a trip to the Db and grab user data based on ID
     //CALLS : populateUserEditForm with data to populate form
@@ -152,9 +240,8 @@ export default class AdminUserLinks {
         // }).catch((e) => {
         //     console.log("Problem connecting with DB" + e);
         // })
-    }
+    };
 
-    
     //FN : populate user form with said data from DB trip
     populateUserEditForm(data) {
         this.userForm.reset();
