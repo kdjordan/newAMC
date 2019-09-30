@@ -2,7 +2,7 @@
 <header class="header clearfix">
     <div class="admin-logo-box">
         <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></span></div>
-        <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Welcome <%= adminName %></span></div>
+        <div class="admin-logo-box__title--notifications">Administration > <span id="titleMessage">Welcome <%= adminName %></span></div>
         <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
                 
             <%= adminTitleMessage %>
@@ -46,7 +46,7 @@
                 </div>
         </div>
 </div>
-<!-- ////////////////////// SIDE NAV ////////////////////// -->    
+<!-- //////////////////////  END SIDE NAV ////////////////////// -->    
 <main>
 <section class="section section-users" id="section-users">
     <div class="row">
@@ -88,11 +88,11 @@
                         </div>
                         <div class="col-2-of-4">
                             <div class="user-form__radio-input">
-                                <input type="radio" name="roles" value="user" id="admin-userRole">
+                                <input type="radio" name="userRoles" value="user" id="admin-userRole">
                                 <label for="user" class="label">User</label><br>
-                                <input type="radio" name="roles" value="keeper" id="admin-keeperRole">
+                                <input type="radio" name="userRoles" value="keeper" id="admin-keeperRole">
                                 <label for="keeper" class="label">Keeper</label> <br>
-                                <input type="radio" name="roles" value="admin" id="admin-adminRole"> 
+                                <input type="radio" name="userRoles" value="admin" id="admin-adminRole"> 
                                 <label for="admin" class="label">Administrator</label><br>
                             </div>
                         </div>

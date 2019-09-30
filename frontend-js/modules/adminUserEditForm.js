@@ -16,7 +16,7 @@ export default class AdminUserLinks {
         this.deleteButtons = document.querySelectorAll('.btn__admin--delete');
 
         //messaging and UI control
-        this.titleMessage = document.querySelector('.titleMessage');
+        this.titleMessage = document.querySelector('#titleMessage');
         this.adminTitle = document.querySelector('.admin__title');
         this.alertMessage = document.querySelector('#alertMessage');
         
@@ -26,7 +26,7 @@ export default class AdminUserLinks {
         this.usernameField = document.querySelector('#admin-username');
         this.hiddenID = document.querySelector('#hiddenIdField');
         this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
-        this.rolesRadioGroup = document.getElementsByName('roles');
+        this.rolesRadioGroup = document.getElementsByName('userRoles');
 
         //home specific form fields
         this.homeImageUrl = document.querySelector('#homeUrl');
