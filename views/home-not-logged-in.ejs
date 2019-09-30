@@ -7,9 +7,7 @@
                     <div class="header-box__title--login">AMC</div>
                     <div class="header-box__subtitle--login ">Vacation Rentals</div>
                 </div>
-                <% logInError.forEach(function(message) { %>
-                    <div class="alert alert-danger u-mb-med  u-mb-small"><%= message %></div>
-                <% }) %>
+                <%- include('includes/flash') %>
                 <form action="/login" method="POST" class="form u-center u-mt-med">
                     <input type="text" class="form_input" name="username" placeholder="username">
                     <input type="text" class="form_input" name="password" placeholder="password">

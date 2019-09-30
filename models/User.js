@@ -13,23 +13,27 @@ let User = function(data) {
 User.prototype.cleanUp = function(loginFlag) {
     if(typeof(this.data.username) != 'string') {this.data.username = '';}
     if(typeof(this.data.password) != 'string') {this.data.password = '';}
-    // if(typeof(this.data.role) != 'string') {this.data.password = '';}
-    // if (!this.data.homesArr.isArray()) {this.data.homesArr = [];}
+    
 
     if (loginFlag) {
         this.data = {
             username: this.data.username.trim().toLowerCase(),
             password: this.data.password,
         }
-    }else {
-        if(typeof(this.data.role) != 'string') {this.data.password = '';}
-        // if (!this.data.homesArr.isArray()) {this.data.homesArr = [];}
-
+    } else {
+        if(typeof(this.data.roles) != 'string') {this.data.roles = '';}
+        if(!Array.isArray(this.data.checkBoxHomesArr)) {
+            if(typeof(this.data.checkBoxHomesArr) != 'string') {
+                this.data.checkBoxhomesArr = '';
+            } else {
+                this.data.checkBoxHomesArr = [this.data.checkBoxHomesArr];
+            }
+        }
         this.data = {
             username: this.data.username.trim().toLowerCase(),
             password: this.data.password,
-            homesArray:  this.data.homesArr,
-            role:  this.data.role.trim().toLowerCase()
+            homesArray:  this.data.checkBoxHomesArr,
+            role:  this.data.roles.trim().toLowerCase()
         }
     }
 
@@ -37,25 +41,27 @@ User.prototype.cleanUp = function(loginFlag) {
 }
 
 User.prototype.validate = function() {
-    if(this.data.username == '') {this.data.errors.push('You must provide a username');}
-    if(this.data.password == '') {this.data.errors.push('You must provide a password');}
-    if(this.data.username.length > 50) {this.data.errors.push('Your username is too long');}
-    if(this.data.password.length > 50) {this.data.errors.push('Your password is too long');}
+    if(this.data.username == '') {this.errors.push('You must provide a username');}
+    if(this.data.password == '') {this.errors.push('You must provide a password');}
+    if(this.data.username.length > 50) {this.errors.push('Your username is too long');}
+    if(this.data.password.length > 50) {this.errors.push('Your password is too long');}
 }
 
 User.prototype.register = function () {
     return new Promise((resolve, reject) => {
-            this.cleanUp();
-            this.validate();
+        
+            this.cleanUp(false);
+            // this.validate();
+           
             if(!this.errors.length) {
                 //hash user password
                 let salt = bcrypt.genSaltSync(10);
                 this.data.password = bcrypt.hashSync(this.data.password, salt);
                 //insert use data into db
                 usersCollection.insertOne(this.data).then(() => {
-                    resolve()
+                    resolve();
                 }).catch((e) => {
-                    reject(e)
+                    reject(e);
                 });
                
             } else {
@@ -67,6 +73,8 @@ User.prototype.register = function () {
 User.prototype.login = function() {
     return new Promise((resolve, reject) => {
         this.cleanUp(true);
+        this.validate();
+        console.log(this.errors);
         if(!this.errors.length) {
             usersCollection.findOne({username: this.data.username}).then((attemptedUser) => {
                 if(attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
@@ -75,11 +83,43 @@ User.prototype.login = function() {
                 } else {
                     reject('Invalid Username / Password');
                 }
-            }).catch(() => {
-                reject('Please try again later');
+            }).catch((e) => {
+                reject('Please try again later' + e);
             })
         }
     })
+};
+
+User.prototype.update = function(data, id) {
+    return new Promise(async (resolve, reject) => {
+        this.cleanUp(false);
+        // this.validate();
+
+        //hash users updated password
+        let salt = bcrypt.genSaltSync(10);
+        data.password = bcrypt.hashSync(data.password, salt);
+        // console.log("going in with ");
+        // console.log(data.checkBoxHomesArr);
+            let userDoc = await usersCollection.findOneAndUpdate(
+                {_id: new ObjectID(id.id)},
+                {$set: {username: data.username,
+                        password: data.password,
+                        homesArray: data.checkBoxHomesArr,
+                        role: data.roles
+                        }     
+                }
+            )
+         
+         if(userDoc) {
+             resolve('success');
+         } else {
+             reject('error')
+         }
+    })
+    
+
+
+
 };
 
 User.getUserData = function(id) {
@@ -94,7 +134,7 @@ User.getUserData = function(id) {
             {$project: {
                 username: 1,
                 homesArray: 1,
-                role: 1,
+                role: 1
             }
         }]).toArray();
         
@@ -105,9 +145,22 @@ User.getUserData = function(id) {
         }
 
     })
-    
-
 }
+
+User.delete = function(id) {
+    return new Promise(async (resolve, reject) => {
+        if(ObjectID.isValid(id)) {
+            let message = await usersCollection.deleteOne({_id: new ObjectID(id)});
+            if(message) {
+                resolve('success');
+            } else {
+                reject('error')
+            }
+        } else {
+            reject();
+        }
+    });
+};
 
 
 module.exports = User;

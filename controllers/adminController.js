@@ -5,9 +5,9 @@ const Admin = require('../models/Admin');
 //exports.name = function(req, res) {}
 
 exports.home = async function(req, res) {
-    console.log('______');
-   console.log(req.usersArr);
+    console.log(req.session.user);
    res.render('admin-register', {
+       adminName: req.session.user.username,
        usersArr: req.usersArr, 
        homesArr: req.homesArr, 
        keepersArr: req.keepersArr,
@@ -23,10 +23,10 @@ exports.getMenuData = async function(req, res, next) {
     let keepersArrPromise = admin.getKeepersData();
     
     let [usersArr, homesArr, keepersArr] = await Promise.all([usersArrPromise, homesArrPromise, keepersArrPromise]);
-    
     req.usersArr = usersArr;
     req.homesArr = homesArr;
     req.keepersArr = keepersArr;
+    
     
     next();
 }
@@ -41,4 +41,5 @@ exports.isAdmin = function(req, res, next) {
         });
     }   
 }
+
 

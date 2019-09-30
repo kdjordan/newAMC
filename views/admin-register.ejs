@@ -1,8 +1,8 @@
 <%- include('includes/header') %>
 <header class="header clearfix">
     <div class="admin-logo-box">
-        <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></div>
-        <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Add New User</span></div>
+        <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></span></div>
+        <div class="admin-logo-box__title--notifications">Administration > <span class="titleMessage">Welcome <%= adminName %></span></div>
         <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
                 
             <%= adminTitleMessage %>
@@ -12,27 +12,27 @@
 </header>
 
 <!-- ////////////////////// SIDE NAV ////////////////////// -->
-<div class="sidenav clearfix">
+<div class="sidenav clearfix" id="sidenav">
         <div class="sidenav__box">
             <ul class="sidenav__outer-menu">
                 <li class="sidenav__title" id="users">Users
                     <ul class="sidenav__dropdown sidenav__dropdown--users">
                             <% usersArr.forEach((el) => { %>
-                                <li><a href="/edit/user/<%= el._id %>" data-id="<%= el._id %>"><%= el.username %></a></li>
+                                <li id="userLinks"><a href="/user/<%= el._id %>/edit" data-id="<%= el._id %>"><%= el.username %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="homes">Homes
                     <ul class="sidenav__dropdown sidenav__dropdown--homes">
                             <% homesArr.forEach((el) => { %>
-                                <li><a href="/edit/home/<%= el._id %>" data-id="<%= el._id %>"><%= el.homeName %></a></li>
+                                <li id="homesLinks"><a href="#" data-id="<%= el._id %>"><%= el.homeName %></a></li>
                            <% })%>
                     </ul>
                 </li>
                 <li class="sidenav__title" id="keepers">Keepers
                     <ul class="sidenav__dropdown sidenav__dropdown--keepers">
                             <% keepersArr.forEach((el) => { %>
-                                <li><a href="/edit/keeper/<%= el._id %>" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
+                                <li id="keeperLinks"><a href="#" data-id="<%= el._id %>"><%= el.keeperName %></a></li>
                            <% })%>
                     </ul>
                 </li>
@@ -48,11 +48,11 @@
 </div>
 <!-- ////////////////////// SIDE NAV ////////////////////// -->    
 <main>
-<section class="section section-users">
+<section class="section section-users" id="section-users">
     <div class="row">
-            <!-- <div class="admin__title">Add New User</div> -->
+            <div class="admin__title">Add New User</div>
             <div class="user-form__container">
-                <form action="/admin/registerUser" method="POST" class="user-form u-center">
+                <form action="/admin/registerUsers" method="POST" class="user-form u-center" id="adminUsersEdit-form">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
                             <div style= "position: relative;">
@@ -61,9 +61,9 @@
                             </div>            
                         </div>
                         <div class="col-2-of-4">
-                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder=""> 
-                                <input type="text" class="user-form__input" name="password" placeholder="">
-                                
+                                <input type="text" id="admin-username" class="user-form__input u-mb-small" name="username" placeholder=""> 
+                                <input type="text" id="admin-password" class="user-form__input" name="password" placeholder="">
+                                <input type="hidden" id="hiddenIdField" value="">
                         </div>
                     </div>
                     <div class="row">
@@ -71,27 +71,28 @@
                                 <div class="u-mr-small heading-3 heading-3__admin-users">HOMES</div>
                         </div>
                         <div class="col-2-of-4">
-                            <div class="user-form__checkbox-input">
-                                <input type="checkbox" name="homesArr" value="sunriver" class="home-checkbox" id="sunriver">
+                            <!-- this should be a loop with homesArr -->
+                            <div class="user-form__checkbox-input" id="admin-homes">
+                                <input type="checkbox" name="checkBoxHomesArr" value="sunriver" class="home-checkbox" id="admin-sunriver">
                                 <label for="sunriver" class="label">Sunriver</label><br>
-                                <input type="checkbox" name="homesArr" value="idaho" class="home-checkbox" id="idaho">
+                                <input type="checkbox" name="checkBoxHomesArr" value="idaho" class="home-checkbox" id="admin-idaho">
                                 <label for="idaho" class="label">Idaho</label><br>
-                                <input type="checkbox" name="homesArr" value="cannon-beach" class="home-checkbox" id="cannon-beach">
+                                <input type="checkbox" name="checkBoxHomesArr" value="cannon-beach" class="home-checkbox" id="admin-cannon-beach">
                                 <label for="cannon-beach" class="label">Cannon Beach</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-2-of-4 u-no-margin-right u-right">
+                        <div class="col-2-of-4 u-no-margin-right u-right" id="admin-roles">
                                 <div class="u-mr-small heading-3 heading-3__admin-users">role</div>
                         </div>
                         <div class="col-2-of-4">
                             <div class="user-form__radio-input">
-                                <input type="radio" name="role" value="user" id="user">
+                                <input type="radio" name="roles" value="user" id="admin-userRole">
                                 <label for="user" class="label">User</label><br>
-                                <input type="radio" name="role" value="keeper" id="keeper">
+                                <input type="radio" name="roles" value="keeper" id="admin-keeperRole">
                                 <label for="keeper" class="label">Keeper</label> <br>
-                                <input type="radio" name="role" value="admin" id="admin"> 
+                                <input type="radio" name="roles" value="admin" id="admin-adminRole"> 
                                 <label for="admin" class="label">Administrator</label><br>
                             </div>
                         </div>
@@ -99,28 +100,30 @@
                     </div>
                     <div class="row">
                         <div style="position: relative;">
-                            <button type="submit" class="btn btn__admin btn__admin--submit">SUBMIT</button>
-                            <button type="submit" class="btn btn__admin btn__admin--delete">DELETE</button>
+                            <button type="submit" id="userSubmitButton" class="btn btn__admin btn__admin--submit">ADD NEW</button>
+                            <button type="submit" id="userDeleteButton" class="btn btn__admin btn__admin--delete u-hidden">DELETE</button>
                         </div>
                     </div>
                 
                 </form>
+                
+                
         </div> <!-- end user form -->
     </div>        
 </section>
 
-<section class="section section-homes u-hidden">
+<section class="section section-homes u-hidden" id="section-homes">
     <div class="row">
-        <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New Home</h2> -->
+        <h2 class="admin__title admin-top-margin u-mb-med"></h2>
         <div class="user-form__container">
-            <form action="/admin/registerHome" method="POST" class="user-form u-center">
+            <form action="/admin/registerHomes" method="POST" class="user-form u-center" id="adminHomesEdit-form">
                 <div class="row">
                     <div class="col-2-of-4 u-no-margin-right u-right">
                         <!-- <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div> -->
                         <label for="homeUrl" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Img</label>
                     </div>
                     <div class="col-2-of-4">
-                            <input type="text" class="user-form__input u-mb-small" name="homeUrl" placeholder="">
+                            <input type="text" id="homeUrl" class="user-form__input u-mb-small" name="homeUrl" placeholder="">
                             <!-- <img src="/img/sunriver-sm.png" class="header-box__image u-float-left" name="homeURL"> -->
                     </div>
                 </div>       
@@ -129,34 +132,34 @@
                         <label for="homename" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Name</label>
                     </div>
                     <div class="col-2-of-4">
-                        <input type="text" class="user-form__input u-mb-small" name="homeName" placeholder="">
+                        <input type="text" id="homeName" class="user-form__input u-mb-small" name="homeName" placeholder="">
                     </div>
                 </div>
                 
                 <div style="position: relative;">
-                    <button type="submit" class="btn btn__admin btn__admin--submit">SUBMIT</button>
-                    <button type="submit" class="btn btn__admin btn__admin--delete">DELETE</button>
+                    <button type="submit" id="homeSubmitButton" class="btn btn__admin btn__admin--submit">ADD NEW</button>
+                    <button type="submit" id="homeDeleteButton" class="btn btn__admin btn__admin--delete u-hidden">DELETE</button>
                 </div>
             </form>
         </div>   
     </div> 
 </section>
 
-<section class="section section-keepers u-hidden">
+<section class="section section-keepers u-hidden" id="section-keepers">
     <div class="row">
-            <!-- <h2 class="admin__title admin-top-margin u-mb-med">Add New Keeper</h2> -->
+            <h2 class="admin__title admin-top-margin u-mb-med"></h2>
             <div class="user-form__container">
-                <form action="/admin/register" method="POST" class="user-form u-center">
+                <form action="/admin/registerKeepers" method="POST" class="user-form u-center" id="adminKeepersEdit-form">
                     <div class="row">
                         <div class="col-2-of-4 u-no-margin-right u-right">
                             <div style= "position: relative;">
-                                <label for="keepername" class="heading-3 heading-3__admin-users heading-3__admin-users--username">Keeper name</label><br />
-                                <label for="password" class="heading-3 heading-3__admin-users heading-3__admin-users--password">Password</label>
+                                <label for="keeperName" class="heading-3 heading-3__admin-users heading-3__admin-users--username">Keeper name</label><br />
+                                <label for="keeperPassword" class="heading-3 heading-3__admin-users heading-3__admin-users--password">Password</label>
                             </div>    
                         </div>
                         <div class="col-2-of-4">
-                                <input type="text" class="user-form__input u-mb-small" name="username" placeholder="">
-                                <input type="text" class="user-form__input" name="password" placeholder="">
+                                <input type="text" id="keeper-username" class="user-form__input u-mb-small" name="keeperName" placeholder="">
+                                <input type="text" id="keeper-password" class="user-form__input" name="keeperPassword" placeholder="">
                         </div>
                         
                     </div>
@@ -165,19 +168,19 @@
                                 <div class="heading-3 heading-3__admin-users u-mr-small">HOME</div>
                         </div>
                         <div class="col-2-of-4">
-                            <div class="user-form__checkbox-input">
-                                <input type="checkbox" name="home-name" value="sunriver" class="home-checkbox" id="sunriver">
-                                <label for="sunriver" class="label">Sunriver</label><br>
-                                <input type="checkbox" name="home-name" value="idaho" class="home-checkbox" id="idaho">
-                                <label for="idaho" class="label">Idaho</label><br>
-                                <input type="checkbox" name="home-name" value="cannon-beach" class="home-checkbox" id="cannon-beach">
-                                <label for="cannon-beach" class="label">Cannon Beach</label>
+                            <div class="user-form__radio-input" id="admin-homesKeepers">
+                                <input type="radio" name="radioKeepersArr" value="sunriver" id="admin-keeperHome">
+                                <label for="user" class="label">Sunriver</label><br>
+                                <input type="radio" name="radioKeepersArr" value="Idaho" id="admin-keeperHome">
+                                <label for="keeper" class="label">Idaho</label> <br>
+                                <input type="radio" name="radioKeepersArr" value="cannon-beach" id="admin-keeperHome"> 
+                                <label for="admin" class="label">Cannon Beach</label><br>
                             </div>
                         </div>
                     </div>
                     <div style="position: relative;">
-                            <button type="submit" class="btn btn__admin btn__admin--submit">SUBMIT</button>
-                            <button type="submit" class="btn btn__admin btn__admin--delete">DELETE</button>
+                            <button type="submit" id="keeperSubmitButton" class="btn btn__admin btn__admin--submit">ADD NEW</button>
+                            <button type="submit" id="keeperDeleteButton" class="btn btn__admin btn__admin--delete u-hidden">DELETE</button>
                         </div>
                 
                 </form>
