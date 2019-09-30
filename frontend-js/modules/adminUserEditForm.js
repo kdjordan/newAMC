@@ -1,17 +1,19 @@
 import axios from 'axios';
+import users from 'includes/users';
+
+console.log(users);
 
 export default class AdminUserLinks {
     constructor() {
-        //sections and form :: userForm id dynamically changed based on UI state
+        //sections and form :: form id dynamically changed based on UI state
         this.sectionUsers = document.querySelector('.section-users');
         this.sectionHomes = document.querySelector('.section-homes');
         this.sectionKeepers = document.querySelector('.section-keepers');
-        this.userForm = document.getElementById('adminUsersEdit-form');
-
+        this.form = document.getElementById('adminUsersEdit-form');
 
         //buttons
-        this.submitButton = document.querySelector('.btn__admin--submit');
-        this.deleteButton = document.querySelector('.btn__admin--delete');
+        this.submitButtons = document.querySelectorAll('.btn__admin--submit');
+        this.deleteButtons = document.querySelectorAll('.btn__admin--delete');
 
         //messaging and UI control
         this.titleMessage = document.querySelector('.titleMessage');
@@ -19,13 +21,20 @@ export default class AdminUserLinks {
         this.alertMessage = document.querySelector('#alertMessage');
         
 
-        
         //form Elements for I/O
         this.passwordField = document.querySelector('#admin-password');
         this.usernameField = document.querySelector('#admin-username');
         this.hiddenID = document.querySelector('#hiddenIdField');
         this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
         this.rolesRadioGroup = document.getElementsByName('roles');
+
+        //home specific form fields
+        this.homeImageUrl = document.querySelector('#homeUrl');
+        this.homeName = document.querySelector('#homeName');
+
+        //keeper specific form fields
+        this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
+
 
         //links and elements for sidenav
         this.navTitles = document.querySelectorAll('.sidenav__title');
@@ -62,95 +71,212 @@ export default class AdminUserLinks {
 
                     let parentMenu = el.parentNode;
                     
-                    
                     if(parentMenu.classList.contains('sidenav__dropdown--users')){
                         let theId = el.firstChild.dataset.id;
                         this.setUI('update', "users", theId);
-                        
+                        // this.getFormData(searchId, parentMenu);
                     }
                     if(parentMenu.classList.contains('sidenav__dropdown--homes')){
-                        this.setUI('update', "homes");
+                        let theId = el.firstChild.dataset.id;
+                        this.setUI('update', "homes", theId);
+                        // this.getFormData(searchId, parentMenu);
                     }
                     if(parentMenu.classList.contains('sidenav__dropdown--keepers')){
-                        this.setUI('update', "keepers");
+                        let theId = el.firstChild.dataset.id;
+                        this.setUI('update', "keepers", theId);
+                        // this.getFormData(searchId, parentMenu);
                     }
-                    let searchId = el.children[0].dataset.id;
-                    // console.log(searchId);
-                    
-                    //create handler to switch forms and then run getUserData
-                    //need to know where the click came from :: user, home, or keeper
-                    // this.getFormData(searchId, parentMenu);
                 });
 
         })
         });
 
-        this.deleteButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
-                this.deleteUser(this.hiddenID.value);
-            }
+        this.deleteButtons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
+                    console.log("this.hiddenID.value");
+                    console.log(this.hiddenID.value);
+
+                    // this.deleteUser(this.hiddenID.value);
+                    
+                }
+            })
         });
 
-        this.submitButton.addEventListener('click', (e) => {
-            e.preventDefault();
-;            //check to see if we're adding new user or updating a user
-            
-            // if(this.validateUserForm()) {
-                if((this.adminTitle.innerHTML.toLowerCase().split(' ')[0] == "add")) {
-                    // this.userForm.submit();
-                    this.resetForm();
-                } else { 
-                    this.userForm.action = `/admin/user/${this.hiddenID.value}/update`;
-                    this.userForm.submit();
-                    this.resetForm();
+        this.submitButtons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                //check to see if we're adding new user or updating a user
+                // submitButtonHandler(e.srcElement);
+                console.log('the form is');
+                console.log(this.form.id);
+                if(this.submitButtonHandler(this.form.action, this.form.id)) {
+                    console.log('should be good to go');
+                    this.form.submit();
+                    this.form.reset();
+                } else {
+                    console.log('form error')
                 }
-            // } 
-        });
+                // if(this.validateform()) {
+                        // console.log(e.srcElement);
+                        
+                        // this.resetForm();
+                    
+                // } 
+            });
+        })
     }
 
     /////////////////////////////METHODS/////////////////////////////
 
+   
     setUI(operation, sectionVar, id) {
-        
-        // console.log(operation);
-        // console.log(sectionVar)
-
+    
         //call update section to show proper form
         let sectionString = `section-${sectionVar}`;
         this.updateSection(sectionString);
 
         //get an updated admin title(title under logo) and update it
-        let adminTitleSelectString = `#${sectionString} .admin__title`;
-        this.adminTitle = document.querySelector(adminTitleSelectString);
+        this.adminTitle = document.querySelector(`#${sectionString} .admin__title`);
 
          //cut off trailing (s) so form action is correct
          let string = sectionVar.charAt(0).toUpperCase() + sectionVar.slice(1);
-         string = string.substring(0, string.length - 1);
+         let stringSingular = sectionVar.substring(0, string.length - 1);
 
-         console.log(string)
-         console.log(sectionVar)
+         this.setFormFields(sectionVar)
+        
+         //flip submit button to delete and update
+         this.submitButton = document.getElementById(`${stringSingular}SubmitButton`);
+         this.deleteButton = document.getElementById(`${stringSingular}DeleteButton`);
+
+         this.form = document.querySelector(`#admin${string}Edit-form`);
+
 
         //set title above form and action of form
         if(operation == 'add') {
             this.updateAdminTitle(`Add new ${sectionVar}`);
-            this.userForm.action = `/admin/register${string}`;
+            this.submitButton.innerHTML = "ADD NEW";
+            this.deleteButton.classList.add('u-hidden');
+            
+            this.form.action = `/admin/register${string}`;
         } else {
-            // sectionVar = sectionVar.substring(0, sectionVar.length - 1);
             this.updateAdminTitle(`Update ${string} Data`);
-            let userFormSelectString = `#admin${string}sEdit-form`;
-            console.log(userFormSelectString);
-            this.userForm = document.querySelector(userFormSelectString);
-            this.userForm.action = `/admin/user/${id}/update`;
+            this.submitButton.innerHTML = "UPDATE";
+            this.deleteButton.classList.remove('u-hidden');
+            
+            this.form.action = `/admin/${stringSingular}/${id}/update`;
         }
-        
-         console.log(this.userForm.action);
 
-        //form specific grabs
-        
-
-
+        // console.log(operation);
+        // console.log(id);
+        // console.log(this.form.action);
+        // console.log(this.deleteButton);
+        // console.log(this.submitButton);
+        // console.log('end SETUI');
     };
+
+    //FN : make decision on what formValidation method to call
+    //RETURNS : boolean id form is ready to go
+    submitButtonHandler(element, formId) {
+       const regExRegisterTest = /register/;
+       const regExUsersTest = /Users/;
+       const regExHomesTest = /Homes/;
+      
+        if(regExRegisterTest.test(element)) {
+            //we're registering something new - let's see what it is 
+            if(regExUsersTest.test(formId)) {
+                //we got a new user so validate that form
+                console.log('registering user');
+                if(this.newUserValidateForm()) {
+                    return true;
+                };
+
+            } else if (regExHomesTest.test(formId)) {
+                console.log('registering Home');
+                if(this.newHomeValidateForm()) {
+                    return true;
+                };
+            } else {
+                console.log('registernig Keeper');
+                if(this.newKeeperValidateForm()) {
+                    return true;
+                };
+            }
+           
+        } else {
+            console.log('updating');
+        }
+
+    }
+
+    newKeeperValidateForm() {
+        
+        console.log(this.homesCheckGroup);
+        if(this.passwordField.value == "" || this.usernameField.value == "") { 
+            this.throwAlert("Username or Password is Empty !");
+            return false; 
+        } 
+        if(!this.checkIfGroupIsEmpty(this.keepersRadioGroup)) { 
+            this.throwAlert("You must select at least one home !");
+            return false; 
+        }     
+        return true;
+    }
+
+    newHomeValidateForm() {
+        if(this.homeName.value == "" || this.homeImageUrl.value == "") {
+            this.throwAlert("You Must provide a Home Name and an Image !");
+            return false; 
+        }
+        return true;
+        
+    }
+    //FN : check to make sure user Form is filled out
+    newUserValidateForm() {
+        if(this.passwordField.value == "" || this.usernameField.value == "") { 
+            this.throwAlert("Username or Password is Empty !");
+            return false; 
+        } 
+        if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
+            this.throwAlert("You must select at least one home !");
+            return false; 
+        }     
+        if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
+            this.throwAlert("You must provide a role !");
+            return false; 
+        } 
+        return true;
+    };
+
+    setFormFields(form) {
+        switch(form) {
+            case 'users':
+
+                // console.log('getting users form data')
+                // console.log(this.submitButton);
+                this.passwordField = document.querySelector('#admin-password');
+                this.usernameField = document.querySelector('#admin-username');
+                this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
+                this.rolesRadioGroup = document.getElementsByName('roles');
+                break;
+            case 'homes':
+
+                // console.log('getting homes form data')
+                // console.log(this.form);
+                this.homeImageUrl = document.querySelector('#homeUrl');
+                this.homeName = document.querySelector('#homeName');
+                break;
+            case 'keepers': 
+                // console.log('getting keepers form data')
+                // console.log(this.form);
+                this.passwordField = document.querySelector('#keeper-password');
+                this.usernameField = document.querySelector('#keeper-username');
+                this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
+                break;
+        }
+    }
 
     updateSection(section) {
         this.allSectionsArr.forEach((el) => {
@@ -163,11 +289,7 @@ export default class AdminUserLinks {
     }
 
     updateAdminTitle(message) {
-        
-        // console.log(this.adminTitle);
-        // console.log(this.userForm);
         this.adminTitle.innerHTML = message;
-        // console.log(this.adminTitle.innerHTML);
         this.titleMessage.innerHTML = message;
     };
 
@@ -209,15 +331,11 @@ export default class AdminUserLinks {
 
     //FN : empties out form
     resetForm() {
-        this.userForm.reset();
+        this.form.reset();
         this.usernameField.value = " ";
         this.passwordField.placeholder = " ";
         this.alertMessage.classList.add('hide-alert');
     };
-
-    
-
-    
 
     //FN : make a trip to the Db and grab user data based on ID
     //CALLS : populateUserEditForm with data to populate form
@@ -244,7 +362,7 @@ export default class AdminUserLinks {
 
     //FN : populate user form with said data from DB trip
     populateUserEditForm(data) {
-        this.userForm.reset();
+        this.form.reset();
         this.usernameField.value = data.username;
         this.passwordField.placeholder = "Enter New Password";
         this.hiddenID.value = data._id;
@@ -270,22 +388,7 @@ export default class AdminUserLinks {
         });
     };
 
-    //FN : check to make sure fields arr populated, if not thro
-    validateUserForm() {
-        if(this.passwordField.value == "" || this.usernameField.value == "") { 
-            this.throwAlert("Username or Password is Empty !");
-            return false; 
-        } 
-        if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
-            this.throwAlert("You must select at least one home !");
-            return false; 
-        }     
-        if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
-            this.throwAlert("You must provide a role !");
-            return false; 
-        } 
-        return true;
-    };
+    
 
     //FN : loop through a goup and see if an element is checked
     checkIfGroupIsEmpty(group) {

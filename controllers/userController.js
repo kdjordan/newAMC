@@ -31,12 +31,18 @@ exports.logout = function(req, res) {
     });
 };
 
-
-exports.register = async function(req, res) {
+exports.registerKeeper = async function(req, res) {
+    
+    let data = {
+        username: req.body.keeperName,
+        password: req.body.keeperPassword,
+        roles: 'keeper',
+        checkBoxHomesArr: req.body.checkBoxKeepersArr
+    };
     try {
-        let user = new User(req.body);
+        let user = new User(data);
         if(user.register()) {
-            req.flash('adminTitleMessage', "user added successfully");
+            req.flash('adminTitleMessage', "keeper added successfully");
             req.session.save(function() {
                 res.redirect('/admin');
             })
@@ -47,6 +53,33 @@ exports.register = async function(req, res) {
                 res.redirect('/admin');
             })
         }
+    } catch {
+        res.send('Error adding new User');
+    }
+
+
+    console.log(data);
+
+    
+}
+
+
+exports.register = async function(req, res) {
+    console.log(req.body);
+    try {
+        let user = new User(req.body);
+        // if(user.register()) {
+        //     req.flash('adminTitleMessage', "user added successfully");
+        //     req.session.save(function() {
+        //         res.redirect('/admin');
+        //     })
+           
+        // } else {
+        //     req.flash('adminTitleMessage', "Uh OH - It didn't work !");
+        //     req.session.save(function() {
+        //         res.redirect('/admin');
+        //     })
+        // }
     } catch {
         res.send('Error adding new User');
     }
