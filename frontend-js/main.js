@@ -1,5 +1,5 @@
 import ReservationForm from './modules/reservationForm';
-import AdminUserEditForm from './modules/adminUserEditForm';
+import AdminForm from './modules/adminForms';
 import Admin from './modules/admin';
 import AdminUserLinks from './modules/adminUserLinks';
 
@@ -15,8 +15,8 @@ import AdminUserLinks from './modules/adminUserLinks';
 //     new AdminUserLinks();
 // }
 
-if (document.querySelector('#adminUsersEdit-form')) {
-    new AdminUserEditForm();
+if (document.querySelector('.admin-logo-box')) {
+    new AdminForm();
 }
 
 //fix later

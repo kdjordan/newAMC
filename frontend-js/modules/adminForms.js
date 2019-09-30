@@ -1,41 +1,50 @@
 import axios from 'axios';
 
 
-console.log(users);
-
 export default class AdminUserLinks {
     constructor() {
-        //sections and form :: form id dynamically changed based on UI state
+        //sections 
         this.sectionUsers = document.querySelector('.section-users');
         this.sectionHomes = document.querySelector('.section-homes');
         this.sectionKeepers = document.querySelector('.section-keepers');
-        this.form = document.getElementById('adminUsersEdit-form');
+
+        //hidden field with Object id for deleting and updating
+        this.hiddenID = document.querySelector('#hiddenIdField');
+
+        //forms
+        this.userForm = document.getElementById('usersForm')
+        this.homeForm = document.getElementById('homesForm')
+        this.keeperForm = document.getElementById('keepersForm')
 
         //buttons
-        this.submitButtons = document.querySelectorAll('.btn__admin--submit');
-        this.deleteButtons = document.querySelectorAll('.btn__admin--delete');
+        this.userSubmitButton = document.getElementById('userSubmitButton');
+        this.userDeleteButton = document.getElementById('userDeleteButton');
+        this.homeSubmitButton = document.getElementById('homeSubmitButton');
+        this.homeDeleteButton = document.getElementById('homeDeleteButton');
+        this.keeperSubmitButton = document.getElementById('keeperSubmitButton');
+        this.keeperDeleteButton = document.getElementById('keeperDeleteButton');
 
         //messaging and UI control
-        this.titleMessage = document.querySelector('.titleMessage');
+        this.titleMessage = document.getElementById('titleMessage');
         this.adminTitle = document.querySelector('.admin__title');
-        this.alertMessage = document.querySelector('#alertMessage');
+        this.alertMessage = document.getElementById('alertMessage');
         
+        //userFrom specific fields
+        this.userNameField = document.getElementById('userNameField');
+        this.userPasswordField = document.getElementById('userPasswordField');
+        this.userHomesArr = document.getElementsByName('userHomes');
+        this.userRolesArr = document.getElementsByName('userRoles');
 
-        //form Elements for I/O
-        this.passwordField = document.querySelector('#admin-password');
-        this.usernameField = document.querySelector('#admin-username');
-        this.hiddenID = document.querySelector('#hiddenIdField');
-        this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
-        this.rolesRadioGroup = document.getElementsByName('roles');
+        //homeForm specific fields
+        this.homeNameField = document.getElementById('homeNameField');
+        this.homeImgPathField = document.getElementById('homeImgPathField');
 
-        //home specific form fields
-        this.homeImageUrl = document.querySelector('#homeUrl');
-        this.homeName = document.querySelector('#homeName');
+        //keeperForm specific fields
+        this.keeperUsernameField = document.getElementById('keeperUsernameField');
+        this.keeperPasswordField = document.getElementById('keeperPasswordField');
+        this.keeperHomesArr = document.getElementById('keeperHomes');
 
-        //keeper specific form fields
-        this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
-
-
+    
         //links and elements for sidenav
         this.navTitles = document.querySelectorAll('.sidenav__title');
         this.userLinks = document.querySelectorAll('#userLinks a');
@@ -46,7 +55,7 @@ export default class AdminUserLinks {
         this.homeIds = document.querySelectorAll('#homesLinks');
         
         
-        //simply event controllers
+        //simplify event controllers
         this.allIdsArr = [this.userIds, this.homeIds, this.keeperIds];
         this.allSectionsArr = [this.sectionUsers, this.sectionHomes, this.sectionKeepers];
         this.events();
@@ -59,78 +68,82 @@ export default class AdminUserLinks {
         
         this.navTitles.forEach(el => {
             el.addEventListener('click', () => {
+                console.log(el.id);
                 this.setUI('add', el.id);
             })
         })
 
-        this.allIdsArr.forEach((idArray) => {
-            idArray.forEach((el) => {
-                el.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
+    //     this.allIdsArr.forEach((idArray) => {
+    //         idArray.forEach((el) => {
+    //             el.addEventListener('click', (e) => {
+    //                 e.preventDefault();
+    //                 e.stopPropagation();
 
-                    let parentMenu = el.parentNode;
+    //                 let parentMenu = el.parentNode;
                     
-                    if(parentMenu.classList.contains('sidenav__dropdown--users')){
-                        let theId = el.firstChild.dataset.id;
-                        this.setUI('update', "users", theId);
-                        // this.getFormData(searchId, parentMenu);
-                    }
-                    if(parentMenu.classList.contains('sidenav__dropdown--homes')){
-                        let theId = el.firstChild.dataset.id;
-                        this.setUI('update', "homes", theId);
-                        // this.getFormData(searchId, parentMenu);
-                    }
-                    if(parentMenu.classList.contains('sidenav__dropdown--keepers')){
-                        let theId = el.firstChild.dataset.id;
-                        this.setUI('update', "keepers", theId);
-                        // this.getFormData(searchId, parentMenu);
-                    }
-                });
+    //                 if(parentMenu.classList.contains('sidenav__dropdown--users')){
+    //                     let theId = el.firstChild.dataset.id;
+    //                     this.setUI('update', "users", theId);
+    //                     // this.getFormData(searchId, parentMenu);
+    //                 }
+    //                 if(parentMenu.classList.contains('sidenav__dropdown--homes')){
+    //                     let theId = el.firstChild.dataset.id;
+    //                     this.setUI('update', "homes", theId);
+    //                     // this.getFormData(searchId, parentMenu);
+    //                 }
+    //                 if(parentMenu.classList.contains('sidenav__dropdown--keepers')){
+    //                     let theId = el.firstChild.dataset.id;
+    //                     this.setUI('update', "keepers", theId);
+    //                     // this.getFormData(searchId, parentMenu);
+    //                 }
+    //             });
 
-        })
-        });
+    //     })
+    //     });
 
-        this.deleteButtons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
-                    console.log("this.hiddenID.value");
-                    console.log(this.hiddenID.value);
+    //     this.deleteButtons.forEach((button) => {
+    //         button.addEventListener('click', (e) => {
+    //             e.preventDefault();
+    //             if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
+    //                 console.log("this.hiddenID.value");
+    //                 console.log(this.hiddenID.value);
 
-                    // this.deleteUser(this.hiddenID.value);
+    //                 // this.deleteUser(this.hiddenID.value);
                     
-                }
-            })
-        });
+    //             }
+    //         })
+    //     });
 
-        this.submitButtons.forEach((button) => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
+    //     this.submitButtons.forEach((button) => {
+    //         button.addEventListener('click', (e) => {
+    //             e.preventDefault();
                 
-                //check to see if we're adding new user or updating a user
-                // submitButtonHandler(e.srcElement);
-                console.log('the form is');
-                console.log(this.form.id);
-                if(this.submitButtonHandler(this.form.action, this.form.id)) {
-                    console.log('should be good to go');
-                    this.form.submit();
-                    this.form.reset();
-                } else {
-                    console.log('form error')
-                }
-                // if(this.validateform()) {
-                        // console.log(e.srcElement);
+    //             //check to see if we're adding new user or updating a user
+    //             // submitButtonHandler(e.srcElement);
+    //             console.log('the form is');
+    //             console.log(this.form.id);
+    //             if(this.submitButtonHandler(this.form.action, this.form.id)) {
+    //                 console.log('should be good to go');
+    //                 this.form.submit();
+    //                 this.form.reset();
+    //             } else {
+    //                 console.log('form error')
+    //             }
+    //             // if(this.validateform()) {
+    //                     // console.log(e.srcElement);
                         
-                        // this.resetForm();
+    //                     // this.resetForm();
                     
-                // } 
-            });
-        })
+    //             // } 
+    //         });
+    //     })
     }
 
     /////////////////////////////METHODS/////////////////////////////
-
+    updateAdminTitle(message) {
+        this.adminTitle.innerHTML = message;
+        this.titleMessage.innerHTML = message;
+    };
    
     setUI(operation, sectionVar, id) {
     
@@ -160,13 +173,13 @@ export default class AdminUserLinks {
             this.submitButton.innerHTML = "ADD NEW";
             this.deleteButton.classList.add('u-hidden');
             
-            this.form.action = `/admin/register${string}`;
+            // this.form.action = `/admin/register${string}`;
         } else {
             this.updateAdminTitle(`Update ${string} Data`);
             this.submitButton.innerHTML = "UPDATE";
             this.deleteButton.classList.remove('u-hidden');
             
-            this.form.action = `/admin/${stringSingular}/${id}/update`;
+            // this.form.action = `/admin/${stringSingular}/${id}/update`;
         }
 
         // console.log(operation);
@@ -288,10 +301,7 @@ export default class AdminUserLinks {
         })
     }
 
-    updateAdminTitle(message) {
-        this.adminTitle.innerHTML = message;
-        this.titleMessage.innerHTML = message;
-    };
+   
 
 
     //messaging for alerts
