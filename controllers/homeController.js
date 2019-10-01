@@ -21,3 +21,12 @@ exports.register = async function(req, res) {
 };
 
 
+exports.getHomeDataById = async function(req, res) {
+    try {
+        let home = await Home.getHomeData(req.body.homeId);
+        res.json(home);
+    } catch (e) {
+        res.send(e);
+    }
+} 
+

@@ -3,11 +3,15 @@
     <div class="admin-logo-box">
         <div class="admin-logo-box__title">AMC <span class="admin-logo-box__title--sub">Vacation Rentals</span></span></div>
         <div class="admin-logo-box__title--notifications">Administration > <span id="titleMessage">Welcome <%= adminName %></span></div>
-        <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
-                
-            <%= adminTitleMessage %>
-
+        <% if (adminTitleMessage.length > 0) {%>
+        <span class="u-ml-small alert alert-success alert-success__admin show-alert" id="alertMessage">
+                <%= adminTitleMessage %>
         </span>
+        <% } else {%>
+            <span class="u-ml-small alert alert-success alert-success__admin" id="alertMessage">
+                    <%= adminTitleMessage %>
+            </span>
+            <% } %>
     </div>
 </header>
 
@@ -86,11 +90,11 @@
                         </div>
                         <div class="col-2-of-4">
                             <div class="user-form__radio-input">
-                                <input type="radio" name="userRoles" value="user" id="admin-userRole">
+                                <input type="radio" name="role" value="user" id="admin-userRole">
                                 <label for="user" class="label">User</label><br>
-                                <input type="radio" name="userRoles" value="keeper" id="admin-keeperRole">
+                                <input type="radio" name="role" value="keeper" id="admin-keeperRole">
                                 <label for="keeper" class="label">Keeper</label> <br>
-                                <input type="radio" name="userRoles" value="admin" id="admin-adminRole"> 
+                                <input type="radio" name="role" value="admin" id="admin-adminRole"> 
                                 <label for="admin" class="label">Administrator</label><br>
                             </div>
                         </div>
@@ -116,13 +120,21 @@
         <div class="user-form__container">
             <form action="/admin/registerHomes" method="POST" class="user-form u-center" id="adminHomesEdit-form">
                 <div class="row">
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div>
+                        </div>
+                        <div class="col-2-of-4 u-no-margin-right u-right">
+                                <img src="/img/sunriver-sm.png" class="header-box__image u-float-left" name="homeURL" id="homeImage">
+                        </div>
+                </div>
+                <div class="row">
                     <div class="col-2-of-4 u-no-margin-right u-right">
-                        <!-- <div class="u-mr-small heading-3 heading-3__admin-users u-mt-large">home image</div> -->
-                        <label for="homeUrl" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Img</label>
+                        
+                        <label for="homeUrl" class="u-mr-small heading-3 heading-3__admin-users u-mb-small--admin">Home Image Path</label>
                     </div>
                     <div class="col-2-of-4">
                             <input type="text" id="homeUrl" class="user-form__input u-mb-small" name="homeUrl" placeholder="">
-                            <!-- <img src="/img/sunriver-sm.png" class="header-box__image u-float-left" name="homeURL"> -->
+                            
                     </div>
                 </div>       
                 <div class="row">
@@ -168,7 +180,7 @@
                         <div class="col-2-of-4">
                             <div class="user-form__radio-input" id="admin-homesKeepers">
                                     <% homesArr.forEach((el) => { %>
-                                        <input type="radio" name="radioKeepersArr" value="<%= el.homeName %>" >
+                                        <input type="radio" name="radioKeepersArr" value="<%= el.homeName %>" id="keeper-<%= el.homeName %>">
                                         <label for="<%= el.homeName %>" class="label"><%= el.homeName %></label><br>
                                     <% })%>
                             </div>

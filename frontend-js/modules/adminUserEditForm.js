@@ -27,15 +27,20 @@ export default class AdminUserLinks {
         this.usernameField = document.querySelector('#admin-username');
         this.hiddenID = document.querySelector('#hiddenIdField');
         this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
-        this.rolesRadioGroup = document.getElementsByName('userRoles');
+        this.rolesRadioGroup = document.getElementsByName('role');
+        
+        
         
 
         //home specific form fields
+        this.homeImage = document.getElementById('homeImage');
         this.homeImageUrl = document.querySelector('#homeUrl');
         this.homeName = document.querySelector('#homeName');
 
         //keeper specific form fields
         this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
+        this.keeperName = document.getElementById('keeper-username');
+        this.keeperPassword = document.getElementById('keeper-password');
 
 
         //links and elements for sidenav
@@ -61,6 +66,7 @@ export default class AdminUserLinks {
         
         this.navTitles.forEach(el => {
             el.addEventListener('click', () => {
+                this.checkAlertMessage();
                 this.setUI('add', el.id);
             })
         })
@@ -70,23 +76,24 @@ export default class AdminUserLinks {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log(el);
+                    this.checkAlertMessage();
+                    
                     let parentMenu = el.parentNode;
                     
                     if(parentMenu.classList.contains('sidenav__dropdown--users')){
                         let theId = el.firstChild.dataset.id;
                         this.setUI('update', "users", theId);
-                        // this.getFormData(searchId, parentMenu);
+                        
                     }
                     if(parentMenu.classList.contains('sidenav__dropdown--homes')){
                         let theId = el.firstChild.dataset.id;
                         this.setUI('update', "homes", theId);
-                        // this.getFormData(searchId, parentMenu);
+                        
                     }
                     if(parentMenu.classList.contains('sidenav__dropdown--keepers')){
                         let theId = el.firstChild.dataset.id;
                         this.setUI('update', "keepers", theId);
-                        // this.getFormData(searchId, parentMenu);
+                        
                     }
                 });
 
@@ -111,30 +118,18 @@ export default class AdminUserLinks {
                 e.preventDefault();
                 
                 //check to see if we're adding new user or updating a user
-                // submitButtonHandler(e.srcElement);
-                console.log('the form is');
-                console.log(this.form.id);
+                console.log(this.rolesRadioGroup);
                 if(this.submitButtonHandler(this.form.action, this.form.id)) {
                     
+                    // console.log('should be good to go with');
                     
-                    console.log('should be good to go with');
-                    
-                    // axios.post().then(() => {
-
-                    // }).catch(() => {
-
-                    // })
-                    // this.form.submit();
-                    // this.form.reset();
+                    this.form.submit();
+                    this.alertMessage.classList.remove('hide-alert');
+                    this.form.reset();
                 } else {
                     console.log('form error')
                 }
-                // if(this.validateform()) {
-                        // console.log(e.srcElement);
-                        
-                        // this.resetForm();
-                    
-                // } 
+               
             });
         })
     }
@@ -165,6 +160,7 @@ export default class AdminUserLinks {
 
 
         //set title above form and action of form
+        //if it's an update -> make a call to populate the form with ID info
         if(operation == 'add') {
             this.updateAdminTitle(`Add new ${sectionVar}`);
             this.submitButton.innerHTML = "ADD NEW";
@@ -177,14 +173,114 @@ export default class AdminUserLinks {
             this.deleteButton.classList.remove('u-hidden');
             
             this.form.action = `/admin/${stringSingular}/${id}/update`;
-        }
+            this.getFormData(id, sectionVar);
 
-        // console.log(operation);
-        // console.log(id);
-        // console.log(this.form.action);
-        // console.log(this.deleteButton);
-        // console.log(this.submitButton);
-        // console.log('end SETUI');
+
+        }
+    };
+
+      //FN : make a trip to the Db and grab user data based on ID
+    //CALLS : populateUserEditForm with data to populate form
+    getFormData(searchId, menu) {
+        // console.log(searchId)
+        // console.log(menu);
+
+        let searchString = '';
+        let nameType = '';
+        switch(menu) {
+            case 'users' :
+                console.log('get a user')
+                axios.post('/getUserData', {usernameId: searchId, type: 'any'}).then((response) => {
+                    console.log(response.data);
+                    if(response.data) {
+                        //populate form with data !!
+                        this.populateUserEditForm(response.data);
+                    } else {
+                        this.throwAlert("User Not Found");
+                    }
+                }).catch((e) => {
+                    console.log("Problem connecting with DB" + e);
+                });
+                break;
+            case 'homes' :    
+                console.log('get a home')
+                axios.post('/getHomeData', {homeId: searchId}).then((response) => {
+                    console.log(response.data);
+                    if(response.data) {
+                        //populate form with data !!
+                        this.populateHomeEditForm(response.data);
+                    } else {
+                        this.throwAlert("User Not Found");
+                    }
+                }).catch((e) => {
+                    console.log("Problem connecting with DB" + e);
+                })
+                break;
+            case 'keepers' :
+                console.log('get a keeper')
+                axios.post('/getUserData', {usernameId: searchId, type: 'keeper'}).then((response) => {
+                    console.log(response.data);
+                    if(response.data) {
+                        //populate form with data !!
+                        this.populateKeeperEditForm(response.data);
+                    } else {
+                        this.throwAlert("Keeper Not Found");
+                    }
+                }).catch((e) => {
+                    console.log("Problem connecting with DB in Keepers" + e);
+                })
+                break;
+            
+        }
+       
+    };
+
+    populateKeeperEditForm(data){
+        this.form.reset();
+        this.keeperName.value = data.keeperName;
+        this.keeperPassword.placeholder = "Enter New Password";
+        
+        this.keepersRadioGroup.forEach((home) => {
+            if(home.value == data.keeperHome[0]) {
+                document.getElementById(`keeper-${data.keeperHome[0]}`).checked = true;
+            }
+        });
+    }
+
+    populateHomeEditForm(data) {
+        this.form.reset();
+        this.homeName.value = data.homeName;
+        this.homeImageUrl.value = data.homeUrl;
+        this.homeImage.src = `/img/${data.homeUrl}`;
+        this.hiddenID.value = data._id;
+    }
+
+    //FN : populate user form with said data from DB trip
+    populateUserEditForm(data) {
+        this.form.reset();
+        this.usernameField.value = data.username;
+        this.passwordField.placeholder = "Enter New Password";
+        this.hiddenID.value = data._id;
+       
+        this.homesCheckGroup.forEach((allHomes) => {
+            if(data.homesArray.length > 1) {
+                data.homesArray.forEach((activeHome) => {     
+                    if( allHomes.value == activeHome){
+                        document.getElementById(`admin-${allHomes.value}`).checked = true;
+                    }
+                });
+            } else {
+                if (data.homesArray[0] == allHomes.value) {
+                    document.getElementById(`admin-${allHomes.value}`).checked = true;
+                }
+            }
+        });
+
+        this.rolesRadioGroup.forEach((roles) => {
+            if(roles.value == data.role) {
+                document.getElementById(`admin-${data.role}Role`).checked = true;
+            }
+        });
     };
 
     //FN : make decision on what formValidation method to call
@@ -198,101 +294,23 @@ export default class AdminUserLinks {
             //we're registering something new - let's see what it is 
             if(regExUsersTest.test(formId)) {
                 //we got a new user so validate that form
-                if(this.newUserValidateForm()) {
-                //form is good so lets axios it out
-                    console.log(formAction);
-                    axios.post('/admin/registerUsers').then((response) => {
-                        console.log(response);
-                    }).catch((e) => {
-                        console.log(e)
-                    })
+                if(this.userValidateForm()) {
                     return true;
                 };
-
             } else if (regExHomesTest.test(formAction)) {
-                console.log('registering Home');
-                if(this.newHomeValidateForm()) {
+                if(this.homeValidateForm()) {
                     return true;
                 };
-            } else {
-                console.log('registernig Keeper');
-                if(this.newKeeperValidateForm()) {
+            } else { 
+                if(this.keeperValidateForm()) {
                     return true;
                 };
             }
-           
         } else {
             console.log('updating');
         }
-
     }
 
-    newKeeperValidateForm() {
-        
-        console.log(this.homesCheckGroup);
-        if(this.passwordField.value == "" || this.usernameField.value == "") { 
-            this.throwAlert("Username or Password is Empty !");
-            return false; 
-        } 
-        if(!this.checkIfGroupIsEmpty(this.keepersRadioGroup)) { 
-            this.throwAlert("You must select at least one home !");
-            return false; 
-        }     
-        return true;
-    }
-
-    newHomeValidateForm() {
-        if(this.homeName.value == "" || this.homeImageUrl.value == "") {
-            this.throwAlert("You Must provide a Home Name and an Image !");
-            return false; 
-        }
-        return true;
-        
-    }
-    //FN : check to make sure user Form is filled out
-    newUserValidateForm() {
-        if(this.passwordField.value == "" || this.usernameField.value == "") { 
-            this.throwAlert("Username or Password is Empty !");
-            return false; 
-        } 
-        if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
-            this.throwAlert("You must select at least one home !");
-            return false; 
-        }     
-        if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
-            this.throwAlert("You must provide a role !");
-            return false; 
-        } 
-        return true;
-    };
-
-    setFormFields(form) {
-        switch(form) {
-            case 'users':
-
-                // console.log('getting users form data')
-                // console.log(this.submitButton);
-                this.passwordField = document.querySelector('#admin-password');
-                this.usernameField = document.querySelector('#admin-username');
-                this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
-                this.rolesRadioGroup = document.getElementsByName('userRoles');
-                break;
-            case 'homes':
-
-                // console.log('getting homes form data')
-                // console.log(this.form);
-                this.homeImageUrl = document.querySelector('#homeUrl');
-                this.homeName = document.querySelector('#homeName');
-                break;
-            case 'keepers': 
-                // console.log('getting keepers form data')
-                // console.log(this.form);
-                this.passwordField = document.querySelector('#keeper-password');
-                this.usernameField = document.querySelector('#keeper-username');
-                this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
-                break;
-        }
-    }
 
     updateSection(section) {
         this.allSectionsArr.forEach((el) => {
@@ -312,11 +330,12 @@ export default class AdminUserLinks {
 
     //messaging for alerts
     throwAlert(message) {
+        
          this.alertMessage.innerHTML = message;
-         this.alertMessage.classList.remove('hide-alert');
-        //  setTimeout(function() {
-        //      this.alertMessage.classList.add('hide-alert')
-        // }, 3000)
+         this.alertMessage.classList.add('show-alert');
+         setTimeout(function() {
+             this.alertMessage.classList.remove('show-alert')
+        }, 3000)
     }
     
     //FN : take userID from sideNav user links
@@ -353,56 +372,7 @@ export default class AdminUserLinks {
         this.alertMessage.classList.add('hide-alert');
     };
 
-    //FN : make a trip to the Db and grab user data based on ID
-    //CALLS : populateUserEditForm with data to populate form
-    getFormData(searchId, menu) {
-        this.setForm(menu);
-        
-        // axios.post('/getUserData', {usernameId: link}).then((response) => {
-        //     console.log(response.data);
-        //     if(response.data) {
-        //         //populate form with data !!
-        //         this.populateUserEditForm(response.data);
-                
-        //         // console.log(response.data);
-        //         // this.showValidationError(this.username, "That username is already taken");
-        //         // this.username.isUnique = false;
-        //     } else {
-        //         // this.username.isUnique = true;
-        //         // this.hideValidationError(this.username);
-        //     }
-        // }).catch((e) => {
-        //     console.log("Problem connecting with DB" + e);
-        // })
-    };
-
-    //FN : populate user form with said data from DB trip
-    populateUserEditForm(data) {
-        this.form.reset();
-        this.usernameField.value = data.username;
-        this.passwordField.placeholder = "Enter New Password";
-        this.hiddenID.value = data._id;
-       
-        this.homesCheckGroup.forEach((allHomes) => {
-            if(data.homesArray.length > 1) {
-                data.homesArray.forEach((activeHome) => {     
-                    if( allHomes.value == activeHome){
-                        document.getElementById(`admin-${allHomes.value}`).checked = true;
-                    }
-                });
-            } else {
-                if (data.homesArray[0] == allHomes.value) {
-                    document.getElementById(`admin-${allHomes.value}`).checked = true;
-                }
-            }
-        });
-
-        this.rolesRadioGroup.forEach((roles) => {
-            if(roles.value == data.role) {
-                document.getElementById(`admin-${data.role}Role`).checked = true;
-            }
-        });
-    };
+  
 
     
 
@@ -415,6 +385,74 @@ export default class AdminUserLinks {
         }
         return false;
      };
+
+     checkAlertMessage() {
+        if(this.alertMessage.classList.contains('show-alert')){
+            this.alertMessage.classList.remove('show-alert');
+        }
+    }
+
+    setFormFields(form) {
+        switch(form) {
+            case 'users':
+                this.passwordField = document.querySelector('#admin-password');
+                this.usernameField = document.querySelector('#admin-username');
+                this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
+                this.rolesRadioGroup = document.getElementsByName('role');
+                break;
+            case 'homes':
+                this.homeImageUrl = document.querySelector('#homeUrl');
+                this.homeName = document.querySelector('#homeName');
+                break;
+            case 'keepers': 
+                this.passwordField = document.querySelector('#keeper-password');
+                this.usernameField = document.querySelector('#keeper-username');
+                this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
+                break;
+        }
+    }
+
+    keeperValidateForm() {
+        
+        if(this.passwordField.value == "" || this.usernameField.value == "") { 
+            this.throwAlert("Username or Password is Empty !");
+            return false; 
+        } 
+        if(!this.checkIfGroupIsEmpty(this.keepersRadioGroup)) { 
+            this.throwAlert("You must select at least one home !");
+            return false; 
+        }     
+        console.log('leaving form validation');
+        console.log(this.keepersRadioGroup);
+        return true;
+    }
+
+    homeValidateForm() {
+        if(this.homeName.value == "" || this.homeImageUrl.value == "") {
+            this.throwAlert("You Must provide a Home Name and an Image !");
+            return false; 
+        }
+        return true;
+        
+    }
+    //FN : check to make sure user Form is filled out
+    userValidateForm() {
+        
+        console.log(this.rolesRadioGroup);
+        if(this.passwordField.value == "" || this.usernameField.value == "") { 
+            this.throwAlert("Username or Password is Empty !");
+            return false; 
+        } 
+        if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
+            this.throwAlert("You must select at least one home !");
+            return false; 
+        }     
+        if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
+            this.throwAlert("You must provide a role !");
+            return false; 
+        } 
+        return true;
+    };
 
 }
 

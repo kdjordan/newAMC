@@ -26,6 +26,8 @@ router.post('/admin/registerKeepers', adminController.isAdmin, userController.re
 
 //edit related routes
 router.post('/getUserData', adminController.isAdmin, userController.getUserDataById)
+router.post('/getHomeData', adminController.isAdmin, homeController.getHomeDataById)
+// router.post('/getKeeperData', adminController.isAdmin, homeController.getKeeperDataById)
 
 
 

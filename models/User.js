@@ -13,6 +13,8 @@ let User = function(data) {
 User.prototype.cleanUp = function(loginFlag) {
     if(typeof(this.data.username) != 'string') {this.data.username = '';}
     if(typeof(this.data.password) != 'string') {this.data.password = '';}
+    console.log('validating');
+    console.log(this.data);
     
 
     if (loginFlag) {
@@ -21,7 +23,7 @@ User.prototype.cleanUp = function(loginFlag) {
             password: this.data.password,
         }
     } else {
-        if(typeof(this.data.roles) != 'string') {this.data.roles = '';}
+        if(typeof(this.data.role) != 'string') {this.data.role = '';}
         if(!Array.isArray(this.data.checkBoxHomesArr)) {
             if(typeof(this.data.checkBoxHomesArr) != 'string') {
                 this.data.checkBoxhomesArr = '';
@@ -33,7 +35,7 @@ User.prototype.cleanUp = function(loginFlag) {
             username: this.data.username.trim().toLowerCase(),
             password: this.data.password,
             homesArray:  this.data.checkBoxHomesArr,
-            role:  this.data.roles.trim().toLowerCase()
+            role:  this.data.role.trim().toLowerCase()
         }
     }
 
@@ -52,7 +54,8 @@ User.prototype.register = function () {
         
             this.cleanUp(false);
             // this.validate();
-           
+            console.log('data after cleanup')
+            console.log(this.data)
             if(!this.errors.length) {
                 //hash user password
                 let salt = bcrypt.genSaltSync(10);
@@ -74,7 +77,7 @@ User.prototype.login = function() {
     return new Promise((resolve, reject) => {
         this.cleanUp(true);
         this.validate();
-        console.log(this.errors);
+        
         if(!this.errors.length) {
             usersCollection.findOne({username: this.data.username}).then((attemptedUser) => {
                 if(attemptedUser && bcrypt.compareSync(this.data.password, attemptedUser.password)) {
@@ -124,25 +127,27 @@ User.prototype.update = function(data, id) {
 
 User.getUserData = function(id) {
     return new Promise(async (resolve, reject) => {
-        if(typeof(id) != 'string' || !ObjectID.isValid(id)) {
-            reject();
-            return;
-         }
-         
-        let userDoc = await usersCollection.aggregate(
-          [{$match: {_id: new ObjectID(id)}},
-            {$project: {
-                username: 1,
-                homesArray: 1,
-                role: 1
-            }
-        }]).toArray();
-        
-        if(userDoc.length) {
-            resolve(userDoc[0]);
-        } else {
-            reject('error');
-        }
+            if(typeof(id) != 'string' || !ObjectID.isValid(id)) {
+                reject();
+                return;
+             }
+             try {
+                 let userDoc = await usersCollection.aggregate(
+                   [{$match: {_id: new ObjectID(id)}},
+                     {$project: {
+                         username: 1,
+                         homesArray: 1,
+                         role: 1
+                     }
+                 }]).toArray();
+
+                 if(userDoc.length) {
+                    resolve(userDoc[0]);
+                }
+
+             } catch(e) {
+                 reject(e);
+             }
 
     })
 }

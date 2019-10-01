@@ -1,4 +1,6 @@
 const homesCollection = require('../db').db().collection('homes');
+const ObjectID = require('mongodb').ObjectID;
+
 
 let Home = function(data) {
     this.data = data;
@@ -31,5 +33,26 @@ Home.prototype.register = function() {
     
 }
 
+Home.getHomeData = function(id) {
+    return new Promise(async (resolve, reject) => {
+        if(typeof(id) != 'string' || !ObjectID.isValid(id)) {
+            reject();
+            return;
+         }
+         let homeDoc = await homesCollection.aggregate(
+            [{$match: {_id: new ObjectID(id)}},
+              {$project: {
+                  homeUrl: 1,
+                  homeName: 1
+              }
+          }]).toArray();
+          
+          if(homeDoc.length) {
+              resolve(homeDoc[0]);
+          } else {
+              reject('error');
+          }
+    })
+}
 
 module.exports = Home;

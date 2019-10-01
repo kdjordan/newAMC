@@ -36,8 +36,8 @@ exports.registerKeeper = async function(req, res) {
     let data = {
         username: req.body.keeperName,
         password: req.body.keeperPassword,
-        roles: 'keeper',
-        checkBoxHomesArr: req.body.checkBoxKeepersArr
+        role: 'keeper',
+        checkBoxHomesArr: req.body.radioKeepersArr
     };
     try {
         let user = new User(data);
@@ -54,32 +54,28 @@ exports.registerKeeper = async function(req, res) {
             })
         }
     } catch {
-        res.send('Error adding new User');
+        res.send('Error adding new Keeper');
     }
 
-
-    console.log(data);
-
-    
 }
 
 
 exports.register = async function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     try {
         let user = new User(req.body);
-        // if(user.register()) {
-        //     req.flash('adminTitleMessage', "user added successfully");
-        //     req.session.save(function() {
-        //         res.redirect('/admin');
-        //     })
+        if(user.register()) {
+            req.flash('adminTitleMessage', "user added successfully");
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
            
-        // } else {
-        //     req.flash('adminTitleMessage', "Uh OH - It didn't work !");
-        //     req.session.save(function() {
-        //         res.redirect('/admin');
-        //     })
-        // }
+        } else {
+            req.flash('adminTitleMessage', "Uh OH - It didn't work !");
+            req.session.save(function() {
+                res.redirect('/admin');
+            })
+        }
     } catch {
         res.send('Error adding new User');
     }
@@ -88,11 +84,22 @@ exports.register = async function(req, res) {
 exports.getUserDataById = async function(req, res) {
     try {
         let user = await User.getUserData(req.body.usernameId);
+        if(user.role == 'keeper') {
+            let data = {
+                id: user._id,
+                keeperName: user.username,
+                keeperHome: user.homesArray
+            }
+            res.json(data);
+            return;
+        }
         res.json(user);
-    } catch(e) {
-        res.send(e);
+    } catch {
+        res.send('Error adding new User');
     }
 };
+
+
 
 exports.delete = async function(req, res) {
        try {
