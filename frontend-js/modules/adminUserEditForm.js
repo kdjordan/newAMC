@@ -182,16 +182,10 @@ export default class AdminUserLinks {
       //FN : make a trip to the Db and grab user data based on ID
     //CALLS : populateUserEditForm with data to populate form
     getFormData(searchId, menu) {
-        // console.log(searchId)
-        // console.log(menu);
-
-        let searchString = '';
         let nameType = '';
         switch(menu) {
             case 'users' :
-                console.log('get a user')
                 axios.post('/getUserData', {usernameId: searchId, type: 'any'}).then((response) => {
-                    console.log(response.data);
                     if(response.data) {
                         //populate form with data !!
                         this.populateUserEditForm(response.data);
@@ -203,9 +197,7 @@ export default class AdminUserLinks {
                 });
                 break;
             case 'homes' :    
-                console.log('get a home')
                 axios.post('/getHomeData', {homeId: searchId}).then((response) => {
-                    console.log(response.data);
                     if(response.data) {
                         //populate form with data !!
                         this.populateHomeEditForm(response.data);
@@ -214,12 +206,10 @@ export default class AdminUserLinks {
                     }
                 }).catch((e) => {
                     console.log("Problem connecting with DB" + e);
-                })
+                });
                 break;
             case 'keepers' :
-                console.log('get a keeper')
                 axios.post('/getUserData', {usernameId: searchId, type: 'keeper'}).then((response) => {
-                    console.log(response.data);
                     if(response.data) {
                         //populate form with data !!
                         this.populateKeeperEditForm(response.data);
@@ -229,10 +219,8 @@ export default class AdminUserLinks {
                 }).catch((e) => {
                     console.log("Problem connecting with DB in Keepers" + e);
                 })
-                break;
-            
+                break;   
         }
-       
     };
 
     populateKeeperEditForm(data){
