@@ -73,12 +73,10 @@
                         <div class="col-2-of-4">
                             <!-- this should be a loop with homesArr -->
                             <div class="user-form__checkbox-input" id="admin-homes">
-                                <input type="checkbox" name="checkBoxHomesArr" value="sunriver" class="home-checkbox" id="admin-sunriver">
-                                <label for="sunriver" class="label">Sunriver</label><br>
-                                <input type="checkbox" name="checkBoxHomesArr" value="idaho" class="home-checkbox" id="admin-idaho">
-                                <label for="idaho" class="label">Idaho</label><br>
-                                <input type="checkbox" name="checkBoxHomesArr" value="cannon-beach" class="home-checkbox" id="admin-cannon-beach">
-                                <label for="cannon-beach" class="label">Cannon Beach</label>
+                                <% homesArr.forEach((el) => { %>
+                                    <input type="checkbox" name="checkBoxHomesArr" value="<%= el.homeName %>" class="home-checkbox" id="admin-<%= el.homeName %>">
+                                    <label for="<%= el.homeName %>" class="label"><%= el.homeName %></label><br>
+                                <% })%>
                             </div>
                         </div>
                     </div>
@@ -169,12 +167,10 @@
                         </div>
                         <div class="col-2-of-4">
                             <div class="user-form__radio-input" id="admin-homesKeepers">
-                                <input type="radio" name="radioKeepersArr" value="sunriver" id="admin-keeperHome">
-                                <label for="user" class="label">Sunriver</label><br>
-                                <input type="radio" name="radioKeepersArr" value="Idaho" id="admin-keeperHome">
-                                <label for="keeper" class="label">Idaho</label> <br>
-                                <input type="radio" name="radioKeepersArr" value="cannon-beach" id="admin-keeperHome"> 
-                                <label for="admin" class="label">Cannon Beach</label><br>
+                                    <% homesArr.forEach((el) => { %>
+                                        <input type="radio" name="radioKeepersArr" value="<%= el.homeName %>" >
+                                        <label for="<%= el.homeName %>" class="label"><%= el.homeName %></label><br>
+                                    <% })%>
                             </div>
                         </div>
                     </div>

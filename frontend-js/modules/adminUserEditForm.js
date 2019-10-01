@@ -1,7 +1,7 @@
 import axios from 'axios';
+// import userForm from './users'
 
-
-console.log(users);
+ 
 
 export default class AdminUserLinks {
     constructor() {
@@ -10,6 +10,7 @@ export default class AdminUserLinks {
         this.sectionHomes = document.querySelector('.section-homes');
         this.sectionKeepers = document.querySelector('.section-keepers');
         this.form = document.getElementById('adminUsersEdit-form');
+        
 
         //buttons
         this.submitButtons = document.querySelectorAll('.btn__admin--submit');
@@ -27,6 +28,7 @@ export default class AdminUserLinks {
         this.hiddenID = document.querySelector('#hiddenIdField');
         this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
         this.rolesRadioGroup = document.getElementsByName('userRoles');
+        
 
         //home specific form fields
         this.homeImageUrl = document.querySelector('#homeUrl');
@@ -46,7 +48,7 @@ export default class AdminUserLinks {
         this.homeIds = document.querySelectorAll('#homesLinks');
         
         
-        //simply event controllers
+        //simplify event controllers
         this.allIdsArr = [this.userIds, this.homeIds, this.keeperIds];
         this.allSectionsArr = [this.sectionUsers, this.sectionHomes, this.sectionKeepers];
         this.events();
@@ -68,7 +70,7 @@ export default class AdminUserLinks {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-
+                    console.log(el);
                     let parentMenu = el.parentNode;
                     
                     if(parentMenu.classList.contains('sidenav__dropdown--users')){
@@ -113,9 +115,17 @@ export default class AdminUserLinks {
                 console.log('the form is');
                 console.log(this.form.id);
                 if(this.submitButtonHandler(this.form.action, this.form.id)) {
-                    console.log('should be good to go');
-                    this.form.submit();
-                    this.form.reset();
+                    
+                    
+                    console.log('should be good to go with');
+                    
+                    // axios.post().then(() => {
+
+                    // }).catch(() => {
+
+                    // })
+                    // this.form.submit();
+                    // this.form.reset();
                 } else {
                     console.log('form error')
                 }
@@ -179,21 +189,27 @@ export default class AdminUserLinks {
 
     //FN : make decision on what formValidation method to call
     //RETURNS : boolean id form is ready to go
-    submitButtonHandler(element, formId) {
+    submitButtonHandler(formAction, formId) {
        const regExRegisterTest = /register/;
        const regExUsersTest = /Users/;
        const regExHomesTest = /Homes/;
       
-        if(regExRegisterTest.test(element)) {
+        if(regExRegisterTest.test(formAction)) {
             //we're registering something new - let's see what it is 
             if(regExUsersTest.test(formId)) {
                 //we got a new user so validate that form
-                console.log('registering user');
                 if(this.newUserValidateForm()) {
+                //form is good so lets axios it out
+                    console.log(formAction);
+                    axios.post('/admin/registerUsers').then((response) => {
+                        console.log(response);
+                    }).catch((e) => {
+                        console.log(e)
+                    })
                     return true;
                 };
 
-            } else if (regExHomesTest.test(formId)) {
+            } else if (regExHomesTest.test(formAction)) {
                 console.log('registering Home');
                 if(this.newHomeValidateForm()) {
                     return true;
@@ -259,7 +275,7 @@ export default class AdminUserLinks {
                 this.passwordField = document.querySelector('#admin-password');
                 this.usernameField = document.querySelector('#admin-username');
                 this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
-                this.rolesRadioGroup = document.getElementsByName('roles');
+                this.rolesRadioGroup = document.getElementsByName('userRoles');
                 break;
             case 'homes':
 

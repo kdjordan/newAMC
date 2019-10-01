@@ -1,2 +1,0 @@
-
-testVar = "i'm working";
