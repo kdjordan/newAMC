@@ -30,8 +30,6 @@ export default class AdminUserLinks {
         this.rolesRadioGroup = document.getElementsByName('role');
         
         
-        
-
         //home specific form fields
         this.homeImage = document.getElementById('homeImage');
         this.homeImageUrl = document.querySelector('#homeUrl');
@@ -50,7 +48,7 @@ export default class AdminUserLinks {
         this.homeLinks = document.querySelectorAll('#homeLinks a');
         this.userIds = document.querySelectorAll('#userLinks');
         this.keeperIds = document.querySelectorAll('#keeperLinks');
-        this.homeIds = document.querySelectorAll('#homesLinks');
+        this.homeIds = document.querySelectorAll('#homeLinks');
         
         
         //simplify event controllers
@@ -108,9 +106,8 @@ export default class AdminUserLinks {
                 if (button.id == 'homeDeleteButton') {
                     this.usernameField.value = this.homeName.value;
                 }
-                console.log(button);
+                
                 if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
-                    console.log(this.hiddenID.value);
                     this.deleteButtonHandler(button.id, this.hiddenID.value);
                 }
             })
@@ -121,7 +118,6 @@ export default class AdminUserLinks {
                 e.preventDefault();
                 
                 //check to see if we're adding new user or updating a user
-                console.log(this.rolesRadioGroup);
                 if(this.submitButtonHandler(this.form.action, this.form.id)) {
                     this.form.submit();
                     this.alertMessage.classList.remove('hide-alert');
@@ -136,21 +132,10 @@ export default class AdminUserLinks {
 
     /////////////////////////////METHODS/////////////////////////////
 
-    deleteButtonHandler(buttonId, id) {
-       switch(buttonId) {
-            case 'userDeleteButton' :
-                this.deleteUser(id, buttonId);
-                break;
-            case 'homeDeleteButton' :
-                this.deleteHome(id, buttonId);
-                break;
-            case 'keeperDeleteButton' :
-                this.deleteUser(id, buttonId);
-                break;
-       }
-     }
-
-
+   
+    //---------------UI METHODS---------------
+    
+    //contorller for getting all fields active for whatever section we're dealing with
     setUI(operation, sectionVar, id) {
     
         //call update section to show proper form
@@ -172,7 +157,6 @@ export default class AdminUserLinks {
 
          this.form = document.querySelector(`#admin${string}Edit-form`);
 
-
         //set title above form and action of form
         //if it's an update -> make a call to populate the form with ID info
         if(operation == 'add') {
@@ -193,9 +177,8 @@ export default class AdminUserLinks {
     };
 
       //FN : make a trip to the Db and grab user data based on ID
-    //CALLS : populateUserEditForm with data to populate form
+    //CALLS : populateXXXEditForm with data to populate form
     getFormData(searchId, menu) {
-        let nameType = '';
         switch(menu) {
             case 'users' :
                 axios.post('/getUserData', {usernameId: searchId, type: 'any'}).then((response) => {
@@ -206,7 +189,7 @@ export default class AdminUserLinks {
                         this.throwAlert("User Not Found");
                     }
                 }).catch((e) => {
-                    console.log("Problem connecting with DB" + e);
+                    console.log("Problem connecting with DB in Users " + e);
                 });
                 break;
             case 'homes' :    
@@ -215,10 +198,10 @@ export default class AdminUserLinks {
                         //populate form with data !!
                         this.populateHomeEditForm(response.data);
                     } else {
-                        this.throwAlert("User Not Found");
+                        this.throwAlert("Home Not Found");
                     }
                 }).catch((e) => {
-                    console.log("Problem connecting with DB" + e);
+                    console.log("Problem connecting with DB in Homes " + e);
                 });
                 break;
             case 'keepers' :
@@ -230,12 +213,34 @@ export default class AdminUserLinks {
                         this.throwAlert("Keeper Not Found");
                     }
                 }).catch((e) => {
-                    console.log("Problem connecting with DB in Keepers" + e);
+                    console.log("Problem connecting with DB in Keepers " + e);
                 })
                 break;   
         }
     };
 
+    //FN : based on what section we are diplaying - makes fields active
+    setFormFields(form) {
+        switch(form) {
+            case 'users':
+                this.passwordField = document.querySelector('#admin-password');
+                this.usernameField = document.querySelector('#admin-username');
+                this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
+                this.rolesRadioGroup = document.getElementsByName('role');
+                break;
+            case 'homes':
+                this.homeImageUrl = document.querySelector('#homeUrl');
+                this.homeName = document.querySelector('#homeName');
+                break;
+            case 'keepers': 
+                this.passwordField = document.querySelector('#keeper-password');
+                this.usernameField = document.querySelector('#keeper-username');
+                this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
+                break;
+        }
+    }
+
+    //FN : populate KEEPER form with said data from DB trip
     populateKeeperEditForm(data){
         this.form.reset();
         this.keeperName.value = data.keeperName;
@@ -250,6 +255,7 @@ export default class AdminUserLinks {
         });
     }
 
+    //FN : populate HOME form with said data from DB trip
     populateHomeEditForm(data) {
         this.form.reset();
         this.homeName.value = data.homeName;
@@ -258,7 +264,7 @@ export default class AdminUserLinks {
         this.hiddenID.value = data._id;
     }
 
-    //FN : populate user form with said data from DB trip
+    //FN : populate USER form with said data from DB trip
     populateUserEditForm(data) {
         this.form.reset();
         this.usernameField.value = data.username;
@@ -286,35 +292,7 @@ export default class AdminUserLinks {
         });
     };
 
-    //FN : make decision on what formValidation method to call
-    //RETURNS : boolean id form is ready to go
-    submitButtonHandler(formAction, formId) {
-       const regExRegisterTest = /register/;
-       const regExUsersTest = /Users/;
-       const regExHomesTest = /Homes/;
-      
-        if(regExRegisterTest.test(formAction)) {
-            //we're registering something new - let's see what it is 
-            if(regExUsersTest.test(formId)) {
-                //we got a new user so validate that form
-                if(this.userValidateForm()) {
-                    return true;
-                };
-            } else if (regExHomesTest.test(formAction)) {
-                if(this.homeValidateForm()) {
-                    return true;
-                };
-            } else { 
-                if(this.keeperValidateForm()) {
-                    return true;
-                };
-            }
-        } else {
-            console.log('updating');
-        }
-    }
-
-
+    //FN : display appropriate section with form based on nav click (u-hidden toggle)
     updateSection(section) {
         this.allSectionsArr.forEach((el) => {
             if(el.classList.contains(section)){
@@ -324,39 +302,57 @@ export default class AdminUserLinks {
             }
         })
     }
+   
 
-    updateAdminTitle(message) {
-        this.adminTitle.innerHTML = message;
-        this.titleMessage.innerHTML = message;
-    };
+    //---------------HANDLER METHODS---------------
 
+    //FN : make decision on what formValidation method to call based on what section button is clicked
+    submitButtonHandler(formAction, formId) {
+        const regExRegisterTest = /register/;
+        const regExUsersTest = /Users/;
+        const regExHomesTest = /Homes/;
+       
+         if(regExRegisterTest.test(formAction)) {
+             //we're registering something new - let's see what it is 
+             if(regExUsersTest.test(formId)) {
+                 //we got a new user so validate that form
+                 if(this.userValidateForm()) {
+                     return true;
+                 };
+             } else if (regExHomesTest.test(formAction)) {
+                 //we got a home user so validate that form
+                 if(this.homeValidateForm()) {
+                     return true;
+                 };
+             } else { 
+                 if(this.keeperValidateForm()) {
+                     //we got a keeper so validate that form
+                     return true;
+                 };
+             }
+         } else {
+             console.log('error handling submit button');
+         }
+     }
 
-    //messaging for alerts
-    throwAlert(message) {
-        
-         this.alertMessage.innerHTML = message;
-         this.alertMessage.classList.add('show-alert');
-         setTimeout(function() {
-             this.alertMessage.classList.remove('show-alert')
-        }, 3000)
-    }
+    //delegates which type of element we're deleting
+    deleteButtonHandler(buttonId, id) {
+        switch(buttonId) {
+             case 'userDeleteButton' :
+                 this.deleteUser(id, buttonId);
+                 break;
+             case 'homeDeleteButton' :
+                 this.deleteHome(id, buttonId);
+                 break;
+             case 'keeperDeleteButton' :
+                 this.deleteUser(id, buttonId);
+                 break;
+        }
+      }
 
+    //---------------DELETE METHODS---------------
 
-    deleteHome(id, menu) {
-        axios.post(`/admin/home/${id}/delete`).then((response) => {
-            if(response.data) {
-                this.removeFromNav(id, menu);
-                this.throwAlert('Home Successfully deleted');
-            }
-        }).catch((e) => {
-            console.log('error ' + e);
-        })
-    }
-    
-    //FN : take userID from sideNav user links
-    //FN : delete user DB entry 
-    //CALLS : removeUserFromNav passing userID
-    // TODO : make removing element from sidenav a function : TODO*********************
+    //FN : delete user or keeper from DB and call to remove from nav
     deleteUser(id, menu) {
         axios.post(`/admin/user/${id}/delete`).then((response) => {
             if(response.data) {
@@ -368,46 +364,74 @@ export default class AdminUserLinks {
         })
     };
 
-    //FN : update sideNav by removing said user from menu
-    //CALLS : reset form to empty out form
+    //FN : delete HOME from DB and call to remove from nav
+    deleteHome(id, menu) {
+        axios.post(`/admin/home/${id}/delete`).then((response) => {
+            if(response.data) {
+                this.removeFromNav(id, menu);
+                this.throwAlert('Home Successfully deleted');
+            }
+        }).catch((e) => {
+            console.log('error ' + e);
+        })
+    }
+
+    //FN : update sideNav by removing said link from menu - called from deleteUser or deleteHome
     removeFromNav(elementId, menu) {
-        console.log(menu);
-        console.log(elementId);
+       
         switch(menu) {
             case 'userDeleteButton':
-                this.userlinks = document.querySelectorAll('#userLinks a');
+                this.links = this.userLinks;
                 break;
             case 'homeDeleteButton':
-                this.userlinks = document.querySelectorAll('#homeLinks a');
+                this.links = this.homeLinks;
                 break;
             case 'keeperDeleteButton':
-                this.userlinks = document.querySelectorAll('#keeperLinks a');
+                this.links = this.keeperLinks;
                 break;
 
         }
-        this.userLinks.forEach((link) => {
-            console.log('removing');
-            console.log(link)
-            console.log(elementId)
-            if(link.id == elementId) {
-                console.log('found')
+        this.links.forEach((link) => {
+            if(link.dataset.id == elementId) {
                 link.parentNode.remove();
                 this.resetForm();
             }
         });
     };
 
-    //FN : empties out form
-    resetForm() {
+
+    //---------------UTILITY METHODS---------------
+
+    //FN : lets user know what just happened (element added or removed or updated)
+    throwAlert(message) {
+        
+         this.alertMessage.innerHTML = message;
+         this.alertMessage.classList.add('show-alert');
+         setTimeout(function() {
+             this.alertMessage.classList.remove('show-alert')
+        }, 3000)
+    }
+
+     //FN : empties out form
+     resetForm() {
         this.form.reset();
         this.usernameField.value = " ";
         this.passwordField.placeholder = " ";
         this.alertMessage.classList.add('hide-alert');
     };
 
-  
+     //FN : checks to see if alert message is present and removes if so
+     checkAlertMessage() {
+        if(this.alertMessage.classList.contains('show-alert')){
+            this.alertMessage.classList.remove('show-alert');
+        }
+    }
 
-    
+     //FN : display appropriate admin title (title next to ADMINISTRATION and title over form section)
+     updateAdminTitle(message) {
+        this.adminTitle.innerHTML = message;
+        this.titleMessage.innerHTML = message;
+    };
 
     //FN : loop through a goup and see if an element is checked
     checkIfGroupIsEmpty(group) {
@@ -419,32 +443,10 @@ export default class AdminUserLinks {
         return false;
      };
 
-     checkAlertMessage() {
-        if(this.alertMessage.classList.contains('show-alert')){
-            this.alertMessage.classList.remove('show-alert');
-        }
-    }
 
-    setFormFields(form) {
-        switch(form) {
-            case 'users':
-                this.passwordField = document.querySelector('#admin-password');
-                this.usernameField = document.querySelector('#admin-username');
-                this.homesCheckGroup = document.getElementsByName('checkBoxHomesArr');
-                this.rolesRadioGroup = document.getElementsByName('role');
-                break;
-            case 'homes':
-                this.homeImageUrl = document.querySelector('#homeUrl');
-                this.homeName = document.querySelector('#homeName');
-                break;
-            case 'keepers': 
-                this.passwordField = document.querySelector('#keeper-password');
-                this.usernameField = document.querySelector('#keeper-username');
-                this.keepersRadioGroup = document.getElementsByName('radioKeepersArr');
-                break;
-        }
-    }
+    //---------------VALIDATION METHODS---------------
 
+    //FN : check to make sure KEEPER form is filled out
     keeperValidateForm() {
         
         if(this.passwordField.value == "" || this.usernameField.value == "") { 
@@ -455,11 +457,10 @@ export default class AdminUserLinks {
             this.throwAlert("You must select at least one home !");
             return false; 
         }     
-        console.log('leaving form validation');
-        console.log(this.keepersRadioGroup);
         return true;
     }
 
+    //FN : check to make sure HOME form is filled out
     homeValidateForm() {
         if(this.homeName.value == "" || this.homeImageUrl.value == "") {
             this.throwAlert("You Must provide a Home Name and an Image !");
@@ -468,10 +469,9 @@ export default class AdminUserLinks {
         return true;
         
     }
-    //FN : check to make sure user Form is filled out
+    //FN : check to make sure USER form is filled out
     userValidateForm() {
         
-        console.log(this.rolesRadioGroup);
         if(this.passwordField.value == "" || this.usernameField.value == "") { 
             this.throwAlert("Username or Password is Empty !");
             return false; 
@@ -486,6 +486,20 @@ export default class AdminUserLinks {
         } 
         return true;
     };
+
+    
+    
+
+    
+
+   
+    
+
+    
+
+    
+
+    
 
 }
 

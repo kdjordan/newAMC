@@ -13,8 +13,6 @@ let User = function(data) {
 User.prototype.cleanUp = function(loginFlag) {
     if(typeof(this.data.username) != 'string') {this.data.username = '';}
     if(typeof(this.data.password) != 'string') {this.data.password = '';}
-    console.log('validating');
-    console.log(this.data);
     
 
     if (loginFlag) {
