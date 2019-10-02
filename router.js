@@ -16,12 +16,18 @@ router.post('/makeReservation', reservationController.create);
 
 //admin realated routes
 router.get('/admin', adminController.isAdmin, adminController.getMenuData, adminController.home);
+router.post('/admin/registerHomes', adminController.isAdmin, homeController.register);
+router.post('/admin/registerKeepers', adminController.isAdmin, userController.registerKeeper);
 
 router.post('/admin/registerUsers', adminController.isAdmin, userController.register);
 router.post('/admin/user/:id/delete', adminController.isAdmin, userController.delete);
+
 router.post('/admin/user/:id/update', adminController.isAdmin, userController.update);
-router.post('/admin/registerHomes', adminController.isAdmin, homeController.register);
-router.post('/admin/registerKeepers', adminController.isAdmin, userController.registerKeeper);
+
+router.post('/admin/home/:id/delete', adminController.isAdmin, homeController.delete);
+
+
+
 
 
 //edit related routes

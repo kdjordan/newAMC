@@ -20,6 +20,19 @@ exports.register = async function(req, res) {
     }
 };
 
+exports.delete = async function(req, res) {
+    try {
+        let confirmation = await Home.delete(req.params.id);
+        if (confirmation == 'success') {
+            res.json(true);
+        } else {
+         res.json(false);
+        }
+    } catch {
+        res.render('404', {adminErrors: 'Problem Connecting to DB'})
+    }
+};
+
 
 exports.getHomeDataById = async function(req, res) {
     try {

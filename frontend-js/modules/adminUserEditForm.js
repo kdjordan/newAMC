@@ -67,6 +67,7 @@ export default class AdminUserLinks {
         this.navTitles.forEach(el => {
             el.addEventListener('click', () => {
                 this.checkAlertMessage();
+                this.resetForm();
                 this.setUI('add', el.id);
             })
         })
@@ -101,14 +102,16 @@ export default class AdminUserLinks {
         });
 
         this.deleteButtons.forEach((button) => {
+            
             button.addEventListener('click', (e) => {
                 e.preventDefault();
+                if (button.id == 'homeDeleteButton') {
+                    this.usernameField.value = this.homeName.value;
+                }
+                console.log(button);
                 if(confirm(`Are You Sure You Want to Delete ${this.usernameField.value} ?`)) {
-                    console.log("this.hiddenID.value");
                     console.log(this.hiddenID.value);
-
-                    // this.deleteUser(this.hiddenID.value);
-                    
+                    this.deleteButtonHandler(button.id, this.hiddenID.value);
                 }
             })
         });
@@ -120,9 +123,6 @@ export default class AdminUserLinks {
                 //check to see if we're adding new user or updating a user
                 console.log(this.rolesRadioGroup);
                 if(this.submitButtonHandler(this.form.action, this.form.id)) {
-                    
-                    // console.log('should be good to go with');
-                    
                     this.form.submit();
                     this.alertMessage.classList.remove('hide-alert');
                     this.form.reset();
@@ -136,7 +136,21 @@ export default class AdminUserLinks {
 
     /////////////////////////////METHODS/////////////////////////////
 
-   
+    deleteButtonHandler(buttonId, id) {
+       switch(buttonId) {
+            case 'userDeleteButton' :
+                this.deleteUser(id, buttonId);
+                break;
+            case 'homeDeleteButton' :
+                this.deleteHome(id, buttonId);
+                break;
+            case 'keeperDeleteButton' :
+                this.deleteUser(id, buttonId);
+                break;
+       }
+     }
+
+
     setUI(operation, sectionVar, id) {
     
         //call update section to show proper form
@@ -174,7 +188,6 @@ export default class AdminUserLinks {
             
             this.form.action = `/admin/${stringSingular}/${id}/update`;
             this.getFormData(id, sectionVar);
-
 
         }
     };
@@ -227,6 +240,8 @@ export default class AdminUserLinks {
         this.form.reset();
         this.keeperName.value = data.keeperName;
         this.keeperPassword.placeholder = "Enter New Password";
+        this.hiddenID.value = data.id;
+        
         
         this.keepersRadioGroup.forEach((home) => {
             if(home.value == data.keeperHome[0]) {
@@ -325,15 +340,27 @@ export default class AdminUserLinks {
              this.alertMessage.classList.remove('show-alert')
         }, 3000)
     }
+
+
+    deleteHome(id, menu) {
+        axios.post(`/admin/home/${id}/delete`).then((response) => {
+            if(response.data) {
+                this.removeFromNav(id, menu);
+                this.throwAlert('Home Successfully deleted');
+            }
+        }).catch((e) => {
+            console.log('error ' + e);
+        })
+    }
     
     //FN : take userID from sideNav user links
     //FN : delete user DB entry 
     //CALLS : removeUserFromNav passing userID
     // TODO : make removing element from sidenav a function : TODO*********************
-    deleteUser(id) {
+    deleteUser(id, menu) {
         axios.post(`/admin/user/${id}/delete`).then((response) => {
             if(response.data) {
-                this.removeUserFromNav(id);
+                this.removeFromNav(id, menu);
                 this.throwAlert('User Successfully deleted');
             }
         }).catch((e) => {
@@ -343,10 +370,28 @@ export default class AdminUserLinks {
 
     //FN : update sideNav by removing said user from menu
     //CALLS : reset form to empty out form
-    removeUserFromNav(id) {
-        this.userLinks.forEach((userId) => {
-            if(id == userId.dataset.id) {
-                userId.parentNode.remove();
+    removeFromNav(elementId, menu) {
+        console.log(menu);
+        console.log(elementId);
+        switch(menu) {
+            case 'userDeleteButton':
+                this.userlinks = document.querySelectorAll('#userLinks a');
+                break;
+            case 'homeDeleteButton':
+                this.userlinks = document.querySelectorAll('#homeLinks a');
+                break;
+            case 'keeperDeleteButton':
+                this.userlinks = document.querySelectorAll('#keeperLinks a');
+                break;
+
+        }
+        this.userLinks.forEach((link) => {
+            console.log('removing');
+            console.log(link)
+            console.log(elementId)
+            if(link.id == elementId) {
+                console.log('found')
+                link.parentNode.remove();
                 this.resetForm();
             }
         });

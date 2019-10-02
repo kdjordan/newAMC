@@ -55,4 +55,20 @@ Home.getHomeData = function(id) {
     })
 }
 
+Home.delete = function(id) {
+    return new Promise(async (resolve, reject) => {
+        if(ObjectID.isValid(id)) {
+            console.log('deleting from model')
+            let message = await homesCollection.deleteOne({_id: new ObjectID(id)});
+            if(message) {
+                resolve('success');
+            } else {
+                reject('error')
+            }
+        } else {
+            reject();
+        }
+    });
+};
+
 module.exports = Home;

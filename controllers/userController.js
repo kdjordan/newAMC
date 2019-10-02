@@ -100,7 +100,6 @@ exports.getUserDataById = async function(req, res) {
 };
 
 
-
 exports.delete = async function(req, res) {
        try {
            let confirmation = await User.delete(req.params.id);
