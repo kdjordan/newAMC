@@ -61,7 +61,7 @@ exports.registerKeeper = async function(req, res) {
 
 
 exports.register = async function(req, res) {
-    // console.log(req.body);
+    console.log(req.body);
     try {
         let user = new User(req.body);
         if(user.register()) {
@@ -113,24 +113,47 @@ exports.delete = async function(req, res) {
        }
 };
 
+// exports.update = async function(req, res)  {
+//     try{
+//         let user = new User(req.body)
+//         if(user.update(req.body, req.params)){
+//             req.flash('adminTitleMessage', "user updated successfully");
+//             req.session.save(function() {
+//                 res.redirect('/admin');
+//             })
+//         } else {
+//             req.flash('adminTitleMessage', "Uh Oh that didn't work");
+//             req.session.save(function() {
+//                 res.redirect('/admin');
+//             })
+//         }
+
+//     } catch {
+//         res.render('404', {adminErrors: 'Problem Connecting to DB'})
+//     }
+// }
+
 exports.update = async function(req, res)  {
     try{
-        let user = new User(req.body)
-        if(user.update(req.body, req.params)){
-            req.flash('adminTitleMessage', "user updated successfully");
-            req.session.save(function() {
-                res.redirect('/admin');
-            })
-        } else {
-            req.flash('adminTitleMessage', "Uh Oh that didn't work");
-            req.session.save(function() {
-                res.redirect('/admin');
-            })
-        }
+        let response = User.update(req.body)
+        console.log(response);
+        // if(user.update(req.body)) {
+            // req.flash('adminTitleMessage', "user updated successfully");
+            // req.session.save(function() {
+            //     res.redirect('/admin');
+            // })
+        // } else {
+            // req.flash('adminTitleMessage', "Uh Oh that didn't work");
+            // req.session.save(function() {
+            //     res.redirect('/admin');
+            // })
+        // }
 
     } catch {
-        res.render('404', {adminErrors: 'Problem Connecting to DB'})
+        // res.render('404', {adminErrors: 'Problem Connecting to DB'})
+        console.log('oops');
     }
+    
 }
 
 

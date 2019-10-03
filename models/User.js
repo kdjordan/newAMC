@@ -89,38 +89,6 @@ User.prototype.login = function() {
     })
 };
 
-User.prototype.update = function(data, id) {
-    return new Promise(async (resolve, reject) => {
-        this.cleanUp(false);
-        // this.validate();
-
-        //hash users updated password
-        let salt = bcrypt.genSaltSync(10);
-        data.password = bcrypt.hashSync(data.password, salt);
-        // console.log("going in with ");
-        // console.log(data.checkBoxHomesArr);
-            let userDoc = await usersCollection.findOneAndUpdate(
-                {_id: new ObjectID(id.id)},
-                {$set: {username: data.username,
-                        password: data.password,
-                        homesArray: data.checkBoxHomesArr,
-                        role: data.roles
-                        }     
-                }
-            )
-         
-         if(userDoc) {
-             resolve('success');
-         } else {
-             reject('error')
-         }
-    })
-    
-
-
-
-};
-
 User.getUserData = function(id) {
     return new Promise(async (resolve, reject) => {
             if(typeof(id) != 'string' || !ObjectID.isValid(id)) {
@@ -164,4 +132,59 @@ User.delete = function(id) {
 };
 
 
+User.update = function(data) {
+    return new Promise(async (resolve, reject) => {
+        // this.cleanUp(false);
+        let setObject = {};
+        if(data.password == 0){
+            setObject = {
+                    username: data.username,
+                    homesArray: data.checkBoxHomesArr,
+                    role: data.role 
+            }
+        } else {
+            let salt = bcrypt.genSaltSync(10);
+            data.password = bcrypt.hashSync(data.password, salt);
+            setObject = {
+                    username: data.username,
+                    password: data.password,
+                    homesArray: data.checkBoxHomesArr,
+                    role: data.role 
+            }
+        }
+        console.log("setObject"); 
+        console.log(setObject); 
+        let userDoc = await usersCollection.findOneAndUpdate(
+            {_id: new ObjectID(data.id)},
+            {$set: setObject}
+            
+        )
+            if(userDoc) {
+                resolve('success');
+            } else {
+                reject('error')
+            }
+        
+    })
+
+}
+
+// User.prototype.update = function(data, id) {
+
+//             let userDoc = await usersCollection.findOneAndUpdate(
+//                 {_id: new ObjectID(id.id)},
+//                 {$set: {username: data.username,
+//                         password: data.password,
+//                         homesArray: data.checkBoxHomesArr,
+//                         role: data.roles
+//                         }     
+//                 }
+//             )
+//          if(userDoc) {
+//              resolve('success');
+//          } else {
+//              reject('error')
+//          }
+//     })
+// };
 module.exports = User;

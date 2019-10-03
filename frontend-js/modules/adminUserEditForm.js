@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default class AdminUserLinks {
     constructor() {
-        //sections and form :: form id dynamically changed based on UI state
+        //sections and form 
         this.sectionUsers = document.querySelector('.section-users');
         this.sectionHomes = document.querySelector('.section-homes');
         this.sectionKeepers = document.querySelector('.section-keepers');
@@ -119,7 +119,7 @@ export default class AdminUserLinks {
                 
                 //check to see if we're adding new user or updating a user
                 if(this.submitButtonHandler(this.form.action, this.form.id)) {
-                    this.form.submit();
+                    // this.form.submit();
                     this.alertMessage.classList.remove('hide-alert');
                     this.form.reset();
                 } else {
@@ -132,7 +132,167 @@ export default class AdminUserLinks {
 
     /////////////////////////////METHODS/////////////////////////////
 
-   
+      //---------------HANDLER METHODS---------------
+
+    //FN : make decision on what formValidation method to call based on what section button is clicked
+    submitButtonHandler(formAction, formId) {
+        let regExRegisterTest = /register/;
+        let regExUsersTest = /Users/;
+        let regExHomesTest = /Homes/;
+       
+         if(regExRegisterTest.test(formAction)) {
+             //we're registering something new - let's see what it is 
+             if(regExUsersTest.test(formId)) {
+                 //we got a new user so validate that form
+                 if(this.userValidateForm('add')) {
+                     return true;
+                 };
+             } else if (regExHomesTest.test(formAction)) {
+                 //we got a home user so validate that form
+                 if(this.homeValidateForm()) {
+                     return true;
+                 };
+             } else { 
+                 if(this.keeperValidateForm()) {
+                     //we got a keeper so validate that form
+                     return true;
+                 };
+             }
+         }
+         //we're updating so change our regex variables for matching update urls
+         regExRegisterTest = /update/;
+       
+         if(regExRegisterTest.test(formAction)){
+             //we're updating something - let's see what it is
+             if(regExUsersTest.test(formId)) {
+                //it's a user so update it (a blank password field will keep the same password)
+                //blank username is not tolerated tho !
+                if(this.userValidateForm('update')) {
+                    this.updateUser(this.hiddenID.value);
+                    
+                }
+                
+                
+            } else if (regExHomesTest.test(formAction)) {
+                console.log('update this Home');
+    
+            } else {
+                    console.log('update this Keeper');
+                }
+         }
+     }
+
+    //delegates which type of element we're deleting
+    deleteButtonHandler(buttonId, id) {
+        switch(buttonId) {
+             case 'userDeleteButton' :
+                 this.deleteUser(id, buttonId);
+                 break;
+             case 'homeDeleteButton' :
+                 this.deleteHome(id, buttonId);
+                 break;
+             case 'keeperDeleteButton' :
+                 this.deleteUser(id, buttonId);
+                 break;
+        }
+      }
+
+      //---------------UPDATE METHODS---------------
+    updateUser(id) {
+        //prepare checkBox, roleGroup, and password
+        let newPassword = ''; 
+        if(this.passwordField.value == ''){ newPassword = 0;}   
+            else { newPassword = this.passwordField.value; }
+
+        let checkBoxActive = [];
+        this.homesCheckGroup.forEach((el) => {
+            if(el.checked == true) {
+                checkBoxActive.push(el.value);
+            }
+        })
+
+        let roleString = '';
+        this.rolesRadioGroup.forEach((el) => {
+            if(el.checked == true) {
+                roleString =  el.value;
+            } 
+        });
+        //end data formatting -- should prob be a seperate function
+        axios.post(`/admin/user/${id}/update`, {
+            id: this.hiddenID.value,
+            password: newPassword,
+            username: this.usernameField.value,
+            checkBoxHomesArr : checkBoxActive,
+            role: roleString
+
+        }).then((response) => {
+            console.log(response);
+        }).catch((e) => {
+            console.log('error updating user :' + e);
+        })
+        
+        // this.passwordField ??????
+    
+    
+}
+
+      
+    //   this.rolesRadioGroup
+
+
+      //---------------VALIDATION METHODS---------------
+
+    //FN : check to make sure KEEPER form is filled out
+    keeperValidateForm() {
+        if(this.passwordField.value == "" || this.usernameField.value == "") { 
+            this.throwAlert("Username or Password is Empty !");
+            return false; 
+        } 
+        if(!this.checkIfGroupIsEmpty(this.keepersRadioGroup)) { 
+            this.throwAlert("You must select at least one home !");
+            return false; 
+        }     
+        return true;
+    }
+
+    //FN : check to make sure HOME form is filled out
+    homeValidateForm() {
+        if(this.homeName.value == "" || this.homeImageUrl.value == "") {
+            this.throwAlert("You Must provide a Home Name and an Image !");
+            return false; 
+        }
+        return true;
+        
+    }
+
+    //FN : check to make sure USER form is filled out
+    userValidateForm(type) {
+        
+        if(type == 'add') {
+            if(this.passwordField.value == "" || this.usernameField.value == "") { 
+                this.throwAlert("Username or Password is Empty !");
+                return false; 
+            } 
+            if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
+                this.throwAlert("You must select at least one home !");
+                return false; 
+            }     
+            if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
+                this.throwAlert("You must provide a role !");
+                return false; 
+            } 
+            return true;
+        } else if(type == 'update') {
+            
+            if(this.usernameField.value == "") { 
+                this.throwAlert("You must provide a Username !");
+                return false; 
+            } 
+            return true;
+        }
+        
+    };
+
     //---------------UI METHODS---------------
     
     //contorller for getting all fields active for whatever section we're dealing with
@@ -303,53 +463,6 @@ export default class AdminUserLinks {
         })
     }
    
-
-    //---------------HANDLER METHODS---------------
-
-    //FN : make decision on what formValidation method to call based on what section button is clicked
-    submitButtonHandler(formAction, formId) {
-        const regExRegisterTest = /register/;
-        const regExUsersTest = /Users/;
-        const regExHomesTest = /Homes/;
-       
-         if(regExRegisterTest.test(formAction)) {
-             //we're registering something new - let's see what it is 
-             if(regExUsersTest.test(formId)) {
-                 //we got a new user so validate that form
-                 if(this.userValidateForm()) {
-                     return true;
-                 };
-             } else if (regExHomesTest.test(formAction)) {
-                 //we got a home user so validate that form
-                 if(this.homeValidateForm()) {
-                     return true;
-                 };
-             } else { 
-                 if(this.keeperValidateForm()) {
-                     //we got a keeper so validate that form
-                     return true;
-                 };
-             }
-         } else {
-             console.log('error handling submit button');
-         }
-     }
-
-    //delegates which type of element we're deleting
-    deleteButtonHandler(buttonId, id) {
-        switch(buttonId) {
-             case 'userDeleteButton' :
-                 this.deleteUser(id, buttonId);
-                 break;
-             case 'homeDeleteButton' :
-                 this.deleteHome(id, buttonId);
-                 break;
-             case 'keeperDeleteButton' :
-                 this.deleteUser(id, buttonId);
-                 break;
-        }
-      }
-
     //---------------DELETE METHODS---------------
 
     //FN : delete user or keeper from DB and call to remove from nav
@@ -444,48 +557,7 @@ export default class AdminUserLinks {
      };
 
 
-    //---------------VALIDATION METHODS---------------
-
-    //FN : check to make sure KEEPER form is filled out
-    keeperValidateForm() {
-        
-        if(this.passwordField.value == "" || this.usernameField.value == "") { 
-            this.throwAlert("Username or Password is Empty !");
-            return false; 
-        } 
-        if(!this.checkIfGroupIsEmpty(this.keepersRadioGroup)) { 
-            this.throwAlert("You must select at least one home !");
-            return false; 
-        }     
-        return true;
-    }
-
-    //FN : check to make sure HOME form is filled out
-    homeValidateForm() {
-        if(this.homeName.value == "" || this.homeImageUrl.value == "") {
-            this.throwAlert("You Must provide a Home Name and an Image !");
-            return false; 
-        }
-        return true;
-        
-    }
-    //FN : check to make sure USER form is filled out
-    userValidateForm() {
-        
-        if(this.passwordField.value == "" || this.usernameField.value == "") { 
-            this.throwAlert("Username or Password is Empty !");
-            return false; 
-        } 
-        if(!this.checkIfGroupIsEmpty(this.homesCheckGroup)) { 
-            this.throwAlert("You must select at least one home !");
-            return false; 
-        }     
-        if(!this.checkIfGroupIsEmpty(this.rolesRadioGroup)) { 
-            this.throwAlert("You must provide a role !");
-            return false; 
-        } 
-        return true;
-    };
+    
 
     
     
