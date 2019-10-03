@@ -119,8 +119,7 @@ export default class AdminUserLinks {
                 
                 //check to see if we're adding new user or updating a user
                 if(this.submitButtonHandler(this.form.action, this.form.id)) {
-                    // this.form.submit();
-                    this.alertMessage.classList.remove('hide-alert');
+                    
                     this.form.reset();
                 } else {
                     console.log('form error')
@@ -145,16 +144,22 @@ export default class AdminUserLinks {
              if(regExUsersTest.test(formId)) {
                  //we got a new user so validate that form
                  if(this.userValidateForm('add')) {
+                     this.form.submit();
+                     this.alertMessage.classList.remove('hide-alert');
                      return true;
                  };
              } else if (regExHomesTest.test(formAction)) {
                  //we got a home user so validate that form
                  if(this.homeValidateForm()) {
+                     this.form.submit();
+                     this.alertMessage.classList.remove('hide-alert');
                      return true;
                  };
              } else { 
+                 //we got a keeper so validate that form
                  if(this.keeperValidateForm()) {
-                     //we got a keeper so validate that form
+                     this.form.submit();
+                     this.alertMessage.classList.remove('hide-alert');
                      return true;
                  };
              }
@@ -169,6 +174,9 @@ export default class AdminUserLinks {
                 //blank username is not tolerated tho !
                 if(this.userValidateForm('update')) {
                     this.updateUser(this.hiddenID.value);
+                    //set an alert for update successfull
+                    this.throwAlert('User Update Successful');
+                    return true;
                     
                 }
                 
@@ -199,7 +207,7 @@ export default class AdminUserLinks {
 
       //---------------UPDATE METHODS---------------
     updateUser(id) {
-        //prepare checkBox, roleGroup, and password
+        //prepare checkBox, roleGroup, and password for updating
         let newPassword = ''; 
         if(this.passwordField.value == ''){ newPassword = 0;}   
             else { newPassword = this.passwordField.value; }

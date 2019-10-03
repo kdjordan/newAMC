@@ -152,22 +152,22 @@ User.update = function(data) {
                     role: data.role 
             }
         }
-        console.log("setObject"); 
-        console.log(setObject); 
-        let userDoc = await usersCollection.findOneAndUpdate(
+        
+        let userDoc = await usersCollection.updateOne(
             {_id: new ObjectID(data.id)},
             {$set: setObject}
-            
+             
         )
-            if(userDoc) {
-                resolve('success');
-            } else {
-                reject('error')
-            }
-        
-    })
-
+        if(userDoc) {
+            resolve('success');
+        } else {
+            reject('error')
+        }
+    })        
 }
+
+
+
 
 // User.prototype.update = function(data, id) {
 
@@ -185,6 +185,6 @@ User.update = function(data) {
 //          } else {
 //              reject('error')
 //          }
-//     })
 // };
+
 module.exports = User;
